@@ -15,6 +15,28 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+DROP TABLE IF EXISTS `agentie`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
+CREATE TABLE `agentie` (
+  `cod_agentie` int(11) NOT NULL AUTO_INCREMENT,
+  `denumire` varchar(100) DEFAULT NULL,
+  `adresa` varchar(100) DEFAULT NULL,
+  `telefon` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`cod_agentie`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `agentie`
+--
+
+LOCK TABLES `agentie` WRITE;
+/*!40000 ALTER TABLE `agentie` DISABLE KEYS */;
+INSERT INTO `agentie` VALUES (1,'Expedia','Str. Florilor, Nr.45, Bucuresti','021 985 475'),(2,'Priceline','Str. Dumbravei, Nr.20, Constanta','0241 485 363'),(3,'World Travel Inc.','Str. Mare, Nr. 123, Cluj-Napoca','0264 123 456'),(4,'Travizon','Str. Primaverii, Nr. 200, Iasi','0232 100 200'),(5,'Direct Travel','Str. Alba, Nr. 34, Timisoara','0256 808 502');
+/*!40000 ALTER TABLE `agentie` ENABLE KEYS */;
+UNLOCK TABLES;
+
 --
 -- Table structure for table `angajat`
 --
@@ -354,9 +376,12 @@ CREATE TABLE `pret_circuit` (
   `circuit_cod_circuit` int(11) NOT NULL,
   `sezon_cod_sezon` int(11) NOT NULL,
   `valoare_circuit` int(11) DEFAULT NULL,
+  `cod_agentie_circuit` int(11) DEFAULT NULL,
   KEY `fk_circuit_has_sezon_sezon1_idx` (`sezon_cod_sezon`),
   KEY `fk_circuit_has_sezon_circuit1_idx` (`circuit_cod_circuit`),
-  CONSTRAINT `fk_circuit_has_sezon_sezon1` FOREIGN KEY (`sezon_cod_sezon`) REFERENCES `sezon` (`cod_sezon`)
+  KEY `fk_cod_agentie_circuit` (`cod_agentie_circuit`),
+  CONSTRAINT `fk_circuit_has_sezon_sezon1` FOREIGN KEY (`sezon_cod_sezon`) REFERENCES `sezon` (`cod_sezon`),
+  CONSTRAINT `fk_cod_agentie_circuit` FOREIGN KEY (`cod_agentie_circuit`) REFERENCES `agentie` (`cod_agentie`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -366,9 +391,10 @@ CREATE TABLE `pret_circuit` (
 
 LOCK TABLES `pret_circuit` WRITE;
 /*!40000 ALTER TABLE `pret_circuit` DISABLE KEYS */;
-INSERT INTO `pret_circuit` VALUES (1,1,5000),(1,2,2500),(1,3,3000),(1,5,4000),(1,6,5000),(2,6,7500),(2,5,5800),(2,4,5000),(2,3,3000),(3,1,8000),(4,1,9000),(4,2,7000),(4,6,5000),(5,6,5000),(9,3,4000),(9,5,4400),(9,1,3400),(10,5,5400),(10,6,8900),(10,7,5900);
+INSERT INTO `pret_circuit` VALUES (1,1,5000,2),(1,2,2500,3),(1,3,3000,3),(1,5,4000,1),(1,6,5000,1),(2,6,7500,5),(2,5,5800,4),(2,4,5000,5),(2,3,3000,1),(3,1,8000,4),(4,1,9000,2),(4,2,7000,4),(4,6,5000,3),(5,6,5000,5),(9,3,4000,3),(9,5,4400,3),(9,1,3400,3),(10,5,5400,1),(10,6,8900,1),(10,7,5900,1);
 /*!40000 ALTER TABLE `pret_circuit` ENABLE KEYS */;
 UNLOCK TABLES;
+
 
 --
 -- Table structure for table `pret_sejur`
@@ -381,8 +407,11 @@ CREATE TABLE `pret_sejur` (
   `sejur_cod_sejur` int(11) NOT NULL,
   `sezon_cod_sezon` int(11) NOT NULL,
   `valoare_sejur` int(11) DEFAULT NULL,
+  `cod_agentie` int(11) DEFAULT NULL,
   KEY `fk_sejur_has_sezon_sezon1_idx` (`sezon_cod_sezon`),
   KEY `fk_sejur_has_sezon_sejur1_idx` (`sejur_cod_sejur`),
+  KEY `fk_cod_agentie` (`cod_agentie`),
+  CONSTRAINT `fk_cod_agentie` FOREIGN KEY (`cod_agentie`) REFERENCES `agentie` (`cod_agentie`) ON DELETE CASCADE,
   CONSTRAINT `fk_sejur_has_sezon_sezon1` FOREIGN KEY (`sezon_cod_sezon`) REFERENCES `sezon` (`cod_sezon`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -393,7 +422,7 @@ CREATE TABLE `pret_sejur` (
 
 LOCK TABLES `pret_sejur` WRITE;
 /*!40000 ALTER TABLE `pret_sejur` DISABLE KEYS */;
-INSERT INTO `pret_sejur` VALUES (1,1,1500),(1,2,2000),(2,1,2000),(3,1,2200),(4,1,2200),(5,4,3000);
+INSERT INTO `pret_sejur` VALUES (1,1,1500,1),(1,2,2000,1),(2,1,2000,4),(3,1,2200,3),(4,1,2200,5),(5,4,3000,NULL);
 /*!40000 ALTER TABLE `pret_sejur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -548,8 +577,11 @@ CREATE TABLE `zbor` (
   `ora_sosirii` int(11) DEFAULT NULL,
   `cod_transport` int(11) NOT NULL,
   `pret` int(11) NOT NULL,
+  `cod_agentie` int(11) DEFAULT NULL,
   PRIMARY KEY (`cod_zbor`),
   KEY `fk_zbor_transport1_idx` (`cod_transport`),
+  KEY `fk_cod_agentie_zbor` (`cod_agentie`),
+  CONSTRAINT `fk_cod_agentie_zbor` FOREIGN KEY (`cod_agentie`) REFERENCES `agentie` (`cod_agentie`) ON DELETE CASCADE,
   CONSTRAINT `fk_zbor_transport1` FOREIGN KEY (`cod_transport`) REFERENCES `transport` (`cod_transport`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -560,7 +592,7 @@ CREATE TABLE `zbor` (
 
 LOCK TABLES `zbor` WRITE;
 /*!40000 ALTER TABLE `zbor` DISABLE KEYS */;
-INSERT INTO `zbor` VALUES (1,'Viena','2018-12-10','2018-12-10',5,7,2,200),(2,'Paris','2018-12-10','2018-12-10',9,11,3,500),(3,'Paris','2018-12-10','2018-12-10',17,21,2,560),(4,'Ankara','2018-12-11','2018-12-11',10,13,4,620),(5,'Berlin','2018-11-15','2018-11-15',12,14,2,350),(6,'Berlin','2018-11-16','2018-11-16',6,9,3,300);
+INSERT INTO `zbor` VALUES (1,'Viena','2018-12-10','2018-12-10',5,7,2,200,2),(2,'Paris','2018-12-10','2018-12-10',9,11,3,500,1),(3,'Paris','2018-12-10','2018-12-10',17,21,2,560,3),(4,'Ankara','2018-12-11','2018-12-11',10,13,4,620,4),(5,'Berlin','2018-11-15','2018-11-15',12,14,2,350,5),(6,'Berlin','2018-11-16','2018-11-16',6,9,3,300,NULL);
 /*!40000 ALTER TABLE `zbor` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
