@@ -1277,6 +1277,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
     }//GEN-LAST:event_zboruriCautMeniuActionPerformed
 
     private void butonIesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonIesireActionPerformed
+       agentieLabel = new StringBuilder("Agentia ");
        JFrame primaPagina = new PrimaPagina();
        primaPagina.setVisible(true);
        this.dispose();
