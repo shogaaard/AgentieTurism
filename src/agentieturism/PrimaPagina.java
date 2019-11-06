@@ -8,6 +8,7 @@ package agentieturism;
 import static agentieturism.ConexiuneBD.CONN_STRING;
 import static agentieturism.ConexiuneBD.PASSWORD;
 import static agentieturism.ConexiuneBD.USERNAME;
+import java.awt.HeadlessException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -28,6 +29,8 @@ public class PrimaPagina extends javax.swing.JFrame {
     /**
      * Creates new form PrimaPagina
      */
+    public static StringBuilder agentieLabel = new StringBuilder("Agentia ");
+    
     public PrimaPagina() {
         initComponents();
     }
@@ -141,13 +144,22 @@ public class PrimaPagina extends javax.swing.JFrame {
 
                 try {
                     Connection conn3 = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
-                    PreparedStatement stmt3 = conn3.prepareStatement("Select cont, parola from angajat where cont=? and parola=? and cod_functie=2");
+                    PreparedStatement stmt3 = conn3.prepareStatement("Select cont, parola, cod_agentie from angajat where cont=? and parola=? and cod_functie=2");
                     stmt3.setString(1, cont);
                     stmt3.setString(2, parola);
                     ResultSet rs3 = stmt3.executeQuery();
 
                     if (rs3.next()) {
-                        JFrame paginaTicketing = new PaginaTicketing();
+                        int codAgentie = rs3.getInt("cod_agentie");
+                        PreparedStatement pstmAgentie = conn3.prepareStatement("select denumire from agentie where cod_agentie=?");
+                        pstmAgentie.setInt(1, codAgentie);
+                        ResultSet rsAgentie = pstmAgentie.executeQuery();
+                        String denumireAgentie = "";
+                        if(rsAgentie.next()) {
+                            denumireAgentie = rsAgentie.getString("denumire");
+                        }
+                        agentieLabel.append(denumireAgentie);
+                        JFrame paginaTicketing = new PaginaTicketing();                 
                         paginaTicketing.setVisible(true);
                         this.dispose();
                     } else {
@@ -179,19 +191,23 @@ public class PrimaPagina extends javax.swing.JFrame {
                                         campUser.setText("");
                                         campParola.setText("");
                                     }
-                                } catch (Exception e) {
+                                } catch (SQLException | HeadlessException e) {
+                                    e.printStackTrace();
                                     JOptionPane.showMessageDialog(null, "Eroare conectivitate");
                                 }
                             }
-                        } catch (Exception e) {
+                        } catch (SQLException | HeadlessException e) {
+                            e.printStackTrace();
                             JOptionPane.showMessageDialog(null, "Eroare conectivitate");
                         }
                     }
-                } catch (Exception e) {
+                } catch (SQLException | HeadlessException e) {
+                    e.printStackTrace();
                     JOptionPane.showMessageDialog(null, "Eroare conectivitate");
                 }
             }
-        } catch (Exception e) {
+        } catch (SQLException | HeadlessException e) {
+            e.printStackTrace();
             JOptionPane.showMessageDialog(null, "Eroare conectivitate");
         }
 
