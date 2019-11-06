@@ -37,15 +37,8 @@ INSERT INTO `agentie` VALUES (1,'Expedia','Str. Florilor, Nr.45, Bucuresti','021
 /*!40000 ALTER TABLE `agentie` ENABLE KEYS */;
 UNLOCK TABLES;
 
---
--- Table structure for table `angajat`
---
-
-DROP TABLE IF EXISTS `angajat`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
 CREATE TABLE `angajat` (
-  `cod_angajat` int(11) NOT NULL AUTO_INCREMENT,
+  `cod_angajat` int(11) NOT NULL,
   `Nume` varchar(45) NOT NULL,
   `Prenume` varchar(45) NOT NULL,
   `Telefon` varchar(45) NOT NULL,
@@ -53,27 +46,60 @@ CREATE TABLE `angajat` (
   `cont` varchar(45) NOT NULL,
   `parola` varchar(45) NOT NULL,
   `cod_functie` int(11) NOT NULL,
-  PRIMARY KEY (`cod_angajat`),
-  UNIQUE KEY `Telefon_UNIQUE` (`Telefon`),
-  UNIQUE KEY `Email_UNIQUE` (`Email`),
-  UNIQUE KEY `cont_UNIQUE` (`cont`),
-  UNIQUE KEY `parola_UNIQUE` (`parola`),
-  KEY `fk_angajat_functie_idx` (`cod_functie`),
-  CONSTRAINT `fk_angajat_functie` FOREIGN KEY (`cod_functie`) REFERENCES `functie` (`cod_functie`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  `cod_agentie` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `angajat`
+-- Salvarea datelor din tabel `angajat`
 --
 
-LOCK TABLES `angajat` WRITE;
-/*!40000 ALTER TABLE `angajat` DISABLE KEYS */;
-INSERT INTO `angajat` VALUES (1,'Popescu','Adrian','0727808503','adi.popescu@yahoo.com','admin','1234',1),(2,'Ionescu','Elena','0727000113','elena_ion@gmail.com','ie100','1111',2),(3,'Cristescu','George','0728000111','cristigeo@gmail.com','cg100','1112',2),(4,'Matei','Corina','0729000111','corinamatei@gmail.com','cm100','2222',3),(5,'Mocanu','Alexandru','0730000111','alex_mocanu@yahoo.com','am100','2223',3),(6,'Vlad','Andrei','0787122322','avlad@yahoo.com','av100','3333',2),(12,'Bratu','Alexandra','0724896522','abratu@yahoocom','ab109','2221',2);
-/*!40000 ALTER TABLE `angajat` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `angajat` (`cod_angajat`, `Nume`, `Prenume`, `Telefon`, `Email`, `cont`, `parola`, `cod_functie`, `cod_agentie`) VALUES
+(1, 'Popescu', 'Adrian', '0727808503', 'adi.popescu@yahoo.com', 'admin', '1234', 1, 0),
+(2, 'Ionescu', 'Elena', '0727000113', 'elena_ion@gmail.com', 'ie100', '1111', 2, 1),
+(3, 'Cristescu', 'George', '0728000111', 'cristigeo@gmail.com', 'cg100', '1112', 2, 2),
+(4, 'Matei', 'Corina', '0729000111', 'corinamatei@gmail.com', 'cm100', '2222', 3, 3),
+(5, 'Mocanu', 'Alexandru', '0730000111', 'alex_mocanu@yahoo.com', 'am100', '2223', 3, 1),
+(6, 'Vlad', 'Andrei', '0787122322', 'avlad@yahoo.com', 'av100', '3333', 2, 4),
+(12, 'Bratu', 'Alexandra', '0724896522', 'abratu@yahoocom', 'ab109', '2221', 2, 5);
 
 --
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `angajat`
+--
+ALTER TABLE `angajat`
+  ADD PRIMARY KEY (`cod_angajat`),
+  ADD UNIQUE KEY `Telefon_UNIQUE` (`Telefon`),
+  ADD UNIQUE KEY `Email_UNIQUE` (`Email`),
+  ADD UNIQUE KEY `cont_UNIQUE` (`cont`),
+  ADD UNIQUE KEY `parola_UNIQUE` (`parola`),
+  ADD KEY `fk_angajat_functie_idx` (`cod_functie`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `angajat`
+--
+ALTER TABLE `angajat`
+  MODIFY `cod_angajat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Restrictii pentru tabele sterse
+--
+
+--
+-- Restrictii pentru tabele `angajat`
+--
+ALTER TABLE `angajat`
+  ADD CONSTRAINT `fk_angajat_functie` FOREIGN KEY (`cod_functie`) REFERENCES `functie` (`cod_functie`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `angajat`
+  ADD CONSTRAINT `fk_angajat_agentie` FOREIGN KEY (`cod_agentie`) REFERENCES `agentie` (`cod_agentie`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
 -- Table structure for table `bilet`
 --
 
