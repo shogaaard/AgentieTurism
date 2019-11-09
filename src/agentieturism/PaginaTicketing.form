@@ -258,7 +258,7 @@
           </Properties>
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_CreateCodeCustom" type="java.lang.String" value="new javax.swing.JLabel()"/>
-            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="agentieTicketing.setText(agentieLabel.toString());"/>
+            <AuxValue name="JavaCodeGenerator_InitCodePre" type="java.lang.String" value="agentieTicketing.setText(&quot;Agentia &quot; + agentieLabel);"/>
             <AuxValue name="JavaCodeGenerator_VariableModifier" type="java.lang.Integer" value="1"/>
           </AuxValues>
           <Constraints>

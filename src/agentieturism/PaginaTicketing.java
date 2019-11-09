@@ -6,8 +6,8 @@
 package agentieturism;
 
 import static agentieturism.ConexiuneBD.getConnection;
-import static agentieturism.PrimaPagina.agentieLabel;
-import static agentieturism.PrimaPagina.campUser;
+import static agentieturism.PrimaPagina.*;
+
 import java.awt.Font;
 import java.awt.HeadlessException;
 import java.io.BufferedReader;
@@ -80,10 +80,11 @@ public class PaginaTicketing extends javax.swing.JFrame {
         try{
             DefaultTableModel model = (DefaultTableModel) tabelZboruri.getModel();
             Connection conn = getConnection();
-            String sql = "SELECT * FROM zbor";
+            String sql = "SELECT * FROM zbor where cod_agentie = ?";
             String transport = "SELECT den_avion FROM transport, zbor WHERE transport.cod_transport = zbor.cod_transport";
             PreparedStatement stmt1 = conn.prepareStatement(transport);
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, codAgentie);
             ResultSet rs = stmt.executeQuery();
             ResultSet rs1 = stmt1.executeQuery();
             while(rs.next() && rs1.next()){
@@ -91,7 +92,8 @@ public class PaginaTicketing extends javax.swing.JFrame {
             }
             
         }catch(SQLException e){
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa zborurile!");           
+           JOptionPane.showMessageDialog(this,"Nu se pot accesa zborurile!");
+           e.printStackTrace();
         }
     }
     private void afiseazaFurnizori(){
@@ -106,6 +108,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
             }
         }catch(SQLException e){
             JOptionPane.showMessageDialog(this,"Nu se pot accesa furnizorii!");
+            e.printStackTrace();
         }
     }
     private void fillAngajatContract(){
@@ -120,6 +123,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
             }
         }catch(SQLException e){
             JOptionPane.showMessageDialog(this,"Nu se pot accesa angajatii!");
+            e.printStackTrace();
         }
     }
     private void afiseazaContracte(){
@@ -141,6 +145,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(this,"Nu se pot accesa contractele!");
+            e.printStackTrace();
         }        
     }
     private void fillFurnizori() {
@@ -155,6 +160,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
             }
         }catch(SQLException e){
             JOptionPane.showMessageDialog(this,"Nu se pot accesa furnizorii!");
+            e.printStackTrace();
         }
     }
     
@@ -189,8 +195,9 @@ public class PaginaTicketing extends javax.swing.JFrame {
          try{
             DefaultTableModel model = (DefaultTableModel) tabelBilete.getModel();
             Connection con = getConnection();
-             String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor and client.cod_client=bilet.cod_client";
-                PreparedStatement pstm1 = con.prepareStatement(sql1);                
+             String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor and client.cod_client=bilet.cod_client and zbor.cod_agentie = ?";
+                PreparedStatement pstm1 = con.prepareStatement(sql1);
+                pstm1.setInt(1, codAgentie);
                 ResultSet rs1 = pstm1.executeQuery();
                 
                 while(rs1.next()){
@@ -213,6 +220,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
              }
          } catch (SQLException ex) {
               JOptionPane.showMessageDialog(this,"Nu se pot afisa destinatiile!");
+             ex.printStackTrace();
         }
      }
      
@@ -226,7 +234,8 @@ public class PaginaTicketing extends javax.swing.JFrame {
                  clientiFideli.addItem(rs.getString(1) + " " + rs.getString(2));
              }             
          } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot afisa clientii!");           
+            JOptionPane.showMessageDialog(this,"Nu se pot afisa clientii!");
+            ex.printStackTrace();
         }
      }
      
@@ -378,7 +387,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
         pagPrincTicket.add(titluTicketing);
         titluTicketing.setBounds(280, 40, 170, 20);
 
-        agentieTicketing.setText(agentieLabel.toString());
+        agentieTicketing.setText("Agentia " + agentieLabel);
         agentieTicketing.setBackground(new java.awt.Color(255, 255, 255));
         agentieTicketing.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
         pagPrincTicket.add(agentieTicketing);
@@ -1277,7 +1286,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
     }//GEN-LAST:event_zboruriCautMeniuActionPerformed
 
     private void butonIesireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonIesireActionPerformed
-       agentieLabel = new StringBuilder("Agentia ");
+       agentieLabel = "";
        JFrame primaPagina = new PrimaPagina();
        primaPagina.setVisible(true);
        this.dispose();
@@ -1449,14 +1458,17 @@ public class PaginaTicketing extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabelZboruri1.getModel();
         try{
             Connection con = getConnection();
-            String transport = "SELECT den_avion FROM transport, zbor WHERE transport.cod_transport = zbor.cod_transport";
+            String transport = "SELECT den_avion FROM transport, zbor WHERE transport.cod_transport = zbor.cod_transport and cod_agentie = ?";
             PreparedStatement stmt1 = con.prepareStatement(transport);
+            stmt1.setInt(1, codAgentie);
             ResultSet rs1 = stmt1.executeQuery();
             if(Destinatie.isSelected()==true){
-                String sql = "SELECT * FROM zbor WHERE destinatie=?";
+                String sql = "SELECT * FROM zbor WHERE destinatie=? and cod_agentie = ?";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.setString(1, textIntrodus);
+                pstm.setInt(2, codAgentie);
                 ResultSet rs2 = pstm.executeQuery();
+                model.setRowCount(0);
                 while(rs2.next() && rs1.next()){
                     model.addRow(new Object[]{"" + rs2.getString(2), rs2.getString(3), rs2.getString(4), rs2.getString(5), rs2.getString(6),
                                 rs1.getString(1)});
@@ -1464,10 +1476,12 @@ public class PaginaTicketing extends javax.swing.JFrame {
                 fieldFiltrare.setText("");
                 Destinatie.setSelected(false);
             } else if(dataPlecareRadio.isSelected() == true){
-                String sql = "SELECT * FROM zbor WHERE data_plecarii=?";
+                String sql = "SELECT * FROM zbor WHERE data_plecarii=? and cod_agentie = ?";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.setString(1, textIntrodus);
+                pstm.setInt(2, codAgentie);
                 ResultSet rs2 = pstm.executeQuery();
+                model.setRowCount(0);
                 while(rs2.next() && rs1.next()){
                     model.addRow(new Object[]{"" + rs2.getString(2), rs2.getString(3), rs2.getString(4), rs2.getString(5), rs2.getString(6),
                                 rs1.getString(1)});
@@ -1475,10 +1489,12 @@ public class PaginaTicketing extends javax.swing.JFrame {
                 fieldFiltrare.setText("");
                 dataPlecareRadio.setSelected(false);
             } else if(oraPlecareButon.isSelected() == true){
-                String sql = "SELECT * FROM zbor WHERE ora_plecarii=?";
+                String sql = "SELECT * FROM zbor WHERE ora_plecarii=? and cod_agentie = ?";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.setInt(1, Integer.parseInt(textIntrodus));
+                pstm.setInt(2, codAgentie);
                 ResultSet rs2 = pstm.executeQuery();
+                model.setRowCount(0);
                 while(rs2.next() && rs1.next()){
                     model.addRow(new Object[]{"" + rs2.getString(2), rs2.getString(3), rs2.getString(4), rs2.getString(5), rs2.getString(6),
                                 rs1.getString(1)});
@@ -1486,10 +1502,12 @@ public class PaginaTicketing extends javax.swing.JFrame {
                 fieldFiltrare.setText("");
                 oraPlecareButon.setSelected(false);
             } else if(oraSosireButon.isSelected() == true){
-                String sql = "SELECT * FROM zbor WHERE ora_sosirii=?";
+                String sql = "SELECT * FROM zbor WHERE ora_sosirii=? and cod_agentie = ?";
                 PreparedStatement pstm = con.prepareStatement(sql);
                 pstm.setInt(1, Integer.parseInt(textIntrodus));
+                pstm.setInt(2, codAgentie);
                 ResultSet rs2 = pstm.executeQuery();
+                model.setRowCount(0);
                 while(rs2.next() && rs1.next()){
                     model.addRow(new Object[]{"" + rs2.getString(2), rs2.getString(3), rs2.getString(4), rs2.getString(5), rs2.getString(6),
                                 rs1.getString(1)});
@@ -1499,6 +1517,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
           JOptionPane.showMessageDialog(this,"Eroare cautare zbor");
+          ex.printStackTrace();
         }
     }//GEN-LAST:event_butonCautaFiltrareActionPerformed
 
@@ -1594,61 +1613,58 @@ public class PaginaTicketing extends javax.swing.JFrame {
         try{
             Connection con = getConnection();
             if(radioClient.isSelected()==true){
-                 String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor AND client.cod_client=bilet.cod_client AND nume=?";
+                 String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor AND client.cod_client=bilet.cod_client AND nume=? and zbor.cod_agentie = ?";
                 PreparedStatement pstm1 = con.prepareStatement(sql1);
                 pstm1.setString(1, textIntrodus);
+                pstm1.setInt(2, codAgentie);
                 ResultSet rs1 = pstm1.executeQuery();
-          
-                
+                model.setRowCount(0);
                 while(rs1.next()){
-                  model.addRow(new Object[]{""  + rs1.getString(1)+" "+rs1.getString(2), rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getInt(6),rs1.getString(7)});
-                  
+                    model.addRow(new Object[]{""  + rs1.getString(1)+" "+rs1.getString(2), rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getInt(6),rs1.getString(7)});
                 }
                 fieldFiltrareBilete.setText("");
                 radioClient.setSelected(false);
                         
             } else if(radioDestinatie.isSelected()==true){
-                String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor AND client.cod_client=bilet.cod_client AND zbor.destinatie=?";
+                String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor AND client.cod_client=bilet.cod_client AND zbor.destinatie=? and zbor.cod_agentie = ?";
                 PreparedStatement pstm1 = con.prepareStatement(sql1);
                 pstm1.setString(1, textIntrodus);
+                pstm1.setInt(2, codAgentie);
                 ResultSet rs1 = pstm1.executeQuery();
-          
-                
+                model.setRowCount(0);
                 while(rs1.next()){
-                  model.addRow(new Object[]{""  + rs1.getString(1)+" "+rs1.getString(2), rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getInt(6),rs1.getString(7)});
-                  
+                    model.addRow(new Object[]{""  + rs1.getString(1)+" "+rs1.getString(2), rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getInt(6),rs1.getString(7)});
                 }
                 fieldFiltrareBilete.setText("");
                 radioDestinatie.setSelected(false);
             } else if(radioPret.isSelected()==true){
-                String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor and client.cod_client=bilet.cod_client and bilet.pret=?";
+                String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor and client.cod_client=bilet.cod_client and bilet.pret=? and zbor.cod_agentie = ?";
                 PreparedStatement pstm1 = con.prepareStatement(sql1);
                 pstm1.setInt(1, Integer.parseInt(textIntrodus));
+                pstm1.setInt(2, codAgentie);
                 ResultSet rs1 = pstm1.executeQuery();
-          
-                
+                model.setRowCount(0);
                 while(rs1.next()){
-                  model.addRow(new Object[]{""  + rs1.getString(1)+" "+rs1.getString(2), rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getInt(6),rs1.getString(7)});
-                  
+                    model.addRow(new Object[]{""  + rs1.getString(1)+" "+rs1.getString(2), rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getInt(6),rs1.getString(7)});
                 }
                 fieldFiltrareBilete.setText("");
                 radioPret.setSelected(false);
             }else if(radioData.isSelected()==true){
-                String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor and client.cod_client=bilet.cod_client and data_achizitionarii=?";
+                String sql1 = "SELECT nume,prenume, destinatie, data_plecarii, ora_plecarii,bilet.pret,data_achizitionarii FROM zbor, client, bilet WHERE zbor.cod_zbor=bilet.cod_zbor and client.cod_client=bilet.cod_client and data_achizitionarii=? and zbor.cod_agentie = ?";
                 PreparedStatement pstm1 = con.prepareStatement(sql1);
                 pstm1.setString(1, textIntrodus);
+                pstm1.setInt(2, codAgentie);
                 ResultSet rs1 = pstm1.executeQuery();
-          
-                
+                model.setRowCount(0);
                 while(rs1.next()){
-                  model.addRow(new Object[]{""  + rs1.getString(1)+" "+rs1.getString(2), rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getInt(6),rs1.getString(7)});
-                  
+                    model.addRow(new Object[]{""  + rs1.getString(1)+" "+rs1.getString(2), rs1.getString(3),rs1.getString(4),rs1.getInt(5),rs1.getInt(6),rs1.getString(7)});
                 }
                 fieldFiltrareBilete.setText("");
                 radioData.setSelected(false);
             }
         }catch(SQLException e){
-            JOptionPane.showMessageDialog(this,"Cautarea nu a reusit!");                    
+            JOptionPane.showMessageDialog(this,"Cautarea nu a reusit!");
+            e.printStackTrace();
         }
     }//GEN-LAST:event_butonCautaBiletActionPerformed
 
@@ -1660,9 +1676,10 @@ public class PaginaTicketing extends javax.swing.JFrame {
         String dest = comboDestinatie.getSelectedItem().toString();
         try{
             Connection con = getConnection();
-            String sql = "SELECT DISTINCT(data_plecarii) FROM zbor WHERE destinatie=?";
+            String sql = "SELECT DISTINCT(data_plecarii) FROM zbor WHERE destinatie=? and cod_agentie = ?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, dest);
+            pstm.setInt(2, codAgentie);
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
                 comboDataPlecarii.addItem(rs.getString(1));

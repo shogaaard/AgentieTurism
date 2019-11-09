@@ -6,6 +6,7 @@
 package agentieturism;
 
 import static agentieturism.ConexiuneBD.getConnection;
+import static agentieturism.PrimaPagina.agentieLabel;
 import static agentieturism.PrimaPagina.campUser;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -374,6 +375,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         jMenuItem5 = new javax.swing.JMenuItem();
         mainPageTursim = new javax.swing.JPanel();
         progrVoiajLabel = new javax.swing.JLabel();
+        agentieTurism = new javax.swing.JLabel();
         butonCircuit = new javax.swing.JButton();
         butonHotel = new javax.swing.JButton();
         butonCont = new javax.swing.JButton();
@@ -389,7 +391,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         vizualizareCircuit = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        comboCircuite = new javax.swing.JComboBox<>();
+        comboCircuite = new javax.swing.JComboBox<String>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tabelOrase = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
@@ -413,8 +415,8 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        comboCazareTropical = new javax.swing.JComboBox<>();
-        comboCamere = new javax.swing.JComboBox<>();
+        comboCazareTropical = new javax.swing.JComboBox<String>();
+        comboCamere = new javax.swing.JComboBox<String>();
         comboNumarStele = new javax.swing.JTextField();
         inapoiHoteluri = new javax.swing.JButton();
         jLabel15 = new javax.swing.JLabel();
@@ -423,9 +425,9 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel18 = new javax.swing.JLabel();
         GermaniaHotels = new javax.swing.JPanel();
         jLabel19 = new javax.swing.JLabel();
-        comboGermania = new javax.swing.JComboBox<>();
+        comboGermania = new javax.swing.JComboBox<String>();
         nrSteleGermania = new javax.swing.JTextField();
-        comboCamereGermania = new javax.swing.JComboBox<>();
+        comboCamereGermania = new javax.swing.JComboBox<String>();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
         jLabel22 = new javax.swing.JLabel();
@@ -438,9 +440,9 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel27 = new javax.swing.JLabel();
         jLabel28 = new javax.swing.JLabel();
         jLabel29 = new javax.swing.JLabel();
-        comboCazareFranta = new javax.swing.JComboBox<>();
+        comboCazareFranta = new javax.swing.JComboBox<String>();
         nrSteleFranta = new javax.swing.JTextField();
-        comboCamereFranta = new javax.swing.JComboBox<>();
+        comboCamereFranta = new javax.swing.JComboBox<String>();
         butonInapoiFranta = new javax.swing.JButton();
         jLabel30 = new javax.swing.JLabel();
         jLabel31 = new javax.swing.JLabel();
@@ -450,19 +452,19 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel34 = new javax.swing.JLabel();
         jLabel35 = new javax.swing.JLabel();
         jLabel36 = new javax.swing.JLabel();
-        comboCazareNorvegia = new javax.swing.JComboBox<>();
-        comboCamereNorvegia = new javax.swing.JComboBox<>();
+        comboCazareNorvegia = new javax.swing.JComboBox<String>();
+        comboCamereNorvegia = new javax.swing.JComboBox<String>();
         nrSteleNorvegia = new javax.swing.JTextField();
         jButton2 = new javax.swing.JButton();
         jLabel37 = new javax.swing.JLabel();
         jLabel38 = new javax.swing.JLabel();
         jLabel39 = new javax.swing.JLabel();
         TurciaHotels = new javax.swing.JPanel();
-        comboCazareTurcia = new javax.swing.JComboBox<>();
+        comboCazareTurcia = new javax.swing.JComboBox<String>();
         jLabel40 = new javax.swing.JLabel();
         jLabel41 = new javax.swing.JLabel();
         nrSteleTurcia = new javax.swing.JTextField();
-        comboCamereTurcia = new javax.swing.JComboBox<>();
+        comboCamereTurcia = new javax.swing.JComboBox<String>();
         jLabel42 = new javax.swing.JLabel();
         jLabel43 = new javax.swing.JLabel();
         jButton3 = new javax.swing.JButton();
@@ -474,7 +476,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel49 = new javax.swing.JLabel();
         denumireTara = new javax.swing.JTextField();
         jLabel50 = new javax.swing.JLabel();
-        comboOraseCircuit = new javax.swing.JComboBox<>();
+        comboOraseCircuit = new javax.swing.JComboBox<String>();
         jLabel51 = new javax.swing.JLabel();
         butonAdaugOras = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -487,14 +489,14 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel55 = new javax.swing.JLabel();
         jLabel56 = new javax.swing.JLabel();
         jLabel57 = new javax.swing.JLabel();
-        comboOrasPlecare = new javax.swing.JComboBox<>();
-        comboOrasSosire = new javax.swing.JComboBox<>();
-        ziPlecare = new javax.swing.JComboBox<>();
-        anPlecare = new javax.swing.JComboBox<>();
-        lunaPlecare = new javax.swing.JComboBox<>();
-        ziSosire = new javax.swing.JComboBox<>();
-        lunaSosire = new javax.swing.JComboBox<>();
-        anSosire = new javax.swing.JComboBox<>();
+        comboOrasPlecare = new javax.swing.JComboBox<String>();
+        comboOrasSosire = new javax.swing.JComboBox<String>();
+        ziPlecare = new javax.swing.JComboBox<String>();
+        anPlecare = new javax.swing.JComboBox<String>();
+        lunaPlecare = new javax.swing.JComboBox<String>();
+        ziSosire = new javax.swing.JComboBox<String>();
+        lunaSosire = new javax.swing.JComboBox<String>();
+        anSosire = new javax.swing.JComboBox<String>();
         butonAdaugaSejur = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jLabel58 = new javax.swing.JLabel();
@@ -506,10 +508,10 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel63 = new javax.swing.JLabel();
         jLabel64 = new javax.swing.JLabel();
         denumireCazare = new javax.swing.JTextField();
-        comboSejurCazare = new javax.swing.JComboBox<>();
-        comboTipCazare = new javax.swing.JComboBox<>();
-        comboNrStele = new javax.swing.JComboBox<>();
-        comboCircuitCazare = new javax.swing.JComboBox<>();
+        comboSejurCazare = new javax.swing.JComboBox<String>();
+        comboTipCazare = new javax.swing.JComboBox<String>();
+        comboNrStele = new javax.swing.JComboBox<String>();
+        comboCircuitCazare = new javax.swing.JComboBox<String>();
         jButton4 = new javax.swing.JButton();
         butonAdaugaCazare = new javax.swing.JButton();
         jLabel65 = new javax.swing.JLabel();
@@ -570,7 +572,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel81 = new javax.swing.JLabel();
         clientNou = new javax.swing.JRadioButton();
         clientFidel = new javax.swing.JRadioButton();
-        clientiFideli = new javax.swing.JComboBox<>();
+        clientiFideli = new javax.swing.JComboBox<String>();
         prenumeClient = new javax.swing.JTextField();
         numeClient = new javax.swing.JTextField();
         emailClient = new javax.swing.JTextField();
@@ -583,13 +585,13 @@ public class PaginaTurism extends javax.swing.JFrame {
         jButton7 = new javax.swing.JButton();
         butonRezervareCircuit = new javax.swing.JButton();
         jLabel83 = new javax.swing.JLabel();
-        ziData = new javax.swing.JComboBox<>();
-        comboRezervCircuit = new javax.swing.JComboBox<>();
+        ziData = new javax.swing.JComboBox<String>();
+        comboRezervCircuit = new javax.swing.JComboBox<String>();
         jLabel84 = new javax.swing.JLabel();
         jLabel85 = new javax.swing.JLabel();
-        comboOrasCircuit = new javax.swing.JComboBox<>();
-        anData = new javax.swing.JComboBox<>();
-        lunaData = new javax.swing.JComboBox<>();
+        comboOrasCircuit = new javax.swing.JComboBox<String>();
+        anData = new javax.swing.JComboBox<String>();
+        lunaData = new javax.swing.JComboBox<String>();
         jLabel86 = new javax.swing.JLabel();
         jLabel87 = new javax.swing.JLabel();
         rezervareSejur = new javax.swing.JPanel();
@@ -599,17 +601,17 @@ public class PaginaTurism extends javax.swing.JFrame {
         telefonClient1 = new javax.swing.JTextField();
         prenumeClient1 = new javax.swing.JTextField();
         pretSejur = new javax.swing.JTextField();
-        plecareSejur = new javax.swing.JComboBox<>();
+        plecareSejur = new javax.swing.JComboBox<String>();
         jLabel88 = new javax.swing.JLabel();
         clientFidel1 = new javax.swing.JRadioButton();
         numeClient1 = new javax.swing.JTextField();
         emailClient1 = new javax.swing.JTextField();
         clientNou1 = new javax.swing.JRadioButton();
         jLabel89 = new javax.swing.JLabel();
-        clientiFideli2 = new javax.swing.JComboBox<>();
-        orasPlecareSejur = new javax.swing.JComboBox<>();
-        sosireSejur = new javax.swing.JComboBox<>();
-        destinatieSejur = new javax.swing.JComboBox<>();
+        clientiFideli2 = new javax.swing.JComboBox<String>();
+        orasPlecareSejur = new javax.swing.JComboBox<String>();
+        sosireSejur = new javax.swing.JComboBox<String>();
+        destinatieSejur = new javax.swing.JComboBox<String>();
         jLabel90 = new javax.swing.JLabel();
         jLabel91 = new javax.swing.JLabel();
         jLabel92 = new javax.swing.JLabel();
@@ -647,6 +649,12 @@ public class PaginaTurism extends javax.swing.JFrame {
         progrVoiajLabel.setText("Programe de voiaj");
         mainPageTursim.add(progrVoiajLabel);
         progrVoiajLabel.setBounds(140, 230, 120, 30);
+
+        agentieTurism.setText("Agentia " + agentieLabel);
+        agentieTurism.setBackground(new java.awt.Color(255, 255, 255));
+        agentieTurism.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
+        mainPageTursim.add(agentieTurism);
+        agentieTurism.setBounds(260, 110, 300, 30);
 
         butonCircuit.setBackground(new java.awt.Color(0, 102, 102));
         butonCircuit.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
@@ -715,13 +723,11 @@ public class PaginaTurism extends javax.swing.JFrame {
         vizualizareSejur.setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setText("SEJURURI");
         vizualizareSejur.add(jLabel1);
         jLabel1.setBounds(310, 50, 90, 40);
 
         tabelSejur.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        tabelSejur.setForeground(new java.awt.Color(0, 0, 0));
         tabelSejur.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -754,19 +760,16 @@ public class PaginaTurism extends javax.swing.JFrame {
         vizualizareCircuit.setLayout(null);
 
         jLabel3.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("CIRCUITE");
         vizualizareCircuit.add(jLabel3);
         jLabel3.setBounds(300, 30, 90, 40);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Denumire");
         vizualizareCircuit.add(jLabel4);
         jLabel4.setBounds(60, 110, 90, 30);
 
         comboCircuite.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        comboCircuite.setForeground(new java.awt.Color(0, 0, 0));
         comboCircuite.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCircuiteActionPerformed(evt);
@@ -776,7 +779,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboCircuite.setBounds(150, 110, 170, 30);
 
         tabelOrase.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        tabelOrase.setForeground(new java.awt.Color(0, 0, 0));
         tabelOrase.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -833,7 +835,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         vizualizareHotel.setLayout(null);
 
         jLabel6.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel6.setForeground(new java.awt.Color(0, 0, 0));
         jLabel6.setText("HOTELURI");
         vizualizareHotel.add(jLabel6);
         jLabel6.setBounds(290, 20, 100, 22);
@@ -851,7 +852,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel8.setBounds(260, 50, 180, 170);
 
         radioFranta.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
-        radioFranta.setForeground(new java.awt.Color(0, 0, 0));
         radioFranta.setText("Franta");
         radioFranta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -859,10 +859,9 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         vizualizareHotel.add(radioFranta);
-        radioFranta.setBounds(530, 230, 130, 28);
+        radioFranta.setBounds(530, 230, 130, 23);
 
         radioTropical.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
-        radioTropical.setForeground(new java.awt.Color(0, 0, 0));
         radioTropical.setText("Tropical");
         radioTropical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -870,10 +869,9 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         vizualizareHotel.add(radioTropical);
-        radioTropical.setBounds(80, 230, 100, 28);
+        radioTropical.setBounds(80, 230, 100, 23);
 
         radioGermania.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
-        radioGermania.setForeground(new java.awt.Color(0, 0, 0));
         radioGermania.setText("Germania");
         radioGermania.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -881,14 +879,13 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         vizualizareHotel.add(radioGermania);
-        radioGermania.setBounds(290, 230, 130, 28);
+        radioGermania.setBounds(290, 230, 130, 23);
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agentieturism/hotel5.jpg"))); // NOI18N
         vizualizareHotel.add(jLabel9);
         jLabel9.setBounds(80, 260, 296, 170);
 
         radioNorvegia.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
-        radioNorvegia.setForeground(new java.awt.Color(0, 0, 0));
         radioNorvegia.setText("Norvegia");
         radioNorvegia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -896,14 +893,13 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         vizualizareHotel.add(radioNorvegia);
-        radioNorvegia.setBounds(160, 440, 100, 28);
+        radioNorvegia.setBounds(160, 440, 100, 23);
 
         jLabel10.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agentieturism/hotel7.jpg"))); // NOI18N
         vizualizareHotel.add(jLabel10);
         jLabel10.setBounds(430, 260, 240, 180);
 
         radioTurcia.setFont(new java.awt.Font("Lucida Bright", 1, 12)); // NOI18N
-        radioTurcia.setForeground(new java.awt.Color(0, 0, 0));
         radioTurcia.setText("Turcia");
         radioTurcia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -911,51 +907,44 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         vizualizareHotel.add(radioTurcia);
-        radioTurcia.setBounds(500, 450, 130, 28);
+        radioTurcia.setBounds(500, 450, 130, 23);
 
         tropicalHotels.setLayout(null);
 
         jLabel11.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(0, 0, 0));
         jLabel11.setText("TROPICAL");
         tropicalHotels.add(jLabel11);
         jLabel11.setBounds(310, 40, 100, 22);
 
         jLabel12.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(0, 0, 0));
         jLabel12.setText("Cazare");
         tropicalHotels.add(jLabel12);
         jLabel12.setBounds(220, 120, 70, 17);
 
         jLabel13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel13.setForeground(new java.awt.Color(0, 0, 0));
         jLabel13.setText("Camere");
         tropicalHotels.add(jLabel13);
         jLabel13.setBounds(220, 220, 70, 17);
 
         jLabel14.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(0, 0, 0));
         jLabel14.setText("Numar Stele");
         tropicalHotels.add(jLabel14);
         jLabel14.setBounds(210, 170, 110, 17);
 
         comboCazareTropical.setFont(new java.awt.Font("Lucida Bright", 0, 14)); // NOI18N
-        comboCazareTropical.setForeground(new java.awt.Color(0, 0, 0));
         comboCazareTropical.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCazareTropicalActionPerformed(evt);
             }
         });
         tropicalHotels.add(comboCazareTropical);
-        comboCazareTropical.setBounds(300, 110, 180, 27);
+        comboCazareTropical.setBounds(300, 110, 180, 23);
 
         comboCamere.setFont(new java.awt.Font("Lucida Bright", 0, 14)); // NOI18N
-        comboCamere.setForeground(new java.awt.Color(0, 0, 0));
         tropicalHotels.add(comboCamere);
-        comboCamere.setBounds(300, 220, 180, 27);
+        comboCamere.setBounds(300, 220, 180, 23);
 
         comboNumarStele.setFont(new java.awt.Font("Lucida Bright", 0, 14)); // NOI18N
-        comboNumarStele.setForeground(new java.awt.Color(0, 0, 0));
         tropicalHotels.add(comboNumarStele);
         comboNumarStele.setBounds(340, 160, 90, 30);
 
@@ -990,13 +979,11 @@ public class PaginaTurism extends javax.swing.JFrame {
         GermaniaHotels.setLayout(null);
 
         jLabel19.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel19.setForeground(new java.awt.Color(0, 0, 0));
         jLabel19.setText("GERMANIA");
         GermaniaHotels.add(jLabel19);
         jLabel19.setBounds(180, 40, 110, 20);
 
         comboGermania.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboGermania.setForeground(new java.awt.Color(0, 0, 0));
         comboGermania.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboGermaniaActionPerformed(evt);
@@ -1006,12 +993,10 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboGermania.setBounds(160, 100, 150, 30);
 
         nrSteleGermania.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        nrSteleGermania.setForeground(new java.awt.Color(0, 0, 0));
         GermaniaHotels.add(nrSteleGermania);
         nrSteleGermania.setBounds(190, 150, 90, 30);
 
         comboCamereGermania.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCamereGermania.setForeground(new java.awt.Color(0, 0, 0));
         comboCamereGermania.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCamereGermaniaActionPerformed(evt);
@@ -1021,19 +1006,16 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboCamereGermania.setBounds(160, 200, 150, 30);
 
         jLabel20.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel20.setForeground(new java.awt.Color(0, 0, 0));
         jLabel20.setText("Cazare");
         GermaniaHotels.add(jLabel20);
         jLabel20.setBounds(70, 100, 70, 20);
 
         jLabel21.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel21.setForeground(new java.awt.Color(0, 0, 0));
         jLabel21.setText("Numar Stele");
         GermaniaHotels.add(jLabel21);
         jLabel21.setBounds(60, 150, 110, 20);
 
         jLabel22.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel22.setForeground(new java.awt.Color(0, 0, 0));
         jLabel22.setText("Camere");
         GermaniaHotels.add(jLabel22);
         jLabel22.setBounds(70, 200, 70, 20);
@@ -1065,31 +1047,26 @@ public class PaginaTurism extends javax.swing.JFrame {
         FrantaHotels.setLayout(null);
 
         jLabel26.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel26.setForeground(new java.awt.Color(0, 0, 0));
         jLabel26.setText("FRANTA");
         FrantaHotels.add(jLabel26);
         jLabel26.setBounds(290, 20, 90, 22);
 
         jLabel27.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel27.setForeground(new java.awt.Color(0, 0, 0));
         jLabel27.setText("Cazare");
         FrantaHotels.add(jLabel27);
         jLabel27.setBounds(80, 110, 70, 20);
 
         jLabel28.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel28.setForeground(new java.awt.Color(0, 0, 0));
         jLabel28.setText("Numar Stele");
         FrantaHotels.add(jLabel28);
         jLabel28.setBounds(70, 160, 110, 20);
 
         jLabel29.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel29.setForeground(new java.awt.Color(0, 0, 0));
         jLabel29.setText("Camere");
         FrantaHotels.add(jLabel29);
         jLabel29.setBounds(80, 210, 70, 20);
 
         comboCazareFranta.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCazareFranta.setForeground(new java.awt.Color(0, 0, 0));
         comboCazareFranta.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCazareFrantaActionPerformed(evt);
@@ -1099,12 +1076,10 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboCazareFranta.setBounds(160, 100, 160, 30);
 
         nrSteleFranta.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        nrSteleFranta.setForeground(new java.awt.Color(0, 0, 0));
         FrantaHotels.add(nrSteleFranta);
         nrSteleFranta.setBounds(200, 150, 80, 30);
 
         comboCamereFranta.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCamereFranta.setForeground(new java.awt.Color(0, 0, 0));
         FrantaHotels.add(comboCamereFranta);
         comboCamereFranta.setBounds(160, 200, 160, 30);
 
@@ -1135,31 +1110,26 @@ public class PaginaTurism extends javax.swing.JFrame {
         NorvegiaHotels.setLayout(null);
 
         jLabel33.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel33.setForeground(new java.awt.Color(0, 0, 0));
         jLabel33.setText("NORVEGIA");
         NorvegiaHotels.add(jLabel33);
         jLabel33.setBounds(320, 40, 110, 22);
 
         jLabel34.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel34.setForeground(new java.awt.Color(0, 0, 0));
         jLabel34.setText("Camere");
         NorvegiaHotels.add(jLabel34);
         jLabel34.setBounds(40, 210, 100, 17);
 
         jLabel35.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel35.setForeground(new java.awt.Color(0, 0, 0));
         jLabel35.setText("Cazare");
         NorvegiaHotels.add(jLabel35);
         jLabel35.setBounds(40, 110, 70, 17);
 
         jLabel36.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel36.setForeground(new java.awt.Color(0, 0, 0));
         jLabel36.setText("Numar Stele");
         NorvegiaHotels.add(jLabel36);
         jLabel36.setBounds(40, 160, 100, 17);
 
         comboCazareNorvegia.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCazareNorvegia.setForeground(new java.awt.Color(0, 0, 0));
         comboCazareNorvegia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCazareNorvegiaActionPerformed(evt);
@@ -1169,7 +1139,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboCazareNorvegia.setBounds(140, 100, 150, 26);
 
         comboCamereNorvegia.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCamereNorvegia.setForeground(new java.awt.Color(0, 0, 0));
         comboCamereNorvegia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCamereNorvegiaActionPerformed(evt);
@@ -1179,9 +1148,8 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboCamereNorvegia.setBounds(140, 210, 150, 26);
 
         nrSteleNorvegia.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        nrSteleNorvegia.setForeground(new java.awt.Color(0, 0, 0));
         NorvegiaHotels.add(nrSteleNorvegia);
-        nrSteleNorvegia.setBounds(170, 150, 90, 25);
+        nrSteleNorvegia.setBounds(170, 150, 90, 23);
 
         jButton2.setBackground(new java.awt.Color(0, 102, 102));
         jButton2.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
@@ -1210,7 +1178,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         TurciaHotels.setLayout(null);
 
         comboCazareTurcia.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCazareTurcia.setForeground(new java.awt.Color(0, 0, 0));
         comboCazareTurcia.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboCazareTurciaActionPerformed(evt);
@@ -1220,35 +1187,29 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboCazareTurcia.setBounds(160, 100, 150, 30);
 
         jLabel40.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel40.setForeground(new java.awt.Color(0, 0, 0));
         jLabel40.setText("Cazare");
         TurciaHotels.add(jLabel40);
         jLabel40.setBounds(70, 100, 70, 20);
 
         jLabel41.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel41.setForeground(new java.awt.Color(0, 0, 0));
         jLabel41.setText("Numar Stele");
         TurciaHotels.add(jLabel41);
         jLabel41.setBounds(60, 150, 110, 20);
 
         nrSteleTurcia.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        nrSteleTurcia.setForeground(new java.awt.Color(0, 0, 0));
         TurciaHotels.add(nrSteleTurcia);
         nrSteleTurcia.setBounds(190, 150, 90, 30);
 
         comboCamereTurcia.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCamereTurcia.setForeground(new java.awt.Color(0, 0, 0));
         TurciaHotels.add(comboCamereTurcia);
         comboCamereTurcia.setBounds(160, 200, 150, 30);
 
         jLabel42.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel42.setForeground(new java.awt.Color(0, 0, 0));
         jLabel42.setText("Camere");
         TurciaHotels.add(jLabel42);
         jLabel42.setBounds(70, 200, 70, 20);
 
         jLabel43.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel43.setForeground(new java.awt.Color(0, 0, 0));
         jLabel43.setText("TURCIA");
         TurciaHotels.add(jLabel43);
         jLabel43.setBounds(320, 30, 80, 40);
@@ -1280,30 +1241,25 @@ public class PaginaTurism extends javax.swing.JFrame {
         adaugareCircuit.setLayout(null);
 
         jLabel48.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel48.setForeground(new java.awt.Color(0, 0, 0));
         jLabel48.setText("Circuite");
         adaugareCircuit.add(jLabel48);
         jLabel48.setBounds(340, 20, 100, 40);
 
         jLabel49.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel49.setForeground(new java.awt.Color(0, 0, 0));
         jLabel49.setText("Denumire");
         adaugareCircuit.add(jLabel49);
         jLabel49.setBounds(200, 110, 80, 17);
 
         denumireTara.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        denumireTara.setForeground(new java.awt.Color(0, 0, 0));
         adaugareCircuit.add(denumireTara);
         denumireTara.setBounds(290, 220, 190, 30);
 
         jLabel50.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel50.setForeground(new java.awt.Color(0, 0, 0));
         jLabel50.setText("Alege orase");
         adaugareCircuit.add(jLabel50);
         jLabel50.setBounds(190, 170, 90, 30);
 
         comboOraseCircuit.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboOraseCircuit.setForeground(new java.awt.Color(0, 0, 0));
         comboOraseCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboOraseCircuitActionPerformed(evt);
@@ -1313,7 +1269,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboOraseCircuit.setBounds(290, 170, 190, 30);
 
         jLabel51.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel51.setForeground(new java.awt.Color(0, 0, 0));
         jLabel51.setText("Tara");
         adaugareCircuit.add(jLabel51);
         jLabel51.setBounds(220, 220, 50, 30);
@@ -1355,7 +1310,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         butonAdaugaCircuit.setBounds(530, 100, 140, 30);
 
         denumireCircuit.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        denumireCircuit.setForeground(new java.awt.Color(0, 0, 0));
         adaugareCircuit.add(denumireCircuit);
         denumireCircuit.setBounds(290, 100, 190, 30);
 
@@ -1366,38 +1320,32 @@ public class PaginaTurism extends javax.swing.JFrame {
         adaugareSejur.setLayout(null);
 
         jLabel53.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel53.setForeground(new java.awt.Color(0, 0, 0));
         jLabel53.setText("Adaugare Sejur");
         adaugareSejur.add(jLabel53);
         jLabel53.setBounds(270, 80, 190, 20);
 
         jLabel54.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel54.setForeground(new java.awt.Color(0, 0, 0));
         jLabel54.setText("Oras plecare");
         adaugareSejur.add(jLabel54);
         jLabel54.setBounds(190, 150, 90, 17);
 
         jLabel55.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel55.setForeground(new java.awt.Color(0, 0, 0));
         jLabel55.setText("Oras sosire");
         adaugareSejur.add(jLabel55);
         jLabel55.setBounds(190, 190, 90, 17);
 
         jLabel56.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel56.setForeground(new java.awt.Color(0, 0, 0));
         jLabel56.setText("Data plecarii");
         adaugareSejur.add(jLabel56);
         jLabel56.setBounds(190, 230, 100, 17);
 
         jLabel57.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel57.setForeground(new java.awt.Color(0, 0, 0));
         jLabel57.setText("Data sosirii");
         adaugareSejur.add(jLabel57);
         jLabel57.setBounds(190, 270, 80, 17);
 
         comboOrasPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboOrasPlecare.setForeground(new java.awt.Color(0, 0, 0));
-        comboOrasPlecare.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bucuresti", "Cluj" }));
+        comboOrasPlecare.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bucuresti", "Cluj" }));
         comboOrasPlecare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboOrasPlecareActionPerformed(evt);
@@ -1407,22 +1355,18 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboOrasPlecare.setBounds(320, 140, 150, 30);
 
         comboOrasSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboOrasSosire.setForeground(new java.awt.Color(0, 0, 0));
         adaugareSejur.add(comboOrasSosire);
         comboOrasSosire.setBounds(320, 190, 150, 30);
 
         ziPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        ziPlecare.setForeground(new java.awt.Color(0, 0, 0));
         adaugareSejur.add(ziPlecare);
         ziPlecare.setBounds(500, 230, 80, 30);
 
         anPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        anPlecare.setForeground(new java.awt.Color(0, 0, 0));
         adaugareSejur.add(anPlecare);
         anPlecare.setBounds(320, 230, 80, 30);
 
         lunaPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        lunaPlecare.setForeground(new java.awt.Color(0, 0, 0));
         lunaPlecare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lunaPlecareActionPerformed(evt);
@@ -1432,12 +1376,10 @@ public class PaginaTurism extends javax.swing.JFrame {
         lunaPlecare.setBounds(410, 230, 70, 30);
 
         ziSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        ziSosire.setForeground(new java.awt.Color(0, 0, 0));
         adaugareSejur.add(ziSosire);
         ziSosire.setBounds(500, 270, 80, 30);
 
         lunaSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        lunaSosire.setForeground(new java.awt.Color(0, 0, 0));
         lunaSosire.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 lunaSosireActionPerformed(evt);
@@ -1447,7 +1389,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         lunaSosire.setBounds(410, 270, 70, 30);
 
         anSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        anSosire.setForeground(new java.awt.Color(0, 0, 0));
         adaugareSejur.add(anSosire);
         anSosire.setBounds(320, 270, 80, 30);
 
@@ -1482,65 +1423,54 @@ public class PaginaTurism extends javax.swing.JFrame {
         adaugareHotel.setLayout(null);
 
         jLabel59.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel59.setForeground(new java.awt.Color(0, 0, 0));
         jLabel59.setText("Adaugare Cazare");
         adaugareHotel.add(jLabel59);
         jLabel59.setBounds(290, 20, 160, 50);
 
         jLabel60.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel60.setForeground(new java.awt.Color(0, 0, 0));
         jLabel60.setText("Sejur");
         adaugareHotel.add(jLabel60);
         jLabel60.setBounds(230, 300, 80, 30);
 
         jLabel61.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel61.setForeground(new java.awt.Color(0, 0, 0));
         jLabel61.setText("Denumire");
         adaugareHotel.add(jLabel61);
         jLabel61.setBounds(210, 100, 80, 30);
 
         jLabel62.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel62.setForeground(new java.awt.Color(0, 0, 0));
         jLabel62.setText("Tip");
         adaugareHotel.add(jLabel62);
         jLabel62.setBounds(230, 150, 70, 30);
 
         jLabel63.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel63.setForeground(new java.awt.Color(0, 0, 0));
         jLabel63.setText("Numar Stele");
         adaugareHotel.add(jLabel63);
         jLabel63.setBounds(210, 200, 90, 30);
 
         jLabel64.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel64.setForeground(new java.awt.Color(0, 0, 0));
         jLabel64.setText("Circuit");
         adaugareHotel.add(jLabel64);
         jLabel64.setBounds(220, 250, 80, 30);
 
         denumireCazare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        denumireCazare.setForeground(new java.awt.Color(0, 0, 0));
         adaugareHotel.add(denumireCazare);
         denumireCazare.setBounds(330, 100, 180, 30);
 
         comboSejurCazare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboSejurCazare.setForeground(new java.awt.Color(0, 0, 0));
         adaugareHotel.add(comboSejurCazare);
         comboSejurCazare.setBounds(330, 300, 180, 30);
 
         comboTipCazare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboTipCazare.setForeground(new java.awt.Color(0, 0, 0));
-        comboTipCazare.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Hotel", "Pensiune", "Motel", "Vila", "Cabana" }));
+        comboTipCazare.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel", "Pensiune", "Motel", "Vila", "Cabana" }));
         adaugareHotel.add(comboTipCazare);
         comboTipCazare.setBounds(330, 150, 180, 30);
 
         comboNrStele.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboNrStele.setForeground(new java.awt.Color(0, 0, 0));
-        comboNrStele.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "5", "4", "3", "2", "1" }));
+        comboNrStele.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "4", "3", "2", "1" }));
         adaugareHotel.add(comboNrStele);
         comboNrStele.setBounds(330, 200, 180, 30);
 
         comboCircuitCazare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCircuitCazare.setForeground(new java.awt.Color(0, 0, 0));
         adaugareHotel.add(comboCircuitCazare);
         comboCircuitCazare.setBounds(330, 250, 180, 30);
 
@@ -1575,13 +1505,11 @@ public class PaginaTurism extends javax.swing.JFrame {
         cautareHotel.setLayout(null);
 
         jLabel66.setFont(new java.awt.Font("Lucida Bright", 1, 16)); // NOI18N
-        jLabel66.setForeground(new java.awt.Color(0, 0, 0));
         jLabel66.setText("Filtrare dupa");
         cautareHotel.add(jLabel66);
         jLabel66.setBounds(30, 60, 120, 40);
 
         fieldCazare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        fieldCazare.setForeground(new java.awt.Color(0, 0, 0));
         fieldCazare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldCazareActionPerformed(evt);
@@ -1591,25 +1519,21 @@ public class PaginaTurism extends javax.swing.JFrame {
         fieldCazare.setBounds(260, 160, 180, 30);
 
         radioStele.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioStele.setForeground(new java.awt.Color(0, 0, 0));
         radioStele.setText("Numar Stele");
         cautareHotel.add(radioStele);
-        radioStele.setBounds(480, 110, 130, 28);
+        radioStele.setBounds(480, 110, 130, 25);
 
         radioDenumire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioDenumire.setForeground(new java.awt.Color(0, 0, 0));
         radioDenumire.setText("Denumire");
         cautareHotel.add(radioDenumire);
-        radioDenumire.setBounds(100, 110, 102, 28);
+        radioDenumire.setBounds(100, 110, 95, 25);
 
         radioTip.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioTip.setForeground(new java.awt.Color(0, 0, 0));
         radioTip.setText("Tip");
         cautareHotel.add(radioTip);
-        radioTip.setBounds(310, 110, 80, 28);
+        radioTip.setBounds(310, 110, 80, 25);
 
         jLabel67.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel67.setForeground(new java.awt.Color(0, 0, 0));
         jLabel67.setText("Cauta Cazare");
         cautareHotel.add(jLabel67);
         jLabel67.setBounds(280, 20, 120, 40);
@@ -1627,7 +1551,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         butonCautaCazare.setBounds(300, 210, 100, 40);
 
         tabelCazare.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        tabelCazare.setForeground(new java.awt.Color(0, 0, 0));
         tabelCazare.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1664,37 +1587,31 @@ public class PaginaTurism extends javax.swing.JFrame {
         cautareCircuit.setLayout(null);
 
         jLabel69.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel69.setForeground(new java.awt.Color(0, 0, 0));
         jLabel69.setText("Cauta Circuit");
         cautareCircuit.add(jLabel69);
         jLabel69.setBounds(280, 20, 120, 40);
 
         jLabel70.setFont(new java.awt.Font("Lucida Bright", 1, 16)); // NOI18N
-        jLabel70.setForeground(new java.awt.Color(0, 0, 0));
         jLabel70.setText("Filtrare dupa");
         cautareCircuit.add(jLabel70);
         jLabel70.setBounds(30, 60, 120, 40);
 
         radioDenumireCircuit.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioDenumireCircuit.setForeground(new java.awt.Color(0, 0, 0));
         radioDenumireCircuit.setText("Denumire");
         cautareCircuit.add(radioDenumireCircuit);
-        radioDenumireCircuit.setBounds(100, 110, 102, 28);
+        radioDenumireCircuit.setBounds(100, 110, 95, 25);
 
         radioOras.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioOras.setForeground(new java.awt.Color(0, 0, 0));
         radioOras.setText("Oras");
         cautareCircuit.add(radioOras);
-        radioOras.setBounds(310, 110, 80, 28);
+        radioOras.setBounds(310, 110, 80, 25);
 
         radioTara.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioTara.setForeground(new java.awt.Color(0, 0, 0));
         radioTara.setText("Tara");
         cautareCircuit.add(radioTara);
-        radioTara.setBounds(480, 110, 130, 28);
+        radioTara.setBounds(480, 110, 130, 25);
 
         fieldCircuit.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        fieldCircuit.setForeground(new java.awt.Color(0, 0, 0));
         fieldCircuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldCircuitActionPerformed(evt);
@@ -1728,7 +1645,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         jButton9.setBounds(540, 430, 100, 40);
 
         tabelCircuit.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        tabelCircuit.setForeground(new java.awt.Color(0, 0, 0));
         tabelCircuit.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1761,7 +1677,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         jButton10.setBounds(540, 430, 110, 40);
 
         tabelCautaSejur.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-        tabelCautaSejur.setForeground(new java.awt.Color(0, 0, 0));
         tabelCautaSejur.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -1788,7 +1703,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         butonCautaSejur.setBounds(300, 210, 100, 40);
 
         fieldCautaSejur.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        fieldCautaSejur.setForeground(new java.awt.Color(0, 0, 0));
         fieldCautaSejur.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 fieldCautaSejurActionPerformed(evt);
@@ -1798,31 +1712,26 @@ public class PaginaTurism extends javax.swing.JFrame {
         fieldCautaSejur.setBounds(260, 160, 180, 30);
 
         radioOrasSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioOrasSosire.setForeground(new java.awt.Color(0, 0, 0));
         radioOrasSosire.setText("Destinatie");
         cautareSejur.add(radioOrasSosire);
-        radioOrasSosire.setBounds(300, 110, 110, 28);
+        radioOrasSosire.setBounds(300, 110, 110, 25);
 
         radioDataPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioDataPlecare.setForeground(new java.awt.Color(0, 0, 0));
         radioDataPlecare.setText("Data plecare");
         cautareSejur.add(radioDataPlecare);
-        radioDataPlecare.setBounds(480, 110, 130, 28);
+        radioDataPlecare.setBounds(480, 110, 130, 25);
 
         radioOrasPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        radioOrasPlecare.setForeground(new java.awt.Color(0, 0, 0));
         radioOrasPlecare.setText("Oras Plecare");
         cautareSejur.add(radioOrasPlecare);
-        radioOrasPlecare.setBounds(100, 110, 130, 28);
+        radioOrasPlecare.setBounds(100, 110, 130, 25);
 
         jLabel72.setFont(new java.awt.Font("Lucida Bright", 1, 16)); // NOI18N
-        jLabel72.setForeground(new java.awt.Color(0, 0, 0));
         jLabel72.setText("Filtrare dupa");
         cautareSejur.add(jLabel72);
         jLabel72.setBounds(30, 60, 120, 40);
 
         jLabel73.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel73.setForeground(new java.awt.Color(0, 0, 0));
         jLabel73.setText("Cauta Sejur");
         cautareSejur.add(jLabel73);
         jLabel73.setBounds(280, 20, 120, 40);
@@ -1834,7 +1743,6 @@ public class PaginaTurism extends javax.swing.JFrame {
         contulMeu.setLayout(null);
 
         titluContulMeu.setFont(new java.awt.Font("Lucida Bright", 1, 16)); // NOI18N
-        titluContulMeu.setForeground(new java.awt.Color(0, 0, 0));
         titluContulMeu.setText("CONTUL MEU");
         contulMeu.add(titluContulMeu);
         titluContulMeu.setBounds(290, 70, 120, 20);
@@ -1844,37 +1752,31 @@ public class PaginaTurism extends javax.swing.JFrame {
         imgProfilAng.setBounds(30, 20, 116, 120);
 
         jLabel75.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel75.setForeground(new java.awt.Color(0, 0, 0));
         jLabel75.setText("Nume");
         contulMeu.add(jLabel75);
         jLabel75.setBounds(50, 190, 60, 17);
 
         jLabel76.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel76.setForeground(new java.awt.Color(0, 0, 0));
         jLabel76.setText("Prenume");
         contulMeu.add(jLabel76);
         jLabel76.setBounds(40, 240, 80, 17);
 
         jLabel77.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel77.setForeground(new java.awt.Color(0, 0, 0));
         jLabel77.setText("Telefon");
         contulMeu.add(jLabel77);
         jLabel77.setBounds(50, 300, 60, 17);
 
         jLabel78.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(0, 0, 0));
         jLabel78.setText("Email");
         contulMeu.add(jLabel78);
         jLabel78.setBounds(360, 190, 70, 17);
 
         jLabel79.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel79.setForeground(new java.awt.Color(0, 0, 0));
         jLabel79.setText("Cont");
         contulMeu.add(jLabel79);
         jLabel79.setBounds(360, 240, 50, 17);
 
         jLabel80.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel80.setForeground(new java.awt.Color(0, 0, 0));
         jLabel80.setText("Parola");
         contulMeu.add(jLabel80);
         jLabel80.setBounds(360, 290, 60, 20);
@@ -1885,7 +1787,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         contulMeu.add(parolaCont);
-        parolaCont.setBounds(440, 290, 140, 24);
+        parolaCont.setBounds(440, 290, 140, 20);
 
         numeCont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1893,7 +1795,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         contulMeu.add(numeCont);
-        numeCont.setBounds(130, 190, 140, 24);
+        numeCont.setBounds(130, 190, 140, 20);
 
         prenumeCont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1901,7 +1803,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         contulMeu.add(prenumeCont);
-        prenumeCont.setBounds(130, 240, 140, 24);
+        prenumeCont.setBounds(130, 240, 140, 20);
 
         emailCont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1909,7 +1811,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         contulMeu.add(emailCont);
-        emailCont.setBounds(440, 190, 170, 24);
+        emailCont.setBounds(440, 190, 170, 20);
 
         telefonCont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1917,7 +1819,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         contulMeu.add(telefonCont);
-        telefonCont.setBounds(130, 290, 140, 24);
+        telefonCont.setBounds(130, 290, 140, 20);
 
         contCont.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1925,7 +1827,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         contulMeu.add(contCont);
-        contCont.setBounds(440, 240, 140, 24);
+        contCont.setBounds(440, 240, 140, 20);
 
         butonInapoiCont.setBackground(new java.awt.Color(0, 102, 102));
         butonInapoiCont.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
@@ -1954,13 +1856,11 @@ public class PaginaTurism extends javax.swing.JFrame {
         rezervareCircuit.setLayout(null);
 
         jLabel81.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(0, 0, 0));
         jLabel81.setText("Rezervare Circuit");
         rezervareCircuit.add(jLabel81);
         jLabel81.setBounds(280, 20, 150, 30);
 
         clientNou.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        clientNou.setForeground(new java.awt.Color(0, 0, 0));
         clientNou.setText("Nou");
         clientNou.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1968,10 +1868,9 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(clientNou);
-        clientNou.setBounds(90, 80, 80, 28);
+        clientNou.setBounds(90, 80, 80, 25);
 
         clientFidel.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        clientFidel.setForeground(new java.awt.Color(0, 0, 0));
         clientFidel.setText("Fidel");
         clientFidel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -1979,7 +1878,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(clientFidel);
-        clientFidel.setBounds(180, 80, 59, 28);
+        clientFidel.setBounds(180, 80, 53, 25);
 
         clientiFideli.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -1992,40 +1891,34 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(clientiFideli);
-        clientiFideli.setBounds(270, 80, 140, 26);
+        clientiFideli.setBounds(270, 80, 140, 20);
 
         prenumeClient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        prenumeClient.setForeground(new java.awt.Color(0, 0, 0));
         prenumeClient.setText("Prenume");
         rezervareCircuit.add(prenumeClient);
         prenumeClient.setBounds(240, 135, 140, 30);
 
         numeClient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        numeClient.setForeground(new java.awt.Color(0, 0, 0));
         numeClient.setText("Nume");
         rezervareCircuit.add(numeClient);
         numeClient.setBounds(90, 135, 140, 30);
 
         emailClient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        emailClient.setForeground(new java.awt.Color(0, 0, 0));
         emailClient.setText("Email");
         rezervareCircuit.add(emailClient);
         emailClient.setBounds(90, 185, 160, 30);
 
         contClient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        contClient.setForeground(new java.awt.Color(0, 0, 0));
         contClient.setText("Cont");
         rezervareCircuit.add(contClient);
         contClient.setBounds(270, 185, 110, 30);
 
         parolaClient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        parolaClient.setForeground(new java.awt.Color(0, 0, 0));
         parolaClient.setText("Parola");
         rezervareCircuit.add(parolaClient);
         parolaClient.setBounds(400, 185, 140, 30);
 
         telefonClient.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        telefonClient.setForeground(new java.awt.Color(0, 0, 0));
         telefonClient.setText("Telefon");
         rezervareCircuit.add(telefonClient);
         telefonClient.setBounds(390, 135, 150, 30);
@@ -2040,10 +1933,9 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(adaugaClientButon);
-        adaugaClientButon.setBounds(570, 160, 90, 33);
+        adaugaClientButon.setBounds(570, 160, 90, 25);
 
         jLabel82.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel82.setForeground(new java.awt.Color(0, 0, 0));
         jLabel82.setText("Pret");
         rezervareCircuit.add(jLabel82);
         jLabel82.setBounds(420, 320, 50, 19);
@@ -2059,7 +1951,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(pretCircuit);
-        pretCircuit.setBounds(470, 320, 130, 24);
+        pretCircuit.setBounds(470, 320, 130, 20);
 
         jButton7.setBackground(new java.awt.Color(0, 102, 102));
         jButton7.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
@@ -2083,10 +1975,9 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(butonRezervareCircuit);
-        butonRezervareCircuit.setBounds(290, 380, 100, 33);
+        butonRezervareCircuit.setBounds(290, 380, 100, 25);
 
         jLabel83.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel83.setForeground(new java.awt.Color(0, 0, 0));
         jLabel83.setText("Data");
         rezervareCircuit.add(jLabel83);
         jLabel83.setBounds(20, 320, 50, 19);
@@ -2102,7 +1993,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(ziData);
-        ziData.setBounds(290, 320, 70, 26);
+        ziData.setBounds(290, 320, 70, 20);
 
         comboRezervCircuit.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -2115,16 +2006,14 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(comboRezervCircuit);
-        comboRezervCircuit.setBounds(90, 260, 140, 26);
+        comboRezervCircuit.setBounds(90, 260, 140, 20);
 
         jLabel84.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel84.setForeground(new java.awt.Color(0, 0, 0));
         jLabel84.setText("Circuit");
         rezervareCircuit.add(jLabel84);
         jLabel84.setBounds(20, 260, 50, 19);
 
         jLabel85.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel85.setForeground(new java.awt.Color(0, 0, 0));
         jLabel85.setText("Orase");
         rezervareCircuit.add(jLabel85);
         jLabel85.setBounds(280, 260, 50, 19);
@@ -2140,7 +2029,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(comboOrasCircuit);
-        comboOrasCircuit.setBounds(340, 260, 140, 26);
+        comboOrasCircuit.setBounds(340, 260, 140, 20);
 
         anData.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -2153,7 +2042,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(anData);
-        anData.setBounds(80, 320, 70, 26);
+        anData.setBounds(80, 320, 70, 20);
 
         lunaData.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -2166,10 +2055,9 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareCircuit.add(lunaData);
-        lunaData.setBounds(180, 320, 70, 26);
+        lunaData.setBounds(180, 320, 70, 20);
 
         jLabel86.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel86.setForeground(new java.awt.Color(0, 0, 0));
         jLabel86.setText("Client");
         rezervareCircuit.add(jLabel86);
         jLabel86.setBounds(10, 80, 60, 30);
@@ -2202,28 +2090,24 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(adaugaClientButon1);
-        adaugaClientButon1.setBounds(570, 150, 90, 33);
+        adaugaClientButon1.setBounds(570, 150, 90, 25);
 
         parolaClient1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        parolaClient1.setForeground(new java.awt.Color(0, 0, 0));
         parolaClient1.setText("Parola");
         rezervareSejur.add(parolaClient1);
         parolaClient1.setBounds(400, 185, 140, 30);
 
         telefonClient1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        telefonClient1.setForeground(new java.awt.Color(0, 0, 0));
         telefonClient1.setText("Telefon");
         rezervareSejur.add(telefonClient1);
         telefonClient1.setBounds(390, 135, 150, 30);
 
         prenumeClient1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        prenumeClient1.setForeground(new java.awt.Color(0, 0, 0));
         prenumeClient1.setText("Prenume");
         rezervareSejur.add(prenumeClient1);
         prenumeClient1.setBounds(240, 135, 140, 30);
 
         pretSejur.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        pretSejur.setForeground(new java.awt.Color(0, 0, 0));
         pretSejur.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 pretSejurMouseClicked(evt);
@@ -2248,16 +2132,14 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(plecareSejur);
-        plecareSejur.setBounds(380, 290, 140, 26);
+        plecareSejur.setBounds(380, 290, 140, 20);
 
         jLabel88.setFont(new java.awt.Font("Times New Roman", 1, 20)); // NOI18N
-        jLabel88.setForeground(new java.awt.Color(0, 0, 0));
         jLabel88.setText("Rezervare Sejur");
         rezervareSejur.add(jLabel88);
         jLabel88.setBounds(280, 20, 150, 30);
 
         clientFidel1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        clientFidel1.setForeground(new java.awt.Color(0, 0, 0));
         clientFidel1.setText("Fidel");
         clientFidel1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2265,22 +2147,19 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(clientFidel1);
-        clientFidel1.setBounds(180, 80, 59, 28);
+        clientFidel1.setBounds(180, 80, 53, 25);
 
         numeClient1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        numeClient1.setForeground(new java.awt.Color(0, 0, 0));
         numeClient1.setText("Nume");
         rezervareSejur.add(numeClient1);
         numeClient1.setBounds(90, 135, 140, 30);
 
         emailClient1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        emailClient1.setForeground(new java.awt.Color(0, 0, 0));
         emailClient1.setText("Email");
         rezervareSejur.add(emailClient1);
         emailClient1.setBounds(90, 185, 160, 30);
 
         clientNou1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        clientNou1.setForeground(new java.awt.Color(0, 0, 0));
         clientNou1.setText("Nou");
         clientNou1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -2288,10 +2167,9 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(clientNou1);
-        clientNou1.setBounds(90, 80, 80, 28);
+        clientNou1.setBounds(90, 80, 80, 25);
 
         jLabel89.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel89.setForeground(new java.awt.Color(0, 0, 0));
         jLabel89.setText("Nr pers.");
         rezervareSejur.add(jLabel89);
         jLabel89.setBounds(150, 340, 70, 30);
@@ -2307,7 +2185,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(clientiFideli2);
-        clientiFideli2.setBounds(270, 80, 140, 26);
+        clientiFideli2.setBounds(270, 80, 140, 20);
 
         orasPlecareSejur.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -2320,7 +2198,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(orasPlecareSejur);
-        orasPlecareSejur.setBounds(40, 290, 140, 26);
+        orasPlecareSejur.setBounds(40, 290, 140, 20);
 
         sosireSejur.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -2333,7 +2211,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(sosireSejur);
-        sosireSejur.setBounds(540, 290, 140, 26);
+        sosireSejur.setBounds(540, 290, 140, 20);
 
         destinatieSejur.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -2346,40 +2224,34 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(destinatieSejur);
-        destinatieSejur.setBounds(210, 290, 140, 26);
+        destinatieSejur.setBounds(210, 290, 140, 20);
 
         jLabel90.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel90.setForeground(new java.awt.Color(0, 0, 0));
         jLabel90.setText("Client");
         rezervareSejur.add(jLabel90);
         jLabel90.setBounds(10, 80, 60, 30);
 
         jLabel91.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel91.setForeground(new java.awt.Color(0, 0, 0));
         jLabel91.setText("Plecare");
         rezervareSejur.add(jLabel91);
         jLabel91.setBounds(80, 250, 60, 30);
 
         jLabel92.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel92.setForeground(new java.awt.Color(0, 0, 0));
         jLabel92.setText("Destinatie");
         rezervareSejur.add(jLabel92);
         jLabel92.setBounds(230, 250, 80, 30);
 
         jLabel93.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel93.setForeground(new java.awt.Color(0, 0, 0));
         jLabel93.setText("Data plecare");
         rezervareSejur.add(jLabel93);
         jLabel93.setBounds(400, 250, 90, 30);
 
         jLabel94.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel94.setForeground(new java.awt.Color(0, 0, 0));
         jLabel94.setText("Data sosire");
         rezervareSejur.add(jLabel94);
         jLabel94.setBounds(560, 250, 80, 30);
 
         contClient1.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
-        contClient1.setForeground(new java.awt.Color(0, 0, 0));
         contClient1.setText("Cont");
         rezervareSejur.add(contClient1);
         contClient1.setBounds(270, 185, 110, 30);
@@ -2394,16 +2266,14 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         });
         rezervareSejur.add(butonRezervaSejur);
-        butonRezervaSejur.setBounds(300, 430, 100, 33);
+        butonRezervaSejur.setBounds(300, 430, 100, 25);
 
         jLabel95.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        jLabel95.setForeground(new java.awt.Color(0, 0, 0));
         jLabel95.setText("Pret");
         rezervareSejur.add(jLabel95);
         jLabel95.setBounds(350, 340, 50, 30);
 
         nrPers.setFont(new java.awt.Font("Lucida Bright", 0, 14)); // NOI18N
-        nrPers.setForeground(new java.awt.Color(0, 0, 0));
         rezervareSejur.add(nrPers);
         nrPers.setBounds(220, 340, 70, 30);
 
@@ -2628,6 +2498,7 @@ public class PaginaTurism extends javax.swing.JFrame {
 
     private void iesireButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iesireButonActionPerformed
        JFrame primaPagina = new PrimaPagina();
+       agentieLabel = "";
        primaPagina.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_iesireButonActionPerformed
@@ -3707,6 +3578,7 @@ public class PaginaTurism extends javax.swing.JFrame {
     private javax.swing.JPanel adaugareCircuit;
     private javax.swing.JPanel adaugareHotel;
     private javax.swing.JPanel adaugareSejur;
+    public javax.swing.JLabel agentieTurism;
     private javax.swing.JComboBox<String> anData;
     private javax.swing.JComboBox<String> anPlecare;
     private javax.swing.JComboBox<String> anSosire;

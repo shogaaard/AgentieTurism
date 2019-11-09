@@ -29,7 +29,8 @@ public class PrimaPagina extends javax.swing.JFrame {
     /**
      * Creates new form PrimaPagina
      */
-    public static StringBuilder agentieLabel = new StringBuilder("Agentia ");
+    public static String agentieLabel = "";
+    public static int codAgentie;
     
     public PrimaPagina() {
         initComponents();
@@ -128,6 +129,7 @@ public class PrimaPagina extends javax.swing.JFrame {
        
        String cont = campUser.getText();
        String parola = new String(campParola.getPassword());
+       String denumireAgentie = "";
       
         try {
             Connection conn = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
@@ -150,27 +152,20 @@ public class PrimaPagina extends javax.swing.JFrame {
                     ResultSet rs3 = stmt3.executeQuery();
 
                     if (rs3.next()) {
-                        int codAgentie = rs3.getInt("cod_agentie");
-                        PreparedStatement pstmAgentie = conn3.prepareStatement("select denumire from agentie where cod_agentie=?");
-                        pstmAgentie.setInt(1, codAgentie);
-                        ResultSet rsAgentie = pstmAgentie.executeQuery();
-                        String denumireAgentie = "";
-                        if(rsAgentie.next()) {
-                            denumireAgentie = rsAgentie.getString("denumire");
-                        }
-                        agentieLabel.append(denumireAgentie);
+                        getAgentie(denumireAgentie, conn3, rs3);
                         JFrame paginaTicketing = new PaginaTicketing();                 
                         paginaTicketing.setVisible(true);
                         this.dispose();
                     } else {
                         try {
                             Connection conn1 = DriverManager.getConnection(CONN_STRING, USERNAME, PASSWORD);
-                            PreparedStatement stmt1 = conn1.prepareStatement("Select cont, parola from angajat where cont=? and parola=? and cod_functie=3");
+                            PreparedStatement stmt1 = conn1.prepareStatement("Select cont, parola, cod_agentie from angajat where cont=? and parola=? and cod_functie=3");
                             stmt1.setString(1, cont);
                             stmt1.setString(2, parola);
                             ResultSet rs1 = stmt1.executeQuery();
 
                             if (rs1.next()) {
+                                getAgentie(denumireAgentie, conn3, rs1);
                                 JFrame paginaTurism = new PaginaTurism();
                                 paginaTurism.setVisible(true);
                                 this.dispose();
@@ -216,6 +211,17 @@ public class PrimaPagina extends javax.swing.JFrame {
             
        
     }//GEN-LAST:event_submitActionPerformed
+
+    private void getAgentie(String denumireAgentie, Connection conn3, ResultSet rs3) throws SQLException {
+        codAgentie = rs3.getInt("cod_agentie");
+        PreparedStatement pstmAgentie = conn3.prepareStatement("select denumire from agentie where cod_agentie=?");
+        pstmAgentie.setInt(1, codAgentie);
+        ResultSet rsAgentie = pstmAgentie.executeQuery();
+        if(rsAgentie.next()) {
+            denumireAgentie = rsAgentie.getString("denumire");
+        }
+        agentieLabel = denumireAgentie;
+    }
 
     /**
      * @param args the command line arguments
