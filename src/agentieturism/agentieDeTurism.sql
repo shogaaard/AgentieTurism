@@ -15,6 +15,10 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
+--
+-- Table structure for table `agentie`
+--
+
 DROP TABLE IF EXISTS `agentie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
@@ -37,8 +41,15 @@ INSERT INTO `agentie` VALUES (1,'Expedia','Str. Florilor, Nr.45, Bucuresti','021
 /*!40000 ALTER TABLE `agentie` ENABLE KEYS */;
 UNLOCK TABLES;
 
+--
+-- Table structure for table `angajat`
+--
+
+DROP TABLE IF EXISTS `angajat`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+ SET character_set_client = utf8mb4 ;
 CREATE TABLE `angajat` (
-  `cod_angajat` int(11) NOT NULL,
+  `cod_angajat` int(11) NOT NULL AUTO_INCREMENT,
   `Nume` varchar(45) NOT NULL,
   `Prenume` varchar(45) NOT NULL,
   `Telefon` varchar(45) NOT NULL,
@@ -46,60 +57,30 @@ CREATE TABLE `angajat` (
   `cont` varchar(45) NOT NULL,
   `parola` varchar(45) NOT NULL,
   `cod_functie` int(11) NOT NULL,
-  `cod_agentie` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  `cod_agentie` int(11) NOT NULL,
+  PRIMARY KEY (`cod_angajat`),
+  UNIQUE KEY `Telefon_UNIQUE` (`Telefon`),
+  UNIQUE KEY `Email_UNIQUE` (`Email`),
+  UNIQUE KEY `cont_UNIQUE` (`cont`),
+  UNIQUE KEY `parola_UNIQUE` (`parola`),
+  KEY `fk_angajat_functie_idx` (`cod_functie`),
+  KEY `fk_angajat_agentie` (`cod_agentie`),
+  CONSTRAINT `fk_angajat_agentie` FOREIGN KEY (`cod_agentie`) REFERENCES `agentie` (`cod_agentie`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_angajat_functie` FOREIGN KEY (`cod_functie`) REFERENCES `functie` (`cod_functie`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Salvarea datelor din tabel `angajat`
+-- Dumping data for table `angajat`
 --
 
-INSERT INTO `angajat` (`cod_angajat`, `Nume`, `Prenume`, `Telefon`, `Email`, `cont`, `parola`, `cod_functie`, `cod_agentie`) VALUES
-(1, 'Popescu', 'Adrian', '0727808503', 'adi.popescu@yahoo.com', 'admin', '1234', 1, 0),
-(2, 'Ionescu', 'Elena', '0727000113', 'elena_ion@gmail.com', 'ie100', '1111', 2, 1),
-(3, 'Cristescu', 'George', '0728000111', 'cristigeo@gmail.com', 'cg100', '1112', 2, 2),
-(4, 'Matei', 'Corina', '0729000111', 'corinamatei@gmail.com', 'cm100', '2222', 3, 3),
-(5, 'Mocanu', 'Alexandru', '0730000111', 'alex_mocanu@yahoo.com', 'am100', '2223', 3, 1),
-(6, 'Vlad', 'Andrei', '0787122322', 'avlad@yahoo.com', 'av100', '3333', 2, 4),
-(12, 'Bratu', 'Alexandra', '0724896522', 'abratu@yahoocom', 'ab109', '2221', 2, 5);
+LOCK TABLES `angajat` WRITE;
+/*!40000 ALTER TABLE `angajat` DISABLE KEYS */;
+INSERT INTO `angajat` VALUES (1,'Popescu','Adrian','0727808503','adi.popescu@yahoo.com','admin','1234',1,0),(2,'Ionescu','Elena','0727000113','elena_ion@gmail.com','ie100','1111',2,1),(3,'Cristescu','George','0728000111','cristigeo@gmail.com','cg100','1112',2,2),(4,'Matei','Corina','0729000111','corinamatei@gmail.com','cm100','2222',3,3),(5,'Mocanu','Alexandru','0730000111','alex_mocanu@yahoo.com','am100','2223',3,1),(6,'Vlad','Andrei','0787122322','avlad@yahoo.com','av100','3333',2,4),(12,'Bratu','Alexandra','0724896522','abratu@yahoocom','ab109','2221',2,5);
+/*!40000 ALTER TABLE `angajat` ENABLE KEYS */;
+UNLOCK TABLES;
 
 --
--- Indexes for dumped tables
---
-
---
--- Indexes for table `angajat`
---
-ALTER TABLE `angajat`
-  ADD PRIMARY KEY (`cod_angajat`),
-  ADD UNIQUE KEY `Telefon_UNIQUE` (`Telefon`),
-  ADD UNIQUE KEY `Email_UNIQUE` (`Email`),
-  ADD UNIQUE KEY `cont_UNIQUE` (`cont`),
-  ADD UNIQUE KEY `parola_UNIQUE` (`parola`),
-  ADD KEY `fk_angajat_functie_idx` (`cod_functie`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `angajat`
---
-ALTER TABLE `angajat`
-  MODIFY `cod_angajat` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
-
---
--- Restrictii pentru tabele sterse
---
-
---
--- Restrictii pentru tabele `angajat`
---
-ALTER TABLE `angajat`
-  ADD CONSTRAINT `fk_angajat_functie` FOREIGN KEY (`cod_functie`) REFERENCES `functie` (`cod_functie`) ON DELETE CASCADE ON UPDATE CASCADE;
-ALTER TABLE `angajat`
-  ADD CONSTRAINT `fk_angajat_agentie` FOREIGN KEY (`cod_agentie`) REFERENCES `agentie` (`cod_agentie`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-
 -- Table structure for table `bilet`
 --
 
@@ -123,7 +104,7 @@ CREATE TABLE `bilet` (
 
 LOCK TABLES `bilet` WRITE;
 /*!40000 ALTER TABLE `bilet` DISABLE KEYS */;
-INSERT INTO `bilet` VALUES (1,2,500,'2018-01-25'),(1,3,550,'2018-03-25'),(2,1,1000,'2018-08-20'),(6,5,220,'2018-08-15'),(3,4,500,'2018-12-20'),(1,6,560,'2018-12-20'),(4,1,550,'2018-12-20'),(1,1,800,'2018-12-27'),(3,3,520,'2019-01-02'),(1,1,800,'2019-01-02'),(3,2,560,'2019-01-08'),(1,1,800,'2019-01-08'),(2,1,1500,'2019-01-09'),(2,1,1500,'2019-01-10'),(1,1,800,'2019-01-10');
+INSERT INTO `bilet` VALUES (1,2,500,'2018-01-25'),(1,3,550,'2018-03-25'),(2,1,1000,'2018-08-20'),(6,5,220,'2018-08-15'),(3,4,500,'2018-12-20'),(1,6,560,'2018-12-20'),(4,1,550,'2018-12-20'),(1,1,800,'2018-12-27'),(3,3,520,'2019-01-02'),(1,1,800,'2019-01-02'),(3,2,560,'2019-01-08'),(1,1,800,'2019-01-08'),(2,1,1500,'2019-01-09'),(2,1,1500,'2019-01-10'),(1,1,800,'2019-01-10'),(1,1,800,'2019-11-14');
 /*!40000 ALTER TABLE `bilet` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -421,7 +402,6 @@ INSERT INTO `pret_circuit` VALUES (1,1,5000,2),(1,2,2500,3),(1,3,3000,3),(1,5,40
 /*!40000 ALTER TABLE `pret_circuit` ENABLE KEYS */;
 UNLOCK TABLES;
 
-
 --
 -- Table structure for table `pret_sejur`
 --
@@ -543,6 +523,7 @@ DROP TABLE IF EXISTS `sezon`;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `sezon` (
   `cod_sezon` int(11) NOT NULL,
+  `denumire_sezon` varchar(100) DEFAULT NULL,
   `data_inceput` date NOT NULL,
   `data_sfarsit` date NOT NULL,
   PRIMARY KEY (`cod_sezon`)
@@ -555,7 +536,7 @@ CREATE TABLE `sezon` (
 
 LOCK TABLES `sezon` WRITE;
 /*!40000 ALTER TABLE `sezon` DISABLE KEYS */;
-INSERT INTO `sezon` VALUES (1,'2018-12-01','2019-01-15'),(2,'2019-01-16','2019-02-28'),(3,'2019-03-01','2019-04-01'),(4,'2019-04-02','2019-05-31'),(5,'2019-06-01','2019-07-20'),(6,'2019-07-21','2019-08-31'),(7,'2019-09-01','2019-11-30');
+INSERT INTO `sezon` VALUES (1,'Winter Holiday','2018-12-01','2019-01-15'),(2,'Sezon schi','2019-01-16','2019-02-28'),(3,'Primavara','2019-03-01','2019-04-01'),(4,'Vacanta de Paste','2019-04-02','2019-05-31'),(5,'Vara','2019-06-01','2019-07-20'),(6,'Concedii mare/munte vara','2019-07-21','2019-08-31'),(7,'Toamna','2019-09-01','2019-11-30');
 /*!40000 ALTER TABLE `sezon` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -631,4 +612,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-01-10 20:56:50
+-- Dump completed on 2019-11-14 13:41:08
