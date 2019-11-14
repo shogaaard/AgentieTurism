@@ -38,9 +38,7 @@ public class PaginaClient extends javax.swing.JFrame {
         fillComboTurcia();
         fillTabelRezervariCircuite();
         fillTabelRezervariSejururi();
-        fillComboAn();
-        fillComboAn1();
-        fillComboAn2();
+        fillComboAn();        
         fillComboDestinatie();
         fillComboDestinatie1();
         fillComboDestinatieBilet();
@@ -93,26 +91,13 @@ public class PaginaClient extends javax.swing.JFrame {
         return ((an%4==0) && (an%100!=0))|| an%400==0;
     }
      private void fillComboAn(){
-        for(int i=2019;i>=1990;i--)
+        for(int i=2020;i>=1990;i--)
             anul.addItem(Integer.toString(i));
         for(int i=1;i<=12;i++)
             luna.addItem(Integer.toString(i));
 
-    } 
-     private void fillComboAn1(){
-        for(int i=2019;i>=1990;i--)
-            anul1.addItem(Integer.toString(i));
-        for(int i=1;i<=12;i++)
-            luna1.addItem(Integer.toString(i));
-
-    } 
-     private void fillComboAn2(){
-        for(int i=2019;i>=1990;i--)
-            anul2.addItem(Integer.toString(i));
-        for(int i=1;i<=12;i++)
-            luna2.addItem(Integer.toString(i));
-
-    } 
+    }    
+    
      private void fillComboDestinatie(){
          try{
             Connection con = getConnection();
@@ -145,11 +130,13 @@ public class PaginaClient extends javax.swing.JFrame {
       
         try{
             Connection con = getConnection();
-            String sql = "SELECT * FROM sejur";
+            String sql = "select s.*, ps.valoare_sejur, a.denumire from sejur s, pret_sejur ps, agentie a\n" +
+                           "where s.cod_sejur = ps.sejur_cod_sejur\n" +
+                            "and a.cod_agentie = ps.cod_agentie;";
             PreparedStatement pstm = con.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
-                 model.addRow(new Object[]{""  + rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),  rs.getString(5)});
+                 model.addRow(new Object[]{""  + rs.getString("oras_plecare"), rs.getString("oras_sosire"), rs.getString("data_plecare"), rs.getString("data_sosire"),  rs.getString("valoare_sejur"), rs.getString("Denumire")});
             }           
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this,"Nu se pot accesa sejururile!");
@@ -158,7 +145,7 @@ public class PaginaClient extends javax.swing.JFrame {
       private void fillCircuite(){
         try{
             Connection con = getConnection();
-            String sql = "SELECT * FROM circuit";
+            String sql = "select * from circuit";
             PreparedStatement pstm = con.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
@@ -304,6 +291,51 @@ public class PaginaClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rezervareCircuit = new javax.swing.JPanel();
+        jLabel72 = new javax.swing.JLabel();
+        jLabel74 = new javax.swing.JLabel();
+        comboDestinatia1 = new javax.swing.JComboBox<>();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jScrollPane9 = new javax.swing.JScrollPane();
+        tabelOferteCircuite = new javax.swing.JTable();
+        jButton17 = new javax.swing.JButton();
+        jLabel59 = new javax.swing.JLabel();
+        rezervareSejur = new javax.swing.JPanel();
+        jLabel58 = new javax.swing.JLabel();
+        comboDestinatia = new javax.swing.JComboBox<>();
+        jLabel62 = new javax.swing.JLabel();
+        ziua = new javax.swing.JComboBox<>();
+        luna = new javax.swing.JComboBox<>();
+        anul = new javax.swing.JComboBox<>();
+        jLabel65 = new javax.swing.JLabel();
+        jButton4 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        butonOferte = new javax.swing.JButton();
+        jScrollPane8 = new javax.swing.JScrollPane();
+        tabelOferte = new javax.swing.JTable();
+        jLabel57 = new javax.swing.JLabel();
+        rezervareBilet = new javax.swing.JPanel();
+        jLabel85 = new javax.swing.JLabel();
+        jLabel86 = new javax.swing.JLabel();
+        comboFurnizori = new javax.swing.JComboBox<>();
+        jLabel87 = new javax.swing.JLabel();
+        comboDataPlecare = new javax.swing.JComboBox<>();
+        comboOraPlecare = new javax.swing.JComboBox<>();
+        jLabel88 = new javax.swing.JLabel();
+        comboDataSosire = new javax.swing.JComboBox<>();
+        jLabel89 = new javax.swing.JLabel();
+        jLabel90 = new javax.swing.JLabel();
+        comboNrPersBilet = new javax.swing.JComboBox<>();
+        jLabel91 = new javax.swing.JLabel();
+        comboDestinatie1 = new javax.swing.JComboBox<>();
+        jLabel92 = new javax.swing.JLabel();
+        pretBilet = new javax.swing.JTextField();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        comboOraSosire = new javax.swing.JComboBox<>();
+        jLabel93 = new javax.swing.JLabel();
+        jLabel103 = new javax.swing.JLabel();
         pagPrincipalaClient = new javax.swing.JPanel();
         labelWelcome = new javax.swing.JLabel();
         butonCautareSejur = new javax.swing.JButton();
@@ -460,85 +492,6 @@ public class PaginaClient extends javax.swing.JFrame {
         jLabel52 = new javax.swing.JLabel();
         butonInapoiCont = new javax.swing.JButton();
         butonSalveaza = new javax.swing.JButton();
-        rezervareSejur = new javax.swing.JPanel();
-        jLabel58 = new javax.swing.JLabel();
-        comboPlecare = new javax.swing.JComboBox<>();
-        jLabel60 = new javax.swing.JLabel();
-        comboDestinatia = new javax.swing.JComboBox<>();
-        jLabel61 = new javax.swing.JLabel();
-        jLabel62 = new javax.swing.JLabel();
-        ziua = new javax.swing.JComboBox<>();
-        luna = new javax.swing.JComboBox<>();
-        anul = new javax.swing.JComboBox<>();
-        jLabel63 = new javax.swing.JLabel();
-        anul1 = new javax.swing.JComboBox<>();
-        luna1 = new javax.swing.JComboBox<>();
-        ziua1 = new javax.swing.JComboBox<>();
-        nrPers = new javax.swing.JComboBox<>();
-        jLabel64 = new javax.swing.JLabel();
-        jLabel65 = new javax.swing.JLabel();
-        comboCazare = new javax.swing.JComboBox<>();
-        pretRezervSejur = new javax.swing.JTextField();
-        jLabel57 = new javax.swing.JLabel();
-        comboCamere1 = new javax.swing.JComboBox<>();
-        jLabel59 = new javax.swing.JLabel();
-        jLabel66 = new javax.swing.JLabel();
-        nrStele = new javax.swing.JTextField();
-        jLabel67 = new javax.swing.JLabel();
-        numeClientRezervSejur = new javax.swing.JTextField();
-        jButton4 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
-        jLabel68 = new javax.swing.JLabel();
-        telefonClientRezervSejur = new javax.swing.JTextField();
-        jLabel84 = new javax.swing.JLabel();
-        rezervareCircuit = new javax.swing.JPanel();
-        jLabel72 = new javax.swing.JLabel();
-        jLabel74 = new javax.swing.JLabel();
-        jLabel75 = new javax.swing.JLabel();
-        jLabel76 = new javax.swing.JLabel();
-        jLabel77 = new javax.swing.JLabel();
-        comboDestinatia1 = new javax.swing.JComboBox<>();
-        comboPlecare1 = new javax.swing.JComboBox<>();
-        anul2 = new javax.swing.JComboBox<>();
-        luna2 = new javax.swing.JComboBox<>();
-        ziua2 = new javax.swing.JComboBox<>();
-        nrPers1 = new javax.swing.JComboBox<>();
-        comboCazare1 = new javax.swing.JComboBox<>();
-        jLabel78 = new javax.swing.JLabel();
-        nrStele1 = new javax.swing.JTextField();
-        jLabel79 = new javax.swing.JLabel();
-        jLabel80 = new javax.swing.JLabel();
-        comboCamere2 = new javax.swing.JComboBox<>();
-        telefonClientRezervSejur1 = new javax.swing.JTextField();
-        jLabel81 = new javax.swing.JLabel();
-        jLabel82 = new javax.swing.JLabel();
-        pretRezervSejur1 = new javax.swing.JTextField();
-        jButton11 = new javax.swing.JButton();
-        numeClientRezervSejur1 = new javax.swing.JTextField();
-        jLabel83 = new javax.swing.JLabel();
-        jButton12 = new javax.swing.JButton();
-        jLabel71 = new javax.swing.JLabel();
-        rezervareBilet = new javax.swing.JPanel();
-        jLabel85 = new javax.swing.JLabel();
-        jLabel86 = new javax.swing.JLabel();
-        comboFurnizori = new javax.swing.JComboBox<>();
-        jLabel87 = new javax.swing.JLabel();
-        comboDataPlecare = new javax.swing.JComboBox<>();
-        comboOraPlecare = new javax.swing.JComboBox<>();
-        jLabel88 = new javax.swing.JLabel();
-        comboDataSosire = new javax.swing.JComboBox<>();
-        jLabel89 = new javax.swing.JLabel();
-        jLabel90 = new javax.swing.JLabel();
-        comboNrPersBilet = new javax.swing.JComboBox<>();
-        jLabel91 = new javax.swing.JLabel();
-        comboDestinatie1 = new javax.swing.JComboBox<>();
-        jLabel92 = new javax.swing.JLabel();
-        pretBilet = new javax.swing.JTextField();
-        jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        comboOraSosire = new javax.swing.JComboBox<>();
-        jLabel93 = new javax.swing.JLabel();
-        jLabel103 = new javax.swing.JLabel();
         detaliiZbor = new javax.swing.JPanel();
         jLabel94 = new javax.swing.JLabel();
         jLabel95 = new javax.swing.JLabel();
@@ -576,6 +529,356 @@ public class PaginaClient extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(710, 550));
         getContentPane().setLayout(null);
+
+        rezervareCircuit.setLayout(null);
+
+        jLabel72.setFont(new java.awt.Font("Lucida Bright", 1, 16)); // NOI18N
+        jLabel72.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel72.setText("Oferte Circuite");
+        rezervareCircuit.add(jLabel72);
+        jLabel72.setBounds(250, 30, 150, 30);
+
+        jLabel74.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel74.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel74.setText("Destinatia");
+        rezervareCircuit.add(jLabel74);
+        jLabel74.setBounds(120, 100, 80, 30);
+
+        comboDestinatia1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboDestinatia1.setForeground(new java.awt.Color(0, 0, 0));
+        comboDestinatia1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboDestinatia1ItemStateChanged(evt);
+            }
+        });
+        comboDestinatia1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDestinatia1ActionPerformed(evt);
+            }
+        });
+        rezervareCircuit.add(comboDestinatia1);
+        comboDestinatia1.setBounds(240, 97, 170, 30);
+
+        jButton11.setBackground(new java.awt.Color(0, 102, 102));
+        jButton11.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("Rezerva Acum");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        rezervareCircuit.add(jButton11);
+        jButton11.setBounds(70, 400, 150, 40);
+
+        jButton12.setBackground(new java.awt.Color(0, 102, 102));
+        jButton12.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jButton12.setForeground(new java.awt.Color(255, 255, 255));
+        jButton12.setText("Inapoi");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        rezervareCircuit.add(jButton12);
+        jButton12.setBounds(500, 400, 90, 40);
+
+        tabelOferteCircuite.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Circuit", "Cazare", "Numar stele", "Pret", "Agentie"
+            }
+        ));
+        jScrollPane9.setViewportView(tabelOferteCircuite);
+
+        rezervareCircuit.add(jScrollPane9);
+        jScrollPane9.setBounds(0, 190, 700, 170);
+
+        jButton17.setBackground(new java.awt.Color(0, 102, 102));
+        jButton17.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jButton17.setForeground(new java.awt.Color(255, 255, 255));
+        jButton17.setText("Vezi oferte!");
+        jButton17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton17ActionPerformed(evt);
+            }
+        });
+        rezervareCircuit.add(jButton17);
+        jButton17.setBounds(490, 90, 130, 30);
+
+        jLabel59.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agentieturism/clientbg.jpg"))); // NOI18N
+        rezervareCircuit.add(jLabel59);
+        jLabel59.setBounds(0, 0, 730, 520);
+
+        getContentPane().add(rezervareCircuit);
+        rezervareCircuit.setBounds(0, 0, 700, 520);
+
+        rezervareSejur.setLayout(null);
+
+        jLabel58.setFont(new java.awt.Font("Lucida Bright", 1, 16)); // NOI18N
+        jLabel58.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel58.setText("Oferte Sejururi");
+        rezervareSejur.add(jLabel58);
+        jLabel58.setBounds(300, 20, 130, 30);
+
+        comboDestinatia.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboDestinatia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboDestinatiaItemStateChanged(evt);
+            }
+        });
+        comboDestinatia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDestinatiaActionPerformed(evt);
+            }
+        });
+        rezervareSejur.add(comboDestinatia);
+        comboDestinatia.setBounds(70, 120, 140, 27);
+
+        jLabel62.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel62.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel62.setText("Data Plecare");
+        rezervareSejur.add(jLabel62);
+        jLabel62.setBounds(350, 70, 100, 30);
+
+        ziua.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        rezervareSejur.add(ziua);
+        ziua.setBounds(450, 120, 60, 27);
+
+        luna.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        luna.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                lunaActionPerformed(evt);
+            }
+        });
+        rezervareSejur.add(luna);
+        luna.setBounds(360, 120, 70, 27);
+
+        anul.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        anul.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anulActionPerformed(evt);
+            }
+        });
+        rezervareSejur.add(anul);
+        anul.setBounds(250, 120, 90, 27);
+
+        jLabel65.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel65.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel65.setText("Destinatia");
+        rezervareSejur.add(jLabel65);
+        jLabel65.setBounds(100, 70, 80, 30);
+
+        jButton4.setBackground(new java.awt.Color(0, 102, 102));
+        jButton4.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
+        jButton4.setText("Rezerva Acum");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
+        rezervareSejur.add(jButton4);
+        jButton4.setBounds(70, 380, 150, 40);
+
+        jButton8.setBackground(new java.awt.Color(0, 102, 102));
+        jButton8.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jButton8.setForeground(new java.awt.Color(255, 255, 255));
+        jButton8.setText("Inapoi");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        rezervareSejur.add(jButton8);
+        jButton8.setBounds(570, 380, 90, 40);
+
+        butonOferte.setBackground(new java.awt.Color(0, 102, 102));
+        butonOferte.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        butonOferte.setForeground(new java.awt.Color(255, 255, 255));
+        butonOferte.setText("Vezi Oferte!");
+        butonOferte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butonOferteActionPerformed(evt);
+            }
+        });
+        rezervareSejur.add(butonOferte);
+        butonOferte.setBounds(550, 110, 120, 40);
+
+        tabelOferte.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Oras plecare", "Destinatie", "Plecare", "Sosire", "Cazare", "Pret", "Agentie"
+            }
+        ));
+        jScrollPane8.setViewportView(tabelOferte);
+
+        rezervareSejur.add(jScrollPane8);
+        jScrollPane8.setBounds(0, 220, 690, 140);
+
+        jLabel57.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agentieturism/clientbg.jpg"))); // NOI18N
+        rezervareSejur.add(jLabel57);
+        jLabel57.setBounds(0, 0, 720, 520);
+
+        getContentPane().add(rezervareSejur);
+        rezervareSejur.setBounds(0, 0, 700, 520);
+
+        rezervareBilet.setLayout(null);
+
+        jLabel85.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
+        jLabel85.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel85.setText("Rezervare Bilet");
+        rezervareBilet.add(jLabel85);
+        jLabel85.setBounds(250, 10, 150, 30);
+
+        jLabel86.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel86.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel86.setText("Destinatia");
+        rezervareBilet.add(jLabel86);
+        jLabel86.setBounds(70, 70, 80, 30);
+
+        comboFurnizori.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboFurnizori.setForeground(new java.awt.Color(0, 0, 0));
+        rezervareBilet.add(comboFurnizori);
+        comboFurnizori.setBounds(470, 200, 140, 30);
+
+        jLabel87.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel87.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel87.setText("Ora Plecare");
+        rezervareBilet.add(jLabel87);
+        jLabel87.setBounds(530, 60, 100, 30);
+
+        comboDataPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboDataPlecare.setForeground(new java.awt.Color(0, 0, 0));
+        comboDataPlecare.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDataPlecareActionPerformed(evt);
+            }
+        });
+        rezervareBilet.add(comboDataPlecare);
+        comboDataPlecare.setBounds(250, 110, 180, 30);
+
+        comboOraPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboOraPlecare.setForeground(new java.awt.Color(0, 0, 0));
+        rezervareBilet.add(comboOraPlecare);
+        comboOraPlecare.setBounds(530, 110, 70, 27);
+
+        jLabel88.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel88.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel88.setText("Pret");
+        rezervareBilet.add(jLabel88);
+        jLabel88.setBounds(270, 260, 100, 30);
+
+        comboDataSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboDataSosire.setForeground(new java.awt.Color(0, 0, 0));
+        comboDataSosire.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDataSosireActionPerformed(evt);
+            }
+        });
+        rezervareBilet.add(comboDataSosire);
+        comboDataSosire.setBounds(50, 210, 170, 30);
+
+        jLabel89.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel89.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel89.setText("Data Plecare");
+        rezervareBilet.add(jLabel89);
+        jLabel89.setBounds(260, 70, 100, 30);
+
+        jLabel90.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel90.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel90.setText("Nr. Pers");
+        rezervareBilet.add(jLabel90);
+        jLabel90.setBounds(90, 260, 80, 30);
+
+        comboNrPersBilet.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboNrPersBilet.setForeground(new java.awt.Color(0, 0, 0));
+        comboNrPersBilet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "4", "3", "2", "1" }));
+        rezervareBilet.add(comboNrPersBilet);
+        comboNrPersBilet.setBounds(90, 310, 70, 30);
+
+        jLabel91.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel91.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel91.setText("Data Sosire");
+        rezervareBilet.add(jLabel91);
+        jLabel91.setBounds(70, 170, 100, 30);
+
+        comboDestinatie1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboDestinatie1.setForeground(new java.awt.Color(0, 0, 0));
+        comboDestinatie1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboDestinatie1ActionPerformed(evt);
+            }
+        });
+        rezervareBilet.add(comboDestinatie1);
+        comboDestinatie1.setBounds(50, 110, 140, 30);
+
+        jLabel92.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel92.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel92.setText("Furnizor");
+        rezervareBilet.add(jLabel92);
+        jLabel92.setBounds(470, 160, 100, 30);
+
+        pretBilet.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        pretBilet.setForeground(new java.awt.Color(0, 0, 0));
+        pretBilet.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pretBiletMouseClicked(evt);
+            }
+        });
+        pretBilet.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pretBiletActionPerformed(evt);
+            }
+        });
+        rezervareBilet.add(pretBilet);
+        pretBilet.setBounds(250, 310, 130, 30);
+
+        jButton13.setBackground(new java.awt.Color(0, 102, 102));
+        jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jButton13.setForeground(new java.awt.Color(255, 255, 255));
+        jButton13.setText("Inapoi");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        rezervareBilet.add(jButton13);
+        jButton13.setBounds(70, 380, 110, 40);
+
+        jButton14.setBackground(new java.awt.Color(0, 102, 102));
+        jButton14.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jButton14.setForeground(new java.awt.Color(255, 255, 255));
+        jButton14.setText("Urmatorul pas");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        rezervareBilet.add(jButton14);
+        jButton14.setBounds(460, 380, 150, 40);
+
+        comboOraSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        comboOraSosire.setForeground(new java.awt.Color(0, 0, 0));
+        rezervareBilet.add(comboOraSosire);
+        comboOraSosire.setBounds(310, 207, 70, 30);
+
+        jLabel93.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
+        jLabel93.setForeground(new java.awt.Color(0, 0, 0));
+        jLabel93.setText("Ora Sosire");
+        rezervareBilet.add(jLabel93);
+        jLabel93.setBounds(300, 160, 80, 30);
+
+        jLabel103.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agentieturism/clientbg.jpg"))); // NOI18N
+        rezervareBilet.add(jLabel103);
+        jLabel103.setBounds(0, 0, 710, 530);
+
+        getContentPane().add(rezervareBilet);
+        rezervareBilet.setBounds(0, 0, 700, 520);
 
         pagPrincipalaClient.setLayout(null);
 
@@ -1683,631 +1986,6 @@ public class PaginaClient extends javax.swing.JFrame {
         getContentPane().add(contulMeu);
         contulMeu.setBounds(0, 0, 700, 520);
 
-        rezervareSejur.setLayout(null);
-
-        jLabel58.setFont(new java.awt.Font("Lucida Bright", 1, 16)); // NOI18N
-        jLabel58.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel58.setText("Rezervare Sejur");
-        rezervareSejur.add(jLabel58);
-        jLabel58.setBounds(260, 20, 130, 30);
-
-        comboPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboPlecare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboPlecareActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(comboPlecare);
-        comboPlecare.setBounds(240, 120, 130, 27);
-
-        jLabel60.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel60.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel60.setText("Pret");
-        rezervareSejur.add(jLabel60);
-        jLabel60.setBounds(430, 330, 70, 30);
-
-        comboDestinatia.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboDestinatia.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboDestinatiaItemStateChanged(evt);
-            }
-        });
-        comboDestinatia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboDestinatiaActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(comboDestinatia);
-        comboDestinatia.setBounds(40, 120, 140, 27);
-
-        jLabel61.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel61.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel61.setText("Oras Plecare");
-        rezervareSejur.add(jLabel61);
-        jLabel61.setBounds(270, 70, 100, 30);
-
-        jLabel62.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel62.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel62.setText("Data Plecare");
-        rezervareSejur.add(jLabel62);
-        jLabel62.setBounds(130, 160, 100, 30);
-
-        ziua.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        rezervareSejur.add(ziua);
-        ziua.setBounds(220, 210, 60, 27);
-
-        luna.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        luna.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                lunaActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(luna);
-        luna.setBounds(140, 210, 70, 27);
-
-        anul.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        anul.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anulActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(anul);
-        anul.setBounds(40, 210, 90, 27);
-
-        jLabel63.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel63.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel63.setText("Data Sosire");
-        rezervareSejur.add(jLabel63);
-        jLabel63.setBounds(420, 160, 100, 30);
-
-        anul1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        anul1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anul1ActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(anul1);
-        anul1.setBounds(330, 210, 90, 27);
-
-        luna1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        luna1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                luna1ActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(luna1);
-        luna1.setBounds(430, 210, 70, 27);
-
-        ziua1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        rezervareSejur.add(ziua1);
-        ziua1.setBounds(510, 210, 60, 27);
-
-        nrPers.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        nrPers.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "4", "3", "2", "1" }));
-        rezervareSejur.add(nrPers);
-        nrPers.setBounds(420, 120, 70, 27);
-
-        jLabel64.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel64.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel64.setText("Nr. Persoane");
-        rezervareSejur.add(jLabel64);
-        jLabel64.setBounds(420, 70, 100, 30);
-
-        jLabel65.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel65.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel65.setText("Destinatia");
-        rezervareSejur.add(jLabel65);
-        jLabel65.setBounds(70, 70, 80, 30);
-
-        comboCazare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCazare.setForeground(new java.awt.Color(0, 0, 0));
-        comboCazare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCazareActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(comboCazare);
-        comboCazare.setBounds(40, 290, 150, 26);
-
-        pretRezervSejur.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        pretRezervSejur.setForeground(new java.awt.Color(0, 0, 0));
-        pretRezervSejur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pretRezervSejurMouseClicked(evt);
-            }
-        });
-        pretRezervSejur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pretRezervSejurActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(pretRezervSejur);
-        pretRezervSejur.setBounds(430, 370, 120, 25);
-
-        jLabel57.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel57.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel57.setText("Numar Stele");
-        rezervareSejur.add(jLabel57);
-        jLabel57.setBounds(220, 260, 100, 17);
-
-        comboCamere1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCamere1.setForeground(new java.awt.Color(0, 0, 0));
-        comboCamere1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCamere1ActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(comboCamere1);
-        comboCamere1.setBounds(350, 290, 150, 26);
-
-        jLabel59.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel59.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel59.setText("Camere");
-        rezervareSejur.add(jLabel59);
-        jLabel59.setBounds(350, 260, 100, 17);
-
-        jLabel66.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel66.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel66.setText("Cazare");
-        rezervareSejur.add(jLabel66);
-        jLabel66.setBounds(40, 250, 100, 30);
-
-        nrStele.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        nrStele.setForeground(new java.awt.Color(0, 0, 0));
-        rezervareSejur.add(nrStele);
-        nrStele.setBounds(220, 290, 90, 25);
-
-        jLabel67.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel67.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel67.setText("Dl./Dna.");
-        rezervareSejur.add(jLabel67);
-        jLabel67.setBounds(40, 330, 70, 30);
-
-        numeClientRezervSejur.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        numeClientRezervSejur.setForeground(new java.awt.Color(0, 0, 0));
-        numeClientRezervSejur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                numeClientRezervSejurMouseClicked(evt);
-            }
-        });
-        numeClientRezervSejur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numeClientRezervSejurActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(numeClientRezervSejur);
-        numeClientRezervSejur.setBounds(40, 370, 160, 25);
-
-        jButton4.setBackground(new java.awt.Color(0, 102, 102));
-        jButton4.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jButton4.setForeground(new java.awt.Color(255, 255, 255));
-        jButton4.setText("Rezerva Acum");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(jButton4);
-        jButton4.setBounds(270, 430, 150, 40);
-
-        jButton8.setBackground(new java.awt.Color(0, 102, 102));
-        jButton8.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jButton8.setForeground(new java.awt.Color(255, 255, 255));
-        jButton8.setText("Inapoi");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(jButton8);
-        jButton8.setBounds(540, 430, 90, 40);
-
-        jLabel68.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel68.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel68.setText("Telefon");
-        rezervareSejur.add(jLabel68);
-        jLabel68.setBounds(230, 330, 70, 30);
-
-        telefonClientRezervSejur.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        telefonClientRezervSejur.setForeground(new java.awt.Color(0, 0, 0));
-        telefonClientRezervSejur.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                telefonClientRezervSejurMouseClicked(evt);
-            }
-        });
-        telefonClientRezervSejur.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefonClientRezervSejurActionPerformed(evt);
-            }
-        });
-        rezervareSejur.add(telefonClientRezervSejur);
-        telefonClientRezervSejur.setBounds(230, 370, 160, 25);
-
-        jLabel84.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agentieturism/clientbg.jpg"))); // NOI18N
-        rezervareSejur.add(jLabel84);
-        jLabel84.setBounds(0, 0, 680, 530);
-
-        getContentPane().add(rezervareSejur);
-        rezervareSejur.setBounds(0, 0, 700, 520);
-
-        rezervareCircuit.setLayout(null);
-
-        jLabel72.setFont(new java.awt.Font("Lucida Bright", 1, 16)); // NOI18N
-        jLabel72.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel72.setText("Rezervare Circuit");
-        rezervareCircuit.add(jLabel72);
-        jLabel72.setBounds(260, 20, 150, 30);
-
-        jLabel74.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel74.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel74.setText("Destinatia");
-        rezervareCircuit.add(jLabel74);
-        jLabel74.setBounds(120, 70, 80, 30);
-
-        jLabel75.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel75.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel75.setText("Denumire Circuit");
-        rezervareCircuit.add(jLabel75);
-        jLabel75.setBounds(290, 70, 122, 30);
-
-        jLabel76.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel76.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel76.setText("Nr. Persoane");
-        rezervareCircuit.add(jLabel76);
-        jLabel76.setBounds(470, 70, 100, 30);
-
-        jLabel77.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel77.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel77.setText("Data Plecare");
-        rezervareCircuit.add(jLabel77);
-        jLabel77.setBounds(310, 160, 100, 30);
-
-        comboDestinatia1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboDestinatia1.setForeground(new java.awt.Color(0, 0, 0));
-        comboDestinatia1.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                comboDestinatia1ItemStateChanged(evt);
-            }
-        });
-        comboDestinatia1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboDestinatia1ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(comboDestinatia1);
-        comboDestinatia1.setBounds(90, 120, 140, 27);
-
-        comboPlecare1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboPlecare1.setForeground(new java.awt.Color(0, 0, 0));
-        comboPlecare1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboPlecare1ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(comboPlecare1);
-        comboPlecare1.setBounds(290, 120, 130, 27);
-
-        anul2.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        anul2.setForeground(new java.awt.Color(0, 0, 0));
-        anul2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                anul2ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(anul2);
-        anul2.setBounds(220, 210, 90, 27);
-
-        luna2.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        luna2.setForeground(new java.awt.Color(0, 0, 0));
-        luna2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                luna2ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(luna2);
-        luna2.setBounds(320, 210, 70, 27);
-
-        ziua2.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        ziua2.setForeground(new java.awt.Color(0, 0, 0));
-        rezervareCircuit.add(ziua2);
-        ziua2.setBounds(400, 210, 60, 27);
-
-        nrPers1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        nrPers1.setForeground(new java.awt.Color(0, 0, 0));
-        nrPers1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "4", "3", "2", "1" }));
-        rezervareCircuit.add(nrPers1);
-        nrPers1.setBounds(470, 120, 70, 27);
-
-        comboCazare1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCazare1.setForeground(new java.awt.Color(0, 0, 0));
-        comboCazare1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCazare1ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(comboCazare1);
-        comboCazare1.setBounds(90, 290, 150, 26);
-
-        jLabel78.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel78.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel78.setText("Cazare");
-        rezervareCircuit.add(jLabel78);
-        jLabel78.setBounds(90, 250, 100, 30);
-
-        nrStele1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        nrStele1.setForeground(new java.awt.Color(0, 0, 0));
-        rezervareCircuit.add(nrStele1);
-        nrStele1.setBounds(280, 290, 90, 25);
-
-        jLabel79.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel79.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel79.setText("Numar Stele");
-        rezervareCircuit.add(jLabel79);
-        jLabel79.setBounds(280, 260, 100, 17);
-
-        jLabel80.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel80.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel80.setText("Camere");
-        rezervareCircuit.add(jLabel80);
-        jLabel80.setBounds(430, 260, 100, 17);
-
-        comboCamere2.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboCamere2.setForeground(new java.awt.Color(0, 0, 0));
-        comboCamere2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboCamere2ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(comboCamere2);
-        comboCamere2.setBounds(400, 290, 150, 26);
-
-        telefonClientRezervSejur1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        telefonClientRezervSejur1.setForeground(new java.awt.Color(0, 0, 0));
-        telefonClientRezervSejur1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                telefonClientRezervSejur1MouseClicked(evt);
-            }
-        });
-        telefonClientRezervSejur1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                telefonClientRezervSejur1ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(telefonClientRezervSejur1);
-        telefonClientRezervSejur1.setBounds(280, 370, 160, 25);
-
-        jLabel81.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel81.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel81.setText("Telefon");
-        rezervareCircuit.add(jLabel81);
-        jLabel81.setBounds(280, 330, 70, 30);
-
-        jLabel82.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel82.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel82.setText("Pret");
-        rezervareCircuit.add(jLabel82);
-        jLabel82.setBounds(480, 330, 70, 30);
-
-        pretRezervSejur1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        pretRezervSejur1.setForeground(new java.awt.Color(0, 0, 0));
-        pretRezervSejur1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pretRezervSejur1MouseClicked(evt);
-            }
-        });
-        pretRezervSejur1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pretRezervSejur1ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(pretRezervSejur1);
-        pretRezervSejur1.setBounds(480, 370, 120, 25);
-
-        jButton11.setBackground(new java.awt.Color(0, 102, 102));
-        jButton11.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jButton11.setForeground(new java.awt.Color(255, 255, 255));
-        jButton11.setText("Rezerva Acum");
-        jButton11.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton11ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(jButton11);
-        jButton11.setBounds(270, 430, 150, 40);
-
-        numeClientRezervSejur1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        numeClientRezervSejur1.setForeground(new java.awt.Color(0, 0, 0));
-        numeClientRezervSejur1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                numeClientRezervSejur1MouseClicked(evt);
-            }
-        });
-        numeClientRezervSejur1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                numeClientRezervSejur1ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(numeClientRezervSejur1);
-        numeClientRezervSejur1.setBounds(90, 370, 160, 25);
-
-        jLabel83.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel83.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel83.setText("Dl./Dna.");
-        rezervareCircuit.add(jLabel83);
-        jLabel83.setBounds(90, 330, 70, 30);
-
-        jButton12.setBackground(new java.awt.Color(0, 102, 102));
-        jButton12.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jButton12.setForeground(new java.awt.Color(255, 255, 255));
-        jButton12.setText("Inapoi");
-        jButton12.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton12ActionPerformed(evt);
-            }
-        });
-        rezervareCircuit.add(jButton12);
-        jButton12.setBounds(540, 430, 90, 40);
-
-        jLabel71.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agentieturism/clientbg.jpg"))); // NOI18N
-        rezervareCircuit.add(jLabel71);
-        jLabel71.setBounds(0, 0, 710, 540);
-
-        getContentPane().add(rezervareCircuit);
-        rezervareCircuit.setBounds(0, 0, 700, 520);
-
-        rezervareBilet.setLayout(null);
-
-        jLabel85.setFont(new java.awt.Font("Lucida Bright", 1, 18)); // NOI18N
-        jLabel85.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel85.setText("Rezervare Bilet");
-        rezervareBilet.add(jLabel85);
-        jLabel85.setBounds(250, 10, 150, 30);
-
-        jLabel86.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel86.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel86.setText("Destinatia");
-        rezervareBilet.add(jLabel86);
-        jLabel86.setBounds(70, 70, 80, 30);
-
-        comboFurnizori.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboFurnizori.setForeground(new java.awt.Color(0, 0, 0));
-        rezervareBilet.add(comboFurnizori);
-        comboFurnizori.setBounds(470, 200, 140, 30);
-
-        jLabel87.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel87.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel87.setText("Ora Plecare");
-        rezervareBilet.add(jLabel87);
-        jLabel87.setBounds(530, 60, 100, 30);
-
-        comboDataPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboDataPlecare.setForeground(new java.awt.Color(0, 0, 0));
-        comboDataPlecare.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboDataPlecareActionPerformed(evt);
-            }
-        });
-        rezervareBilet.add(comboDataPlecare);
-        comboDataPlecare.setBounds(250, 110, 180, 30);
-
-        comboOraPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboOraPlecare.setForeground(new java.awt.Color(0, 0, 0));
-        rezervareBilet.add(comboOraPlecare);
-        comboOraPlecare.setBounds(530, 110, 70, 27);
-
-        jLabel88.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel88.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel88.setText("Pret");
-        rezervareBilet.add(jLabel88);
-        jLabel88.setBounds(270, 260, 100, 30);
-
-        comboDataSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboDataSosire.setForeground(new java.awt.Color(0, 0, 0));
-        comboDataSosire.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboDataSosireActionPerformed(evt);
-            }
-        });
-        rezervareBilet.add(comboDataSosire);
-        comboDataSosire.setBounds(50, 210, 170, 30);
-
-        jLabel89.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel89.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel89.setText("Data Plecare");
-        rezervareBilet.add(jLabel89);
-        jLabel89.setBounds(260, 70, 100, 30);
-
-        jLabel90.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel90.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel90.setText("Nr. Pers");
-        rezervareBilet.add(jLabel90);
-        jLabel90.setBounds(90, 260, 80, 30);
-
-        comboNrPersBilet.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboNrPersBilet.setForeground(new java.awt.Color(0, 0, 0));
-        comboNrPersBilet.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "4", "3", "2", "1" }));
-        rezervareBilet.add(comboNrPersBilet);
-        comboNrPersBilet.setBounds(90, 310, 70, 30);
-
-        jLabel91.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel91.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel91.setText("Data Sosire");
-        rezervareBilet.add(jLabel91);
-        jLabel91.setBounds(70, 170, 100, 30);
-
-        comboDestinatie1.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboDestinatie1.setForeground(new java.awt.Color(0, 0, 0));
-        comboDestinatie1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboDestinatie1ActionPerformed(evt);
-            }
-        });
-        rezervareBilet.add(comboDestinatie1);
-        comboDestinatie1.setBounds(50, 110, 140, 30);
-
-        jLabel92.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel92.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel92.setText("Furnizor");
-        rezervareBilet.add(jLabel92);
-        jLabel92.setBounds(470, 160, 100, 30);
-
-        pretBilet.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        pretBilet.setForeground(new java.awt.Color(0, 0, 0));
-        pretBilet.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                pretBiletMouseClicked(evt);
-            }
-        });
-        pretBilet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                pretBiletActionPerformed(evt);
-            }
-        });
-        rezervareBilet.add(pretBilet);
-        pretBilet.setBounds(250, 310, 130, 30);
-
-        jButton13.setBackground(new java.awt.Color(0, 102, 102));
-        jButton13.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jButton13.setForeground(new java.awt.Color(255, 255, 255));
-        jButton13.setText("Inapoi");
-        jButton13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton13ActionPerformed(evt);
-            }
-        });
-        rezervareBilet.add(jButton13);
-        jButton13.setBounds(70, 380, 110, 40);
-
-        jButton14.setBackground(new java.awt.Color(0, 102, 102));
-        jButton14.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jButton14.setForeground(new java.awt.Color(255, 255, 255));
-        jButton14.setText("Urmatorul pas");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
-            }
-        });
-        rezervareBilet.add(jButton14);
-        jButton14.setBounds(460, 380, 150, 40);
-
-        comboOraSosire.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboOraSosire.setForeground(new java.awt.Color(0, 0, 0));
-        rezervareBilet.add(comboOraSosire);
-        comboOraSosire.setBounds(310, 207, 70, 30);
-
-        jLabel93.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        jLabel93.setForeground(new java.awt.Color(0, 0, 0));
-        jLabel93.setText("Ora Sosire");
-        rezervareBilet.add(jLabel93);
-        jLabel93.setBounds(300, 160, 80, 30);
-
-        jLabel103.setIcon(new javax.swing.ImageIcon(getClass().getResource("/agentieturism/clientbg.jpg"))); // NOI18N
-        rezervareBilet.add(jLabel103);
-        jLabel103.setBounds(0, 0, 710, 530);
-
-        getContentPane().add(rezervareBilet);
-        rezervareBilet.setBounds(0, 0, 700, 520);
-
         detaliiZbor.setLayout(null);
 
         jLabel94.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
@@ -2570,19 +2248,23 @@ public class PaginaClient extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) tabelOrase.getModel();
         try{
             Connection con = getConnection();
-            String sql = "select nume_oras, tara from oras,circuit where oras.cod_circuit = circuit.cod_circuit and denumire=?";
+            String sql = "select c.denumire, a.denumire, pc.valoare_circuit, s.denumire_sezon\n" +
+                            "from circuit c, agentie a, pret_circuit pc, sezon s\n" +
+                            "where c.cod_circuit = pc.circuit_cod_circuit\n" +
+                            "and a.cod_agentie = pc.cod_agentie_circuit\n" +
+                            "and pc.sezon_cod_Sezon = s.cod_sezon\n" +
+                            "and c.denumire = ?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, comboCircuite.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            model.setRowCount(0);
+            model.setRowCount(0);            
             while(rs.next()){
-                model.addRow(new Object[]{""  + rs.getString(1), rs.getString(2)});
-
+               model.addRow(new Object[]{""  + rs.getString("c.denumire"), rs.getInt("valoare_circuit"), rs.getString("denumire_sezon"), rs.getString("a.denumire")});
             }
-
+           
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(this,"Nu se pot accesa orasele!");
-
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_comboCircuiteActionPerformed
 
@@ -2812,7 +2494,6 @@ public class PaginaClient extends javax.swing.JFrame {
             }
 
         }catch (SQLException ex) {
-            System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(this,"Nu se poate realiza cautarea!");
         }
     }//GEN-LAST:event_butonCautaSejurActionPerformed
@@ -2863,7 +2544,6 @@ public class PaginaClient extends javax.swing.JFrame {
             }
 
         }catch (SQLException ex) {
-            System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(this,"Nu se poate realiza cautarea!");
         }
     }//GEN-LAST:event_butonCautaCircuitActionPerformed
@@ -3083,7 +2763,6 @@ public class PaginaClient extends javax.swing.JFrame {
             model2.removeRow(tabelRezervariSejururi.getSelectedRow());
             }
         }catch(SQLException e){
-            System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(this,"Nu se poate anula rezervarea!");
         }
                 
@@ -3122,62 +2801,6 @@ public class PaginaClient extends javax.swing.JFrame {
 
     }//GEN-LAST:event_anulActionPerformed
 
-    private void anul1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anul1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_anul1ActionPerformed
-
-    private void luna1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_luna1ActionPerformed
-     if(luna1.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anul1.getSelectedItem().toString()))){
-            ziua1.removeAllItems();
-            for(int i=1;i<=29;i++){
-                ziua1.addItem(Integer.toString(i));
-            }
-        } else if(luna1.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anul1.getSelectedItem().toString()))==false){
-            ziua1.removeAllItems();
-            for(int i=1;i<=28;i++){
-                ziua1.addItem(Integer.toString(i));
-            }
-        } else if(luna1.getSelectedItem().equals("1")|| luna1.getSelectedItem().equals("3") || luna1.getSelectedItem().equals("5") || luna1.getSelectedItem().equals("7") || luna1.getSelectedItem().equals("8") || luna1.getSelectedItem().equals("10") || luna1.getSelectedItem().equals("12")){
-            ziua1.removeAllItems();
-            for(int i=1;i<=31;i++){
-                ziua1.addItem(Integer.toString(i));
-            }
-        } else{
-            ziua1.removeAllItems();
-            for(int i=1;i<=30;i++){
-                ziua1.addItem(Integer.toString(i));
-            }
-        }
-    }//GEN-LAST:event_luna1ActionPerformed
-
-    private void comboCazareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCazareActionPerformed
-        try{
-            Connection con = getConnection();
-            String sql = "SELECT nr_stele FROM cazare WHERE denumire_cazare=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,comboCazare.getSelectedItem().toString());
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                nrStele.setText(rs.getString(1));
-            }
-            String altSql = "SELECT tip_camera FROM cazare, camera WHERE cazare.cod_cazare = camera.cod_cazare and denumire_cazare=? ";
-            PreparedStatement pstm1 = con.prepareStatement(altSql);
-            pstm1.setString(1, comboCazare.getSelectedItem().toString());
-            ResultSet rs1 = pstm1.executeQuery();
-            comboCamere1.removeAllItems();
-            while(rs1.next()){
-                comboCamere1.addItem(rs1.getString(1));
-            }
-           
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot vedea tipurile de camere!");
-        }
-    }//GEN-LAST:event_comboCazareActionPerformed
-
-    private void comboCamere1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCamere1ActionPerformed
-       
-    }//GEN-LAST:event_comboCamere1ActionPerformed
-
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         try{
             Connection con = getConnection();
@@ -3188,7 +2811,7 @@ public class PaginaClient extends javax.swing.JFrame {
             String getSejur = "SELECT cod_sejur FROM sejur WHERE oras_sosire=? AND oras_plecare=?";
             PreparedStatement pstm2 = con.prepareStatement(getSejur);
             pstm2.setString(1,comboDestinatia.getSelectedItem().toString());
-            pstm2.setString(2,comboPlecare.getSelectedItem().toString());            
+            pstm2.setString(2,tabelOferte.getValueAt(tabelOferte.getSelectedRow(),0).toString());            
             ResultSet rs2 = pstm2.executeQuery();
             
             String adaugaRezervare = "INSERT INTO rezervare_sejur VALUES(?,?,NULL)";
@@ -3201,7 +2824,8 @@ public class PaginaClient extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this,"Rezervare reusita!");
         }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Rezervare esuata!");            
+            JOptionPane.showMessageDialog(this,"Rezervare esuata!");  
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -3220,16 +2844,16 @@ public class PaginaClient extends javax.swing.JFrame {
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, comboDestinatia.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            comboPlecare.removeAllItems();
+//            comboPlecare.removeAllItems();
             while(rs.next() ){
-                comboPlecare.addItem(rs.getString(1));
+         //       comboPlecare.addItem(rs.getString(1));
             } 
             String sql1 = "SELECT denumire_cazare FROM cazare,sejur WHERE cazare.cod_sejur=sejur.cod_sejur AND oras_sosire=?";
             PreparedStatement pstm1 = con.prepareStatement(sql1);
             pstm1.setString(1,comboDestinatia.getSelectedItem().toString());
             ResultSet rs1 = pstm1.executeQuery();          
             while(rs1.next()){
-                comboCazare.addItem(rs1.getString(1));
+          ///      comboCazare.addItem(rs1.getString(1));
             }       
             
      }  catch (SQLException ex) {
@@ -3237,77 +2861,6 @@ public class PaginaClient extends javax.swing.JFrame {
         }      
         
     }//GEN-LAST:event_comboDestinatiaActionPerformed
-
-    private void numeClientRezervSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeClientRezervSejurActionPerformed
-        
-    }//GEN-LAST:event_numeClientRezervSejurActionPerformed
-
-    private void pretRezervSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pretRezervSejurActionPerformed
-        
-    }//GEN-LAST:event_pretRezervSejurActionPerformed
-
-    private void telefonClientRezervSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonClientRezervSejurActionPerformed
-       
-    }//GEN-LAST:event_telefonClientRezervSejurActionPerformed
-
-    private void numeClientRezervSejurMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeClientRezervSejurMouseClicked
-        try{
-             Connection con = getConnection();
-             String sql = "SELECT nume, prenume FROM client WHERE cont=?";
-             PreparedStatement pstm = con.prepareStatement(sql);
-             pstm.setString(1,campUser.getText());
-             ResultSet rs = pstm.executeQuery();
-             while(rs.next()){
-                 numeClientRezervSejur.setText(rs.getString(1)+" "+rs.getString(2));
-             }
-        }catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Client indisponibil!");           
-        }
-    }//GEN-LAST:event_numeClientRezervSejurMouseClicked
-
-    private void telefonClientRezervSejurMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_telefonClientRezervSejurMouseClicked
-        try{
-             Connection con = getConnection();
-             String sql = "SELECT telefon FROM client WHERE cont=?";
-             PreparedStatement pstm = con.prepareStatement(sql);
-             pstm.setString(1,campUser.getText());
-             ResultSet rs = pstm.executeQuery();
-             while(rs.next()){
-                 telefonClientRezervSejur.setText(rs.getString(1));
-             }
-        }catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Client indisponibil!");           
-        }
-    }//GEN-LAST:event_telefonClientRezervSejurMouseClicked
-
-    private void pretRezervSejurMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pretRezervSejurMouseClicked
-         try{
-            String plecareSejur = anul.getSelectedItem().toString()+"-"+luna.getSelectedItem().toString()+"-"+ziua.getSelectedItem().toString();
-            Connection con = getConnection();
-            String getPret = "SELECT valoare_sejur FROM sejur, pret_sejur, sezon where sejur.cod_sejur = pret_sejur.sejur_cod_sejur AND "
-                    + "pret_sejur.sezon_cod_sezon = sezon.cod_sezon and oras_plecare=? and oras_sosire=? and ? between data_inceput and data_sfarsit";
-            PreparedStatement ps = con.prepareStatement(getPret);
-            ps.setString(1, comboPlecare.getSelectedItem().toString());
-            ps.setString(2, comboDestinatia.getSelectedItem().toString());
-            ps.setString(3, plecareSejur);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                if(nrPers.getSelectedItem().toString().equals("")){
-                    pretRezervSejur.setText(Integer.toString(rs.getInt(1)));
-                } else{
-                    pretRezervSejur.setText(Integer.toString(rs.getInt(1)*Integer.parseInt(nrPers.getSelectedItem().toString())));
-                }
-            }
-        }
-        catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Pret indisponibil!");
-           
-        }
-    }//GEN-LAST:event_pretRezervSejurMouseClicked
-
-    private void comboPlecareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPlecareActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_comboPlecareActionPerformed
 
     private void comboDestinatiaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboDestinatiaItemStateChanged
          
@@ -3326,135 +2879,13 @@ public class PaginaClient extends javax.swing.JFrame {
             ResultSet rs = pstm.executeQuery();
             
             while(rs.next()){
-                comboPlecare1.addItem(rs.getString(1));
+            //    comboPlecare1.addItem(rs.getString(1));
             }               
             
         }catch(SQLException e){
             JOptionPane.showMessageDialog(this, "Circuite indisponibile!");
         }
     }//GEN-LAST:event_comboDestinatia1ActionPerformed
-
-    private void comboPlecare1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboPlecare1ActionPerformed
-         try{
-            Connection con = getConnection();
-            String sql1 = "SELECT DISTINCT(denumire_cazare) FROM cazare,circuit WHERE cazare.cod_circuit=circuit.cod_circuit AND denumire=?";
-            PreparedStatement pstm1 = con.prepareStatement(sql1);            
-            pstm1.setString(1,comboPlecare1.getSelectedItem().toString());
-            ResultSet rs1 = pstm1.executeQuery(); 
-           
-            while(rs1.next()){
-                comboCazare1.addItem(rs1.getString(1));
-            }
-         }catch(SQLException e){
-            JOptionPane.showMessageDialog(this, "Cazari indisponibile");            
-         }
-            
-       
-    }//GEN-LAST:event_comboPlecare1ActionPerformed
-
-    private void anul2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anul2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_anul2ActionPerformed
-
-    private void luna2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_luna2ActionPerformed
-        
-        if(luna2.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anul2.getSelectedItem().toString()))){
-            ziua2.removeAllItems();
-            for(int i=1;i<=29;i++){
-                ziua2.addItem(Integer.toString(i));
-            }
-        } else if(luna2.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anul2.getSelectedItem().toString()))==false){
-            ziua2.removeAllItems();
-            for(int i=1;i<=28;i++){
-                ziua2.addItem(Integer.toString(i));
-            }
-        } else if(luna2.getSelectedItem().equals("1")|| luna2.getSelectedItem().equals("3") || luna2.getSelectedItem().equals("5") || luna2.getSelectedItem().equals("7") || luna2.getSelectedItem().equals("8") || luna2.getSelectedItem().equals("10") || luna2.getSelectedItem().equals("12")){
-            ziua2.removeAllItems();
-            for(int i=1;i<=31;i++){
-                ziua2.addItem(Integer.toString(i));
-            }
-        } else{
-            ziua2.removeAllItems();
-            for(int i=1;i<=30;i++){
-                ziua2.addItem(Integer.toString(i));
-            }
-        }
-    }//GEN-LAST:event_luna2ActionPerformed
-
-    private void comboCazare1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCazare1ActionPerformed
-     try{
-            Connection con = getConnection();
-            String sql = "SELECT nr_stele FROM cazare WHERE denumire_cazare=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,comboCazare1.getSelectedItem().toString());
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                nrStele1.setText(rs.getString(1));
-            }
-            String altSql = "SELECT tip_camera FROM cazare, camera WHERE cazare.cod_cazare = camera.cod_cazare and denumire_cazare=? ";
-            PreparedStatement pstm1 = con.prepareStatement(altSql);
-            pstm1.setString(1, comboCazare1.getSelectedItem().toString());
-            ResultSet rs1 = pstm1.executeQuery();
-            comboCamere2.removeAllItems();
-            while(rs1.next()){
-                comboCamere2.addItem(rs1.getString(1));
-            }
-            
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot vedea tipurile de camere!");
-        }
-      
-    }//GEN-LAST:event_comboCazare1ActionPerformed
-
-    private void comboCamere2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCamere2ActionPerformed
-       
-    }//GEN-LAST:event_comboCamere2ActionPerformed
-
-    private void telefonClientRezervSejur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_telefonClientRezervSejur1MouseClicked
-        try{
-             Connection con = getConnection();
-             String sql = "SELECT telefon FROM client WHERE cont=?";
-             PreparedStatement pstm = con.prepareStatement(sql);
-             pstm.setString(1,campUser.getText());
-             ResultSet rs = pstm.executeQuery();
-             while(rs.next()){
-                 telefonClientRezervSejur1.setText(rs.getString(1));
-             }
-        }catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Client indisponibil!");           
-        }
-    }//GEN-LAST:event_telefonClientRezervSejur1MouseClicked
-
-    private void telefonClientRezervSejur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_telefonClientRezervSejur1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_telefonClientRezervSejur1ActionPerformed
-
-    private void pretRezervSejur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pretRezervSejur1MouseClicked
-       try{
-           Connection con = getConnection();
-           String data = anul2.getSelectedItem().toString() + "-" +luna2.getSelectedItem().toString()+ "-" + ziua2.getSelectedItem().toString();
-           String sql = "SELECT valoare_circuit FROM pret_circuit, circuit, sezon WHERE pret_circuit.circuit_cod_circuit = circuit.cod_circuit AND pret_circuit.sezon_cod_sezon = sezon.cod_sezon AND ? between data_inceput AND data_sfarsit ";
-           PreparedStatement pstm = con.prepareStatement(sql);
-           pstm.setString(1,data);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                if(nrPers1.getSelectedItem().toString().equals("")){
-                    pretRezervSejur1.setText(Integer.toString(rs.getInt(1)));
-                } else{
-                    pretRezervSejur1.setText(Integer.toString(rs.getInt(1)*Integer.parseInt(nrPers1.getSelectedItem().toString())));
-                }
-            }
-        }
-        catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Pret indisponibil!");
-           
-        }
-       
-    }//GEN-LAST:event_pretRezervSejur1MouseClicked
-
-    private void pretRezervSejur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pretRezervSejur1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_pretRezervSejur1ActionPerformed
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
         try{
@@ -3465,43 +2896,22 @@ public class PaginaClient extends javax.swing.JFrame {
             ResultSet rs1 = pstm1.executeQuery();
             String getSejur = "SELECT cod_circuit FROM circuit WHERE denumire=?";
             PreparedStatement pstm2 = con.prepareStatement(getSejur);
-            pstm2.setString(1,comboPlecare1.getSelectedItem().toString());            
-            ResultSet rs2 = pstm2.executeQuery();
-            
-            String adaugaRezervare = "INSERT INTO rezervare_cicuit VALUES(?,?,NULL,?)";
+            pstm2.setString(1,tabelOferteCircuite.getValueAt(tabelOferteCircuite.getSelectedRow(),0).toString());            
+            ResultSet rs2 = pstm2.executeQuery();            
+            String adaugaRezervare = "INSERT INTO rezervare_cicuit VALUES(?,?,NULL,sysdate())";
             PreparedStatement pstm3 = con.prepareStatement(adaugaRezervare);
-            String data = anul2.getSelectedItem().toString() + "-" + luna2.getSelectedItem().toString() + "-" + ziua2.getSelectedItem().toString();
             while(rs1.next() && rs2.next()){
                 pstm3.setInt(1,rs2.getInt(1));
                 pstm3.setInt(2, rs1.getInt(1));
-                pstm3.setString(3, data);
                 pstm3.executeUpdate();
             }
             
             JOptionPane.showMessageDialog(this,"Rezervare reusita!");
         }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Rezervare esuata!");            
+            JOptionPane.showMessageDialog(this,"Rezervare esuata!");   
+            ex.printStackTrace();
         }
     }//GEN-LAST:event_jButton11ActionPerformed
-
-    private void numeClientRezervSejur1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_numeClientRezervSejur1MouseClicked
-         try{
-             Connection con = getConnection();
-             String sql = "SELECT nume, prenume FROM client WHERE cont=?";
-             PreparedStatement pstm = con.prepareStatement(sql);
-             pstm.setString(1,campUser.getText());
-             ResultSet rs = pstm.executeQuery();
-             while(rs.next()){
-                 numeClientRezervSejur1.setText(rs.getString(1)+" "+rs.getString(2));
-             }
-        }catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Client indisponibil!");           
-        }
-    }//GEN-LAST:event_numeClientRezervSejur1MouseClicked
-
-    private void numeClientRezervSejur1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numeClientRezervSejur1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_numeClientRezervSejur1ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
        setPanelVisible(pagPrincipalaClient);
@@ -3643,6 +3053,63 @@ public class PaginaClient extends javax.swing.JFrame {
         setPanelVisible(pagPrincipalaClient);
     }//GEN-LAST:event_jButton13ActionPerformed
 
+    private void butonOferteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonOferteActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tabelOferte.getModel();        
+      
+        try{
+            Connection con = getConnection();
+            String data = anul.getSelectedItem().toString() + "-" +luna.getSelectedItem().toString()+ "-" + ziua.getSelectedItem().toString();
+            String sql = "select s.oras_plecare,s.oras_sosire, s.data_plecare, s.data_sosire,\n" +
+                            "ps.valoare_sejur,\n" +
+                            "a.denumire,\n" +
+                            "c.denumire_cazare\n" +
+                            "from sejur s, pret_sejur ps, agentie a, cazare c\n" +
+                            "where s.cod_sejur=ps.sejur_cod_sejur \n" +
+                            "and ps.cod_agentie = a.cod_agentie\n" +
+                            "and c.cod_sejur = s.cod_sejur\n" +
+                            "and s.oras_sosire = ?\n" +
+                            "and s.data_plecare = ?\n" +
+                            "group by ps.valoare_sejur";
+            
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, comboDestinatia.getSelectedItem().toString());
+            pstm.setString(2,data);
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                 model.addRow(new Object[]{""  + rs.getString("oras_plecare"), rs.getString("oras_sosire"), rs.getString("data_plecare"), rs.getString("data_sosire"),  rs.getString("denumire_cazare"), rs.getString("valoare_sejur"), rs.getString("denumire")});
+            }           
+        } catch (SQLException ex) {            
+            JOptionPane.showMessageDialog(this,"Nu se pot accesa sejururile!");
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_butonOferteActionPerformed
+
+    private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
+        DefaultTableModel model = (DefaultTableModel) tabelOferteCircuite.getModel();        
+      
+        try{
+            Connection con = getConnection();
+            String sql = "select c.denumire, pc.valoare_circuit, a.denumire, ca.denumire_Cazare, ca.nr_Stele\n" +
+                            "from circuit c, pret_circuit pc, agentie a, cazare ca, oras o\n" +
+                            "where c.cod_circuit = pc.circuit_cod_circuit\n" +
+                            "and a.cod_agentie=pc.cod_agentie_circuit\n" +
+                            "and c.cod_circuit = ca.cod_circuit\n" +
+                            "and o.cod_circuit = c.cod_circuit\n" +
+                            "and o.tara=?\n" +
+                            "group by pc.valoare_circuit";
+            
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, comboDestinatia1.getSelectedItem().toString());            
+            ResultSet rs = pstm.executeQuery();
+            while(rs.next()){
+                 model.addRow(new Object[]{""  + rs.getString("c.denumire"), rs.getString("denumire_cazare"), rs.getString("nr_stele"), rs.getString("valoare_circuit"),  rs.getString("a.denumire")});
+            }           
+        } catch (SQLException ex) {            
+            JOptionPane.showMessageDialog(this,"Nu se pot accesa circuitele!");
+            ex.printStackTrace();
+        }
+    }//GEN-LAST:event_jButton17ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -3687,8 +3154,6 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JPanel TurciaHotels;
     private javax.swing.JMenu VizualizareMeniu;
     private javax.swing.JComboBox<String> anul;
-    private javax.swing.JComboBox<String> anul1;
-    private javax.swing.JComboBox<String> anul2;
     private javax.swing.JMenuItem bileteCautItem;
     private javax.swing.JMenuItem bileteRezervItem;
     private javax.swing.JButton butonAnulareRezervare;
@@ -3704,6 +3169,7 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JButton butonCautareSejur;
     private javax.swing.JButton butonInapoiCont;
     private javax.swing.JButton butonInapoiFranta;
+    private javax.swing.JButton butonOferte;
     private javax.swing.JButton butonSalveaza;
     private javax.swing.JPanel cautareCircuit;
     private javax.swing.JPanel cautareSejur;
@@ -3713,14 +3179,10 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JMenuItem circuitRezervItem;
     private javax.swing.JMenuItem circuitVizItem;
     private javax.swing.JComboBox<String> comboCamere;
-    private javax.swing.JComboBox<String> comboCamere1;
-    private javax.swing.JComboBox<String> comboCamere2;
     private javax.swing.JComboBox<String> comboCamereFranta;
     private javax.swing.JComboBox<String> comboCamereGermania;
     private javax.swing.JComboBox<String> comboCamereNorvegia;
     private javax.swing.JComboBox<String> comboCamereTurcia;
-    private javax.swing.JComboBox<String> comboCazare;
-    private javax.swing.JComboBox<String> comboCazare1;
     private javax.swing.JComboBox<String> comboCazareFranta;
     private javax.swing.JComboBox<String> comboCazareNorvegia;
     private javax.swing.JComboBox<String> comboCazareTropical;
@@ -3737,8 +3199,6 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JTextField comboNumarStele;
     private javax.swing.JComboBox<String> comboOraPlecare;
     private javax.swing.JComboBox<String> comboOraSosire;
-    private javax.swing.JComboBox<String> comboPlecare;
-    private javax.swing.JComboBox<String> comboPlecare1;
     private javax.swing.JTextField contCont;
     private javax.swing.JPanel contulMeu;
     private javax.swing.JRadioButton dataPlecareRadio;
@@ -3762,6 +3222,7 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -3830,33 +3291,15 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel58;
     private javax.swing.JLabel jLabel59;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel60;
-    private javax.swing.JLabel jLabel61;
     private javax.swing.JLabel jLabel62;
-    private javax.swing.JLabel jLabel63;
-    private javax.swing.JLabel jLabel64;
     private javax.swing.JLabel jLabel65;
-    private javax.swing.JLabel jLabel66;
-    private javax.swing.JLabel jLabel67;
-    private javax.swing.JLabel jLabel68;
     private javax.swing.JLabel jLabel69;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel70;
-    private javax.swing.JLabel jLabel71;
     private javax.swing.JLabel jLabel72;
     private javax.swing.JLabel jLabel73;
     private javax.swing.JLabel jLabel74;
-    private javax.swing.JLabel jLabel75;
-    private javax.swing.JLabel jLabel76;
-    private javax.swing.JLabel jLabel77;
-    private javax.swing.JLabel jLabel78;
-    private javax.swing.JLabel jLabel79;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel80;
-    private javax.swing.JLabel jLabel81;
-    private javax.swing.JLabel jLabel82;
-    private javax.swing.JLabel jLabel83;
-    private javax.swing.JLabel jLabel84;
     private javax.swing.JLabel jLabel85;
     private javax.swing.JLabel jLabel86;
     private javax.swing.JLabel jLabel87;
@@ -3886,22 +3329,16 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
     private javax.swing.JScrollPane jScrollPane7;
+    private javax.swing.JScrollPane jScrollPane8;
+    private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JLabel labelWelcome;
     private javax.swing.JComboBox<String> luna;
-    private javax.swing.JComboBox<String> luna1;
-    private javax.swing.JComboBox<String> luna2;
     private javax.swing.JMenuBar meniuClient;
-    private javax.swing.JComboBox<String> nrPers;
-    private javax.swing.JComboBox<String> nrPers1;
-    private javax.swing.JTextField nrStele;
-    private javax.swing.JTextField nrStele1;
     private javax.swing.JTextField nrSteleFranta;
     private javax.swing.JTextField nrSteleGermania;
     private javax.swing.JTextField nrSteleNorvegia;
     private javax.swing.JTextField nrSteleTurcia;
     private javax.swing.JTextField nrZbor;
-    private javax.swing.JTextField numeClientRezervSejur;
-    private javax.swing.JTextField numeClientRezervSejur1;
     private javax.swing.JTextField numeCont;
     private javax.swing.JRadioButton oraPlecareButon;
     private javax.swing.JTextField oraPlecareZbor;
@@ -3912,8 +3349,6 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JTextField prenumeCont;
     private javax.swing.JTextField pretBilet;
     private javax.swing.JTextField pretBiletFinal;
-    private javax.swing.JTextField pretRezervSejur;
-    private javax.swing.JTextField pretRezervSejur1;
     private javax.swing.JRadioButton radioDataPlecare;
     private javax.swing.JRadioButton radioDenumireCircuit;
     private javax.swing.JRadioButton radioOras;
@@ -3930,13 +3365,13 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JMenuItem sejurVizItem;
     private javax.swing.JTable tabelCautaSejur;
     private javax.swing.JTable tabelCircuit;
+    private javax.swing.JTable tabelOferte;
+    private javax.swing.JTable tabelOferteCircuite;
     private javax.swing.JTable tabelOrase;
     private javax.swing.JTable tabelRezervariCircuite;
     private javax.swing.JTable tabelRezervariSejururi;
     private javax.swing.JTable tabelSejur;
     private javax.swing.JTable tabelZboruri1;
-    private javax.swing.JTextField telefonClientRezervSejur;
-    private javax.swing.JTextField telefonClientRezervSejur1;
     private javax.swing.JTextField telefonCont;
     private javax.swing.JLabel titluContulMeu;
     private javax.swing.JTextField transportZbor;
@@ -3945,7 +3380,5 @@ public class PaginaClient extends javax.swing.JFrame {
     private javax.swing.JPanel vizualizareCircuit;
     private javax.swing.JPanel vizualizareSejur;
     private javax.swing.JComboBox<String> ziua;
-    private javax.swing.JComboBox<String> ziua1;
-    private javax.swing.JComboBox<String> ziua2;
     // End of variables declaration//GEN-END:variables
 }
