@@ -165,7 +165,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
     }
     
      private void fillComboAn(){
-        for(int i=2019;i>=1990;i--)
+        for(int i=2020;i>=1990;i--)
             anul.addItem(Integer.toString(i));
         for(int i=1;i<=12;i++)
             luna.addItem(Integer.toString(i));
@@ -212,8 +212,9 @@ public class PaginaTicketing extends javax.swing.JFrame {
      private void fillComboDestinatie(){
          try{
              Connection con = getConnection();
-             String sql = "SELECT DISTINCT(destinatie) FROM zbor";
+             String sql = "SELECT DISTINCT(destinatie) FROM zbor where cod_agentie = ?";
              PreparedStatement pstm = con.prepareStatement(sql);
+             pstm.setInt(1, codAgentie);
              ResultSet rs = pstm.executeQuery();
              while(rs.next()){
                  comboDestinatie.addItem(rs.getString(1));
@@ -1126,6 +1127,11 @@ public class PaginaTicketing extends javax.swing.JFrame {
         clientiFideli.setBounds(270, 80, 140, 20);
 
         oraPlecarii.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        oraPlecarii.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oraPlecariiActionPerformed(evt);
+            }
+        });
         rezervariBilete.add(oraPlecarii);
         oraPlecarii.setBounds(390, 250, 60, 23);
 
@@ -1685,7 +1691,8 @@ public class PaginaTicketing extends javax.swing.JFrame {
                 comboDataPlecarii.addItem(rs.getString(1));
             }
         } catch (SQLException ex) {
-              JOptionPane.showMessageDialog(this,"Nu se pot afisa datele de plecare!");
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this,"Nu se pot afisa datele de plecare!");
         }
     }//GEN-LAST:event_comboDestinatieActionPerformed
 
@@ -1712,6 +1719,7 @@ public class PaginaTicketing extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             JOptionPane.showMessageDialog(this,"Nu se poate adauga clientul!");
+            ex.printStackTrace();
         }
         
         numeClient.setText("Nume");
@@ -1760,11 +1768,12 @@ public class PaginaTicketing extends javax.swing.JFrame {
             pstm1.setString(1, numeClient.getText());
             pstm1.setString(2,prenumeClient.getText());
             ResultSet rs1 = pstm1.executeQuery();
-            String sql2 = "SELECT cod_zbor FROM zbor WHERE destinatie=? AND data_plecarii=? AND ora_plecarii=?";
+            String sql2 = "SELECT cod_zbor FROM zbor WHERE destinatie=? AND data_plecarii=? AND ora_plecarii=? AND cod_agentie = ?";
             PreparedStatement pstm2 = con.prepareStatement(sql2);
             pstm2.setString(1,comboDestinatie.getSelectedItem().toString());
             pstm2.setString(2, comboDataPlecarii.getSelectedItem().toString());
             pstm2.setString(3, oraPlecarii.getSelectedItem().toString());
+            pstm2.setInt(4, codAgentie);
             ResultSet rs2 = pstm2.executeQuery();
             
             String sql3 = "INSERT INTO bilet VALUES(?,?,?,sysdate())";
@@ -1787,10 +1796,11 @@ public class PaginaTicketing extends javax.swing.JFrame {
          String data = comboDataPlecarii.getSelectedItem().toString();
         try{
             Connection con = getConnection();
-            String sql = "SELECT DISTINCT(ora_plecarii) FROM zbor WHERE destinatie=? AND data_plecarii=?";
+            String sql = "SELECT DISTINCT(ora_plecarii) FROM zbor WHERE destinatie=? AND data_plecarii=? AND cod_agentie = ?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, dest);
             pstm.setString(2, data);
+            pstm.setInt(3, codAgentie);
             ResultSet rs = pstm.executeQuery();
             oraPlecarii.removeAllItems();
             while(rs.next()){
@@ -1821,6 +1831,10 @@ public class PaginaTicketing extends javax.swing.JFrame {
     private void oraSosireButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oraSosireButonActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_oraSosireButonActionPerformed
+
+    private void oraPlecariiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oraPlecariiActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_oraPlecariiActionPerformed
 
     /**
      * @param args the command line arguments

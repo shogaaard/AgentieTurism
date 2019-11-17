@@ -6,8 +6,8 @@
 package agentieturism;
 
 import static agentieturism.ConexiuneBD.getConnection;
-import static agentieturism.PrimaPagina.agentieLabel;
-import static agentieturism.PrimaPagina.campUser;
+import static agentieturism.PrimaPagina.*;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +19,6 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
- *
  * @author Diana
  */
 public class PaginaTurism extends javax.swing.JFrame {
@@ -38,7 +37,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         fillComboNorvegia();
         fillComboTurcia();
         fillOrase();
-        fillOraseSejur();        
+        fillOraseSejur();
         fillComboAnPlecare();
         fillComboAnSosire();
         fillCircuiteCazare();
@@ -47,11 +46,11 @@ public class PaginaTurism extends javax.swing.JFrame {
         fillComboAnRezervare();
         fillComboOrasPlecareSejur();
         setDateCont();
-        
+
     }
-    
-    
-    private void setPanelVisible(JPanel panel){
+
+
+    private void setPanelVisible(JPanel panel) {
         ArrayList<JPanel> jpaneluri = new ArrayList<>();
         jpaneluri.add(mainPageTursim);
         jpaneluri.add(vizualizareSejur);
@@ -79,7 +78,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         GermaniaHotels.setVisible(false);
         FrantaHotels.setVisible(false);
         NorvegiaHotels.setVisible(false);
-        TurciaHotels.setVisible(false); 
+        TurciaHotels.setVisible(false);
         adaugareCircuit.setVisible(false);
         adaugareSejur.setVisible(false);
         adaugareHotel.setVisible(false);
@@ -89,279 +88,306 @@ public class PaginaTurism extends javax.swing.JFrame {
         contulMeu.setVisible(false);
         rezervareCircuit.setVisible(false);
         rezervareSejur.setVisible(false);
-        for(JPanel jpanel:jpaneluri){
-            if(panel == jpanel)
+        for (JPanel jpanel : jpaneluri) {
+            if (panel == jpanel)
                 panel.setVisible(true);
         }
     }
-    private void fillSejur(){
-        DefaultTableModel model = (DefaultTableModel) tabelSejur.getModel();        
-      
-        try{
+
+    private void fillSejur() {
+        DefaultTableModel model = (DefaultTableModel) tabelSejur.getModel();
+
+        try {
             Connection con = getConnection();
             String sql = "SELECT * FROM sejur";
             PreparedStatement pstm = con.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                 model.addRow(new Object[]{""  + rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4),  rs.getString(5)});
-            }           
+            while (rs.next()) {
+                model.addRow(new Object[]{"" + rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)});
+            }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot accesa sejururile!");
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa sejururile!");
         }
     }
-    private void setDateCont(){
-       try{
-           Connection conn = getConnection();
-           String getDateAdmin = "SELECT * FROM angajat WHERE cont=?";
-           PreparedStatement ps = conn.prepareStatement(getDateAdmin);
-           ps.setString(1,campUser.getText());
-           ResultSet rs = ps.executeQuery();
-           while(rs.next()){
-               numeCont.setText(rs.getString("Nume"));
-               prenumeCont.setText(rs.getString("Prenume"));
-               telefonCont.setText(rs.getString("Telefon"));
-               emailCont.setText(rs.getString("Email"));
-               contCont.setText(rs.getString("Cont"));
-               parolaCont.setText(rs.getString("Parola"));
-           }
-       }catch(SQLException e){
-           System.out.println(e.getMessage());
-           JOptionPane.showMessageDialog(this,"Nu se poate accesa contul!");
-       }
+
+    private void setDateCont() {
+        try {
+            Connection conn = getConnection();
+            String getDateAdmin = "SELECT * FROM angajat WHERE cont=?";
+            PreparedStatement ps = conn.prepareStatement(getDateAdmin);
+            ps.setString(1, campUser.getText());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                numeCont.setText(rs.getString("Nume"));
+                prenumeCont.setText(rs.getString("Prenume"));
+                telefonCont.setText(rs.getString("Telefon"));
+                emailCont.setText(rs.getString("Email"));
+                contCont.setText(rs.getString("Cont"));
+                parolaCont.setText(rs.getString("Parola"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(this, "Nu se poate accesa contul!");
+        }
     }
-    
-    private void fillCircuite(){
-        try{
+
+    private void fillCircuite() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT * FROM circuit";
             PreparedStatement pstm = con.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 comboCircuite.addItem(rs.getString(2));
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa circuitele!");
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa circuitele!");
         }
     }
-       private void fillCircuiteRezervare(){
-        try{
+
+    private void fillCircuiteRezervare() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT * FROM circuit";
             PreparedStatement pstm = con.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 comboRezervCircuit.addItem(rs.getString(2));
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa circuitele!");
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa circuitele!");
         }
     }
-     private void fillCircuiteCazare(){
-        try{
+
+    private void fillCircuiteCazare() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT * FROM circuit";
             PreparedStatement pstm = con.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 comboCircuitCazare.addItem(rs.getString(2));
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa circuitele!");
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa circuitele!");
         }
     }
-     private void fillSejururiCazare(){
-        try{
+
+    private void fillSejururiCazare() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT * FROM sejur";
             PreparedStatement pstm = con.prepareStatement(sql);
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 comboSejurCazare.addItem(rs.getString(3));
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa sejururile!");
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa sejururile!");
         }
     }
-    
-    private void fillComboTropical(){
-        try{
+
+    private void fillComboTropical() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT  denumire_cazare FROM cazare,circuit WHERE cazare.cod_circuit = circuit.cod_circuit"
                     + " and circuit.denumire=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, "Tropical");
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                comboCazareTropical.addItem(rs.getString(1));                 
+            while (rs.next()) {
+                comboCazareTropical.addItem(rs.getString(1));
             }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa cazarile!");
+
         }
-             catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa cazarile!");
-           
-        }
-        }
-    private void fillComboGermania(){
-        try{
+    }
+
+    private void fillComboGermania() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT  denumire_cazare FROM cazare,sejur WHERE cazare.cod_sejur = sejur.cod_sejur"
                     + " and sejur.oras_sosire=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, "Berlin");
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                comboGermania.addItem(rs.getString(1));                 
+            while (rs.next()) {
+                comboGermania.addItem(rs.getString(1));
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa cazarile!");
-           
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa cazarile!");
+
         }
     }
-    private void fillComboFranta(){
-        try{
+
+    private void fillComboFranta() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT  denumire_cazare  FROM cazare,sejur WHERE cazare.cod_sejur = sejur.cod_sejur"
                     + " and sejur.oras_sosire=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, "Paris");
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                comboCazareFranta.addItem(rs.getString(1));                 
+            while (rs.next()) {
+                comboCazareFranta.addItem(rs.getString(1));
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa cazarile!");
-           
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa cazarile!");
+
         }
     }
-    
-    private void fillComboNorvegia(){
-        try{
+
+    private void fillComboNorvegia() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT denumire_cazare  FROM cazare,circuit WHERE cazare.cod_circuit = circuit.cod_circuit"
                     + " and circuit.denumire=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, "Scandinavia Dream");
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                comboCazareNorvegia.addItem(rs.getString(1));                 
+            while (rs.next()) {
+                comboCazareNorvegia.addItem(rs.getString(1));
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa cazarile!");
-           
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa cazarile!");
+
         }
     }
-    private void fillComboOrasPlecareSejur(){
-        try{
+
+    private void fillComboOrasPlecareSejur() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT DISTINCT(oras_plecare) FROM sejur";
             PreparedStatement p = con.prepareStatement(sql);
             ResultSet r = p.executeQuery();
-            while(r.next()){
-                orasPlecareSejur.addItem(r.getString(1));                
+            while (r.next()) {
+                orasPlecareSejur.addItem(r.getString(1));
             }
-        }catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa orasele!");
-           
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa orasele!");
+
         }
     }
-    
-      private void fillComboTurcia(){
-        try{
+
+    private void fillComboTurcia() {
+        try {
             Connection con = getConnection();
             String sql = "SELECT  denumire_cazare FROM cazare,sejur WHERE cazare.cod_sejur = sejur.cod_sejur"
                     + " and sejur.oras_sosire=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, "Ankara");
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                comboCazareTurcia.addItem(rs.getString(1));                 
+            while (rs.next()) {
+                comboCazareTurcia.addItem(rs.getString(1));
             }
         } catch (SQLException ex) {
-           JOptionPane.showMessageDialog(this,"Nu se pot accesa cazarile!");
-           
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa cazarile!");
+
         }
     }
-      
-      private void fillOrase(){
-          try{
-             Connection con = getConnection();
-             String sql = "SELECT nume "
-                     + "FROM orase";
-             PreparedStatement pstm = con.prepareStatement(sql);
-             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                comboOraseCircuit.addItem(rs.getString(1));                 
+
+    private void fillOrase() {
+        try {
+            Connection con = getConnection();
+            String sql = "SELECT nume "
+                    + "FROM orase";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                comboOraseCircuit.addItem(rs.getString(1));
             }
-          } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot accesa orasele!");
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa orasele!");
         }
-      }
-      private void fillOraseSejur(){
-          try{
-             Connection con = getConnection();
-             String sql = "SELECT nume "
-                     + "FROM orase";
-             PreparedStatement pstm = con.prepareStatement(sql);
-             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                comboOrasSosire.addItem(rs.getString(1));                 
-            }
-          } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot accesa orasele!");
-        }
-      }
-      private boolean anBisect(int an){
-        return ((an%4==0) && (an%100!=0))|| an%400==0;
     }
-      private void fillComboAnPlecare(){
-        for(int i=2020;i>=1990;i--)
+
+    private void fillOraseSejur() {
+        try {
+            Connection con = getConnection();
+            String sql = "SELECT nume "
+                    + "FROM orase";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                comboOrasSosire.addItem(rs.getString(1));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa orasele!");
+        }
+    }
+
+    private boolean anBisect(int an) {
+        return ((an % 4 == 0) && (an % 100 != 0)) || an % 400 == 0;
+    }
+
+    private void fillComboAnPlecare() {
+        for (int i = 2020; i >= 1990; i--)
             anPlecare.addItem(Integer.toString(i));
-        for(int i=1;i<=12;i++)
+        for (int i = 1; i <= 12; i++)
             lunaPlecare.addItem(Integer.toString(i));
 
     }
-      private void fillComboAnSosire(){
-        for(int i=2020;i>=1990;i--)
+
+    private void fillComboAnSosire() {
+        for (int i = 2020; i >= 1990; i--)
             anSosire.addItem(Integer.toString(i));
-        for(int i=1;i<=12;i++)
+        for (int i = 1; i <= 12; i++)
             lunaSosire.addItem(Integer.toString(i));
 
     }
-       private void fillComboAnRezervare(){
-        for(int i=2019;i>=2018;i--)
+
+    private void fillComboAnRezervare() {
+        for (int i = 2019; i >= 2018; i--)
             anData.addItem(Integer.toString(i));
-        for(int i=1;i<=12;i++)
+        for (int i = 1; i <= 12; i++)
             lunaData.addItem(Integer.toString(i));
 
     }
-      private void fillComboClientiFideli(){
-         try{
-             Connection con = getConnection();
-             String sql = "SELECT nume, prenume FROM client";
-             PreparedStatement pstm = con.prepareStatement(sql);
-             ResultSet rs = pstm.executeQuery();
-             while(rs.next()){
-                 clientiFideli.addItem(rs.getString(1) + " " + rs.getString(2));
-             }
-         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot afisa clientii!");
-          
+
+    private void fillComboClientiFideli() {
+        try {
+            Connection con = getConnection();
+            String sql = "SELECT nume, prenume FROM client";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                clientiFideli.addItem(rs.getString(1) + " " + rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Nu se pot afisa clientii!");
+
         }
-     }
-      
-       private void fillComboClientiFideli2(){
-         try{
-             Connection con = getConnection();
-             String sql = "SELECT nume, prenume FROM client";
-             PreparedStatement pstm = con.prepareStatement(sql);
-             ResultSet rs = pstm.executeQuery();
-             while(rs.next()){
-                 clientiFideli2.addItem(rs.getString(1) + " " + rs.getString(2));
-             }
-         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot afisa clientii!");
-           
+    }
+
+    private void fillComboClientiFideli2() {
+        try {
+            Connection con = getConnection();
+            String sql = "SELECT nume, prenume FROM client";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                clientiFideli2.addItem(rs.getString(1) + " " + rs.getString(2));
+            }
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Nu se pot afisa clientii!");
+
         }
-     }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -729,12 +755,12 @@ public class PaginaTurism extends javax.swing.JFrame {
 
         tabelSejur.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tabelSejur.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Cod", "Plecare", "Destinatie", "Data plecare", "Data sosire"
-            }
+                },
+                new String[]{
+                        "Cod", "Plecare", "Destinatie", "Data plecare", "Data sosire"
+                }
         ));
         jScrollPane1.setViewportView(tabelSejur);
 
@@ -780,12 +806,12 @@ public class PaginaTurism extends javax.swing.JFrame {
 
         tabelOrase.setFont(new java.awt.Font("Times New Roman", 0, 14)); // NOI18N
         tabelOrase.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Oras", "Tara"
-            }
+                },
+                new String[]{
+                        "Oras", "Tara"
+                }
         ));
         jScrollPane2.setViewportView(tabelOrase);
 
@@ -1345,7 +1371,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         jLabel57.setBounds(190, 270, 80, 17);
 
         comboOrasPlecare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboOrasPlecare.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Bucuresti", "Cluj" }));
+        comboOrasPlecare.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Bucuresti", "Cluj"}));
         comboOrasPlecare.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 comboOrasPlecareActionPerformed(evt);
@@ -1461,12 +1487,12 @@ public class PaginaTurism extends javax.swing.JFrame {
         comboSejurCazare.setBounds(330, 300, 180, 30);
 
         comboTipCazare.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboTipCazare.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Hotel", "Pensiune", "Motel", "Vila", "Cabana" }));
+        comboTipCazare.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"Hotel", "Pensiune", "Motel", "Vila", "Cabana"}));
         adaugareHotel.add(comboTipCazare);
         comboTipCazare.setBounds(330, 150, 180, 30);
 
         comboNrStele.setFont(new java.awt.Font("Lucida Bright", 1, 14)); // NOI18N
-        comboNrStele.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "5", "4", "3", "2", "1" }));
+        comboNrStele.setModel(new javax.swing.DefaultComboBoxModel(new String[]{"5", "4", "3", "2", "1"}));
         adaugareHotel.add(comboNrStele);
         comboNrStele.setBounds(330, 200, 180, 30);
 
@@ -1552,12 +1578,12 @@ public class PaginaTurism extends javax.swing.JFrame {
 
         tabelCazare.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         tabelCazare.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Nume", "Tip", "Stele", "Circuit", "Sejur"
-            }
+                },
+                new String[]{
+                        "Nume", "Tip", "Stele", "Circuit", "Sejur"
+                }
         ));
         jScrollPane3.setViewportView(tabelCazare);
         if (tabelCazare.getColumnModel().getColumnCount() > 0) {
@@ -1646,12 +1672,12 @@ public class PaginaTurism extends javax.swing.JFrame {
 
         tabelCircuit.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         tabelCircuit.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Denumire", "Orase", "Tari"
-            }
+                },
+                new String[]{
+                        "Denumire", "Orase", "Tari"
+                }
         ));
         jScrollPane4.setViewportView(tabelCircuit);
 
@@ -1678,12 +1704,12 @@ public class PaginaTurism extends javax.swing.JFrame {
 
         tabelCautaSejur.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
         tabelCautaSejur.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
+                new Object[][]{
 
-            },
-            new String [] {
-                "Oras plecare", "Destinatie", "Data plecare", "Data sosire"
-            }
+                },
+                new String[]{
+                        "Oras plecare", "Destinatie", "Data plecare", "Data sosire"
+                }
         ));
         jScrollPane5.setViewportView(tabelCautaSejur);
 
@@ -2394,90 +2420,90 @@ public class PaginaTurism extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPageTursim, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(vizualizareSejur, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(vizualizareCircuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(vizualizareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(tropicalHotels, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(GermaniaHotels, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(FrantaHotels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(NorvegiaHotels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap()
-                    .addComponent(TurciaHotels, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(adaugareCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(adaugareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(adaugareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(cautareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(cautareCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(cautareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(contulMeu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(rezervareCircuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(rezervareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(mainPageTursim, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(vizualizareSejur, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(vizualizareCircuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(vizualizareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(tropicalHotels, javax.swing.GroupLayout.PREFERRED_SIZE, 730, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(GermaniaHotels, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(FrantaHotels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(NorvegiaHotels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addContainerGap()
+                                        .addComponent(TurciaHotels, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(adaugareCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(adaugareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(adaugareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cautareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cautareCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cautareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(contulMeu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(rezervareCircuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(rezervareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 730, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(mainPageTursim, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(vizualizareSejur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(vizualizareCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(vizualizareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(0, 0, Short.MAX_VALUE)
-                    .addComponent(tropicalHotels, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(0, 0, Short.MAX_VALUE)))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(GermaniaHotels, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(FrantaHotels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(NorvegiaHotels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(TurciaHotels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(adaugareCircuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(adaugareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(adaugareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(cautareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(cautareCircuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(cautareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(contulMeu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(rezervareCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    .addComponent(rezervareSejur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addContainerGap()))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(mainPageTursim, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(vizualizareSejur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(vizualizareCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(vizualizareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(tropicalHotels, javax.swing.GroupLayout.PREFERRED_SIZE, 490, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(GermaniaHotels, javax.swing.GroupLayout.DEFAULT_SIZE, 490, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(FrantaHotels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(NorvegiaHotels, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(TurciaHotels, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(adaugareCircuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(adaugareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(adaugareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cautareHotel, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cautareCircuit, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(cautareSejur, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(contulMeu, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(rezervareCircuit, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addComponent(rezervareSejur, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addContainerGap()))
         );
 
         pack();
@@ -2489,7 +2515,7 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_vizCircuitMeniuActionPerformed
 
     private void adaugSejurMeniuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adaugSejurMeniuActionPerformed
-       setPanelVisible(adaugareSejur);
+        setPanelVisible(adaugareSejur);
     }//GEN-LAST:event_adaugSejurMeniuActionPerformed
 
     private void cautSejurMeniuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cautSejurMeniuActionPerformed
@@ -2497,10 +2523,10 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_cautSejurMeniuActionPerformed
 
     private void iesireButonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iesireButonActionPerformed
-       JFrame primaPagina = new PrimaPagina();
-       agentieLabel = "";
-       primaPagina.setVisible(true);
-       this.dispose();
+        JFrame primaPagina = new PrimaPagina();
+        agentieLabel = "";
+        primaPagina.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_iesireButonActionPerformed
 
     private void inapoiSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inapoiSejurActionPerformed
@@ -2513,21 +2539,21 @@ public class PaginaTurism extends javax.swing.JFrame {
 
     private void comboCircuiteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCircuiteActionPerformed
         DefaultTableModel model = (DefaultTableModel) tabelOrase.getModel();
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT nume_oras, tara FROM oras,circuit WHERE oras.cod_circuit = circuit.cod_circuit and denumire=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, comboCircuite.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
             model.setRowCount(0);
-            while(rs.next()){
-                model.addRow(new Object[]{""  + rs.getString(1), rs.getString(2)});
+            while (rs.next()) {
+                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2)});
 
             }
-             
+
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot accesa orasele!");
-           
+            JOptionPane.showMessageDialog(this, "Nu se pot accesa orasele!");
+
         }
     }//GEN-LAST:event_comboCircuiteActionPerformed
 
@@ -2540,13 +2566,13 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_vizHotelMeniuActionPerformed
 
     private void comboCazareTropicalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCazareTropicalActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT nr_stele FROM cazare WHERE denumire_cazare=?";
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,comboCazareTropical.getSelectedItem().toString());
+            pstm.setString(1, comboCazareTropical.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 comboNumarStele.setText(rs.getString(1));
             }
             String altSql = "SELECT tip_camera FROM cazare, camera WHERE cazare.cod_cazare = camera.cod_cazare and denumire_cazare=? ";
@@ -2554,11 +2580,11 @@ public class PaginaTurism extends javax.swing.JFrame {
             pstm1.setString(1, comboCazareTropical.getSelectedItem().toString());
             ResultSet rs1 = pstm1.executeQuery();
             comboCamere.removeAllItems();
-            while(rs1.next()){
+            while (rs1.next()) {
                 comboCamere.addItem(rs1.getString(1));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot vedea tipurile de camere!");
+            JOptionPane.showMessageDialog(this, "Nu se pot vedea tipurile de camere!");
         }
     }//GEN-LAST:event_comboCazareTropicalActionPerformed
 
@@ -2569,7 +2595,7 @@ public class PaginaTurism extends javax.swing.JFrame {
     private void inapoiHoteluriActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inapoiHoteluriActionPerformed
         radioTropical.setSelected(false);
         setPanelVisible(vizualizareHotel);
-        
+
     }//GEN-LAST:event_inapoiHoteluriActionPerformed
 
     private void radioGermaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioGermaniaActionPerformed
@@ -2577,13 +2603,13 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_radioGermaniaActionPerformed
 
     private void comboGermaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboGermaniaActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT nr_stele FROM cazare WHERE denumire_cazare=?";
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,comboGermania.getSelectedItem().toString());
+            pstm.setString(1, comboGermania.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 nrSteleGermania.setText(rs.getString(1));
             }
             String altSql = "SELECT tip_camera FROM cazare, camera WHERE cazare.cod_cazare = camera.cod_cazare and denumire_cazare=? ";
@@ -2591,11 +2617,11 @@ public class PaginaTurism extends javax.swing.JFrame {
             pstm1.setString(1, comboGermania.getSelectedItem().toString());
             ResultSet rs1 = pstm1.executeQuery();
             comboCamereGermania.removeAllItems();
-            while(rs1.next()){
+            while (rs1.next()) {
                 comboCamereGermania.addItem(rs1.getString(1));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot vedea tipurile de camere!");
+            JOptionPane.showMessageDialog(this, "Nu se pot vedea tipurile de camere!");
         }
     }//GEN-LAST:event_comboGermaniaActionPerformed
 
@@ -2610,13 +2636,13 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_butonInapoiFrantaActionPerformed
 
     private void comboCazareFrantaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCazareFrantaActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT nr_stele FROM cazare WHERE denumire_cazare=?";
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,comboCazareFranta.getSelectedItem().toString());
+            pstm.setString(1, comboCazareFranta.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 nrSteleFranta.setText(rs.getString(1));
             }
             String altSql = "SELECT tip_camera FROM cazare, camera WHERE cazare.cod_cazare = camera.cod_cazare and denumire_cazare=? ";
@@ -2624,11 +2650,11 @@ public class PaginaTurism extends javax.swing.JFrame {
             pstm1.setString(1, comboCazareFranta.getSelectedItem().toString());
             ResultSet rs1 = pstm1.executeQuery();
             comboCamereFranta.removeAllItems();
-            while(rs1.next()){
+            while (rs1.next()) {
                 comboCamereFranta.addItem(rs1.getString(1));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot vedea tipurile de camere!");
+            JOptionPane.showMessageDialog(this, "Nu se pot vedea tipurile de camere!");
         }
     }//GEN-LAST:event_comboCazareFrantaActionPerformed
 
@@ -2646,13 +2672,13 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void comboCazareNorvegiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCazareNorvegiaActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT nr_stele FROM cazare WHERE denumire_cazare=?";
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,comboCazareNorvegia.getSelectedItem().toString());
+            pstm.setString(1, comboCazareNorvegia.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 nrSteleNorvegia.setText(rs.getString(1));
             }
             String altSql = "SELECT tip_camera FROM cazare, camera WHERE cazare.cod_cazare = camera.cod_cazare and denumire_cazare=? ";
@@ -2660,16 +2686,16 @@ public class PaginaTurism extends javax.swing.JFrame {
             pstm1.setString(1, comboCazareNorvegia.getSelectedItem().toString());
             ResultSet rs1 = pstm1.executeQuery();
             comboCamereNorvegia.removeAllItems();
-            while(rs1.next()){
+            while (rs1.next()) {
                 comboCamereNorvegia.addItem(rs1.getString(1));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot vedea tipurile de camere!");
+            JOptionPane.showMessageDialog(this, "Nu se pot vedea tipurile de camere!");
         }
     }//GEN-LAST:event_comboCazareNorvegiaActionPerformed
 
     private void radioNorvegiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioNorvegiaActionPerformed
-       setPanelVisible(NorvegiaHotels);
+        setPanelVisible(NorvegiaHotels);
     }//GEN-LAST:event_radioNorvegiaActionPerformed
 
     private void radioTurciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_radioTurciaActionPerformed
@@ -2677,13 +2703,13 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_radioTurciaActionPerformed
 
     private void comboCazareTurciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCazareTurciaActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT nr_stele FROM cazare WHERE denumire_cazare=?";
             PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1,comboCazareTurcia.getSelectedItem().toString());
+            pstm.setString(1, comboCazareTurcia.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 nrSteleTurcia.setText(rs.getString(1));
             }
             String altSql = "SELECT tip_camera FROM cazare, camera WHERE cazare.cod_cazare = camera.cod_cazare and denumire_cazare=? ";
@@ -2691,11 +2717,11 @@ public class PaginaTurism extends javax.swing.JFrame {
             pstm1.setString(1, comboCazareTurcia.getSelectedItem().toString());
             ResultSet rs1 = pstm1.executeQuery();
             comboCamereTurcia.removeAllItems();
-            while(rs1.next()){
+            while (rs1.next()) {
                 comboCamereTurcia.addItem(rs1.getString(1));
             }
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se pot vedea tipurile de camere!");
+            JOptionPane.showMessageDialog(this, "Nu se pot vedea tipurile de camere!");
         }
     }//GEN-LAST:event_comboCazareTurciaActionPerformed
 
@@ -2713,38 +2739,38 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void butonAdaugaCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonAdaugaCircuitActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "INSERT INTO CIRCUIT VALUES(null, ?)";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, denumireCircuit.getText());
             pstm.executeUpdate();
-             JOptionPane.showMessageDialog(this,"S-a adaugat circuitul, alegeti orasele!");
-        }catch(SQLException e){
+            JOptionPane.showMessageDialog(this, "S-a adaugat circuitul, alegeti orasele!");
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(this,"Nu se poate insera circuitul!");
+            JOptionPane.showMessageDialog(this, "Nu se poate insera circuitul!");
         }
     }//GEN-LAST:event_butonAdaugaCircuitActionPerformed
 
     private void comboOraseCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboOraseCircuitActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT tara FROM orase WHERE nume=?";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, comboOraseCircuit.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 denumireTara.setText(rs.getString(1));
             }
-        }catch(SQLException e){
+        } catch (SQLException e) {
             System.out.println(e.getMessage());
-            JOptionPane.showMessageDialog(this,"Nu se poate afisa tara!");
+            JOptionPane.showMessageDialog(this, "Nu se poate afisa tara!");
         }
-        
+
     }//GEN-LAST:event_comboOraseCircuitActionPerformed
 
     private void butonAdaugOrasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonAdaugOrasActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql1 = "INSERT INTO oras VALUES(NULL,?,?,?)";
             PreparedStatement pstm1 = con.prepareStatement(sql1);
@@ -2754,90 +2780,90 @@ public class PaginaTurism extends javax.swing.JFrame {
             PreparedStatement pstm2 = con.prepareStatement(sql2);
             pstm2.setString(1, denumireCircuit.getText());
             ResultSet rs = pstm2.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 pstm1.setInt(3, rs.getInt(1));
             }
             pstm1.executeUpdate();
-            JOptionPane.showMessageDialog(this,"Oras inserat!");
+            JOptionPane.showMessageDialog(this, "Oras inserat!");
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(this,"Nu se poate insera orasul!");
+            JOptionPane.showMessageDialog(this, "Nu se poate insera orasul!");
             ex.printStackTrace();
-           
+
         }
     }//GEN-LAST:event_butonAdaugOrasActionPerformed
 
     private void lunaPlecareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lunaPlecareActionPerformed
-       if(lunaPlecare.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anPlecare.getSelectedItem().toString()))){
-             ziPlecare.removeAllItems();
-            for(int i=1;i<=29;i++){               
+        if (lunaPlecare.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anPlecare.getSelectedItem().toString()))) {
+            ziPlecare.removeAllItems();
+            for (int i = 1; i <= 29; i++) {
                 ziPlecare.addItem(Integer.toString(i));
-            }                     
-        } else if(lunaPlecare.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anPlecare.getSelectedItem().toString()))==false){
-             ziPlecare.removeAllItems();
-            for(int i=1;i<=28;i++){               
+            }
+        } else if (lunaPlecare.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anPlecare.getSelectedItem().toString())) == false) {
+            ziPlecare.removeAllItems();
+            for (int i = 1; i <= 28; i++) {
                 ziPlecare.addItem(Integer.toString(i));
-            } 
-        } else if(lunaPlecare.getSelectedItem().equals("1")|| lunaPlecare.getSelectedItem().equals("3") || lunaPlecare.getSelectedItem().equals("5") || lunaPlecare.getSelectedItem().equals("7") || lunaPlecare.getSelectedItem().equals("8") || lunaPlecare.getSelectedItem().equals("10") || lunaPlecare.getSelectedItem().equals("12")){
-              ziPlecare.removeAllItems();
-            for(int i=1;i<=31;i++){                 
-                 ziPlecare.addItem(Integer.toString(i));     
-            }            
-        } else{
-             ziPlecare.removeAllItems();
-            for(int i=1;i<=30;i++){                 
+            }
+        } else if (lunaPlecare.getSelectedItem().equals("1") || lunaPlecare.getSelectedItem().equals("3") || lunaPlecare.getSelectedItem().equals("5") || lunaPlecare.getSelectedItem().equals("7") || lunaPlecare.getSelectedItem().equals("8") || lunaPlecare.getSelectedItem().equals("10") || lunaPlecare.getSelectedItem().equals("12")) {
+            ziPlecare.removeAllItems();
+            for (int i = 1; i <= 31; i++) {
                 ziPlecare.addItem(Integer.toString(i));
-            }            
+            }
+        } else {
+            ziPlecare.removeAllItems();
+            for (int i = 1; i <= 30; i++) {
+                ziPlecare.addItem(Integer.toString(i));
+            }
         }
     }//GEN-LAST:event_lunaPlecareActionPerformed
 
     private void lunaSosireActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lunaSosireActionPerformed
-         if(lunaSosire.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anSosire.getSelectedItem().toString()))){
-             ziSosire.removeAllItems();
-            for(int i=1;i<=29;i++){               
+        if (lunaSosire.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anSosire.getSelectedItem().toString()))) {
+            ziSosire.removeAllItems();
+            for (int i = 1; i <= 29; i++) {
                 ziSosire.addItem(Integer.toString(i));
-            }                     
-        } else if(lunaSosire.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anSosire.getSelectedItem().toString()))==false){
-             ziSosire.removeAllItems();
-            for(int i=1;i<=28;i++){               
+            }
+        } else if (lunaSosire.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anSosire.getSelectedItem().toString())) == false) {
+            ziSosire.removeAllItems();
+            for (int i = 1; i <= 28; i++) {
                 ziSosire.addItem(Integer.toString(i));
-            } 
-        } else if(lunaSosire.getSelectedItem().equals("1")|| lunaSosire.getSelectedItem().equals("3") || lunaSosire.getSelectedItem().equals("5") || lunaSosire.getSelectedItem().equals("7") || lunaSosire.getSelectedItem().equals("8") || lunaSosire.getSelectedItem().equals("10") || lunaSosire.getSelectedItem().equals("12")){
-              ziSosire.removeAllItems();
-            for(int i=1;i<=31;i++){                 
-                 ziSosire.addItem(Integer.toString(i));     
-            }            
-        } else{
-             ziSosire.removeAllItems();
-            for(int i=1;i<=30;i++){                 
+            }
+        } else if (lunaSosire.getSelectedItem().equals("1") || lunaSosire.getSelectedItem().equals("3") || lunaSosire.getSelectedItem().equals("5") || lunaSosire.getSelectedItem().equals("7") || lunaSosire.getSelectedItem().equals("8") || lunaSosire.getSelectedItem().equals("10") || lunaSosire.getSelectedItem().equals("12")) {
+            ziSosire.removeAllItems();
+            for (int i = 1; i <= 31; i++) {
                 ziSosire.addItem(Integer.toString(i));
-            }            
+            }
+        } else {
+            ziSosire.removeAllItems();
+            for (int i = 1; i <= 30; i++) {
+                ziSosire.addItem(Integer.toString(i));
+            }
         }
     }//GEN-LAST:event_lunaSosireActionPerformed
 
     private void butonAdaugaSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonAdaugaSejurActionPerformed
-       String orasPlecare = comboOrasPlecare.getSelectedItem().toString();
-       String orasSosire = comboOrasSosire.getSelectedItem().toString();
-       String dataPlecarii = anPlecare.getSelectedItem().toString()+"-"+lunaPlecare.getSelectedItem().toString() + "-" + ziPlecare.getSelectedItem().toString();
-       String dataSosirii =  anSosire.getSelectedItem().toString()+"-"+lunaSosire.getSelectedItem().toString() + "-" + ziSosire.getSelectedItem().toString();
-       try{
-           Connection con = getConnection();
-           String sql = "INSERT INTO sejur VALUES(null,?,?,?,?)";
-           PreparedStatement pstm = con.prepareStatement(sql);
-           pstm.setString(1,orasPlecare);
-           pstm.setString(2, orasSosire);
-           pstm.setString(3, dataPlecarii);
-           pstm.setString(4, dataSosirii);
-           pstm.executeUpdate();
-            JOptionPane.showMessageDialog(this,"Sejur adaugat!");   
-          
-       } catch (SQLException ex) {
-           System.out.println(ex.getMessage());
-           JOptionPane.showMessageDialog(this,"Nu se poate adauga sejurul!");
+        String orasPlecare = comboOrasPlecare.getSelectedItem().toString();
+        String orasSosire = comboOrasSosire.getSelectedItem().toString();
+        String dataPlecarii = anPlecare.getSelectedItem().toString() + "-" + lunaPlecare.getSelectedItem().toString() + "-" + ziPlecare.getSelectedItem().toString();
+        String dataSosirii = anSosire.getSelectedItem().toString() + "-" + lunaSosire.getSelectedItem().toString() + "-" + ziSosire.getSelectedItem().toString();
+        try {
+            Connection con = getConnection();
+            String sql = "INSERT INTO sejur VALUES(null,?,?,?,?)";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, orasPlecare);
+            pstm.setString(2, orasSosire);
+            pstm.setString(3, dataPlecarii);
+            pstm.setString(4, dataSosirii);
+            pstm.executeUpdate();
+            JOptionPane.showMessageDialog(this, "Sejur adaugat!");
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Nu se poate adauga sejurul!");
         }
     }//GEN-LAST:event_butonAdaugaSejurActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       setPanelVisible(mainPageTursim);
+        setPanelVisible(mainPageTursim);
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void adaugHotelMeniuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_adaugHotelMeniuActionPerformed
@@ -2845,7 +2871,7 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_adaugHotelMeniuActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         setPanelVisible(mainPageTursim);
+        setPanelVisible(mainPageTursim);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void butonAdaugaCazareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonAdaugaCazareActionPerformed
@@ -2854,30 +2880,30 @@ public class PaginaTurism extends javax.swing.JFrame {
         String nrStele = comboNrStele.getSelectedItem().toString();
         String circuit = comboCircuitCazare.getSelectedItem().toString();
         String sejur = comboSejurCazare.getSelectedItem().toString();
-        try{
+        try {
             Connection con = getConnection();
             String sql1 = "SELECT cod_circuit FROM circuit WHERE denumire=?";
             PreparedStatement pstm1 = con.prepareStatement(sql1);
-            pstm1.setString(1,circuit);
+            pstm1.setString(1, circuit);
             ResultSet rs1 = pstm1.executeQuery();
             String sql2 = "SELECT cod_sejur FROM sejur WHERE oras_sosire=?";
             PreparedStatement pstm2 = con.prepareStatement(sql2);
-            pstm2.setString(1,sejur);
+            pstm2.setString(1, sejur);
             ResultSet rs2 = pstm2.executeQuery();
             String insertCazare = "INSERT INTO cazare VALUES(null,?,?,?,?,?)";
             PreparedStatement pstm3 = con.prepareStatement(insertCazare);
-            pstm3.setString(1,denCazare);
-            pstm3.setString(2,tip);
-            pstm3.setInt(3,Integer.parseInt(nrStele));
-            while(rs1.next() && rs2.next()){
+            pstm3.setString(1, denCazare);
+            pstm3.setString(2, tip);
+            pstm3.setInt(3, Integer.parseInt(nrStele));
+            while (rs1.next() && rs2.next()) {
                 pstm3.setInt(4, rs1.getInt(1));
                 pstm3.setInt(5, rs2.getInt(1));
             }
-             JOptionPane.showMessageDialog(this,"Cazare adaugata!");
-            
+            JOptionPane.showMessageDialog(this, "Cazare adaugata!");
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-             JOptionPane.showMessageDialog(this,"Nu se poate adauga cazarea!");
+            JOptionPane.showMessageDialog(this, "Nu se poate adauga cazarea!");
         }
     }//GEN-LAST:event_butonAdaugaCazareActionPerformed
 
@@ -2888,46 +2914,46 @@ public class PaginaTurism extends javax.swing.JFrame {
     private void butonCautaCazareActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonCautaCazareActionPerformed
         String text = fieldCazare.getText();
         DefaultTableModel model = (DefaultTableModel) tabelCazare.getModel();
-        try{
+        try {
             Connection con = getConnection();
-            if(radioDenumire.isSelected()){
-            String sql = "SELECT denumire_cazare, tip, nr_stele, circuit.denumire, sejur.oras_sosire FROM cazare, circuit, sejur WHERE "
-                    + "cazare.cod_circuit = circuit.cod_circuit AND sejur.cod_sejur=cazare.cod_sejur and denumire_cazare=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, text);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5)});
+            if (radioDenumire.isSelected()) {
+                String sql = "SELECT denumire_cazare, tip, nr_stele, circuit.denumire, sejur.oras_sosire FROM cazare, circuit, sejur WHERE "
+                        + "cazare.cod_circuit = circuit.cod_circuit AND sejur.cod_sejur=cazare.cod_sejur and denumire_cazare=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setString(1, text);
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5)});
+                }
+                fieldCazare.setText("");
+                radioDenumire.setSelected(false);
+            } else if (radioTip.isSelected()) {
+                String sql = "SELECT denumire_cazare, tip, nr_stele, circuit.denumire, sejur.oras_sosire FROM cazare, circuit, sejur WHERE "
+                        + "cazare.cod_circuit = circuit.cod_circuit AND sejur.cod_sejur=cazare.cod_sejur and tip=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setString(1, text);
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5)});
+                }
+                fieldCazare.setText("");
+                radioTip.setSelected(false);
+            } else if (radioStele.isSelected()) {
+                String sql = "SELECT denumire_cazare, tip, nr_stele, circuit.denumire, sejur.oras_sosire FROM cazare, circuit, sejur WHERE "
+                        + "cazare.cod_circuit = circuit.cod_circuit AND sejur.cod_sejur=cazare.cod_sejur and nr_stele=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setInt(1, Integer.parseInt(text));
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5)});
+                }
+                fieldCazare.setText("");
+                radioStele.setSelected(false);
             }
-            fieldCazare.setText("");
-            radioDenumire.setSelected(false);
-        }else if(radioTip.isSelected()){
-            String sql = "SELECT denumire_cazare, tip, nr_stele, circuit.denumire, sejur.oras_sosire FROM cazare, circuit, sejur WHERE "
-                    + "cazare.cod_circuit = circuit.cod_circuit AND sejur.cod_sejur=cazare.cod_sejur and tip=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, text);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5)});
-            }
-            fieldCazare.setText("");
-            radioTip.setSelected(false);
-        }else if(radioStele.isSelected()){
-            String sql = "SELECT denumire_cazare, tip, nr_stele, circuit.denumire, sejur.oras_sosire FROM cazare, circuit, sejur WHERE "
-                    + "cazare.cod_circuit = circuit.cod_circuit AND sejur.cod_sejur=cazare.cod_sejur and nr_stele=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setInt(1, Integer.parseInt(text));
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5)});
-            }
-             fieldCazare.setText("");
-             radioStele.setSelected(false);
-        }
-           
-        }catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-             JOptionPane.showMessageDialog(this,"Nu se poate realiza cautarea!");
+            JOptionPane.showMessageDialog(this, "Nu se poate realiza cautarea!");
         }
     }//GEN-LAST:event_butonCautaCazareActionPerformed
 
@@ -2952,45 +2978,45 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_fieldCircuitActionPerformed
 
     private void butonCautaCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonCautaCircuitActionPerformed
-       String text = fieldCircuit.getText();
+        String text = fieldCircuit.getText();
         DefaultTableModel model = (DefaultTableModel) tabelCircuit.getModel();
-        try{
+        try {
             Connection con = getConnection();
-            if(radioDenumireCircuit.isSelected()){
-            String sql = "SELECT denumire, nume_oras, tara from circuit, oras where circuit.cod_circuit=oras.cod_circuit and denumire=?";                  
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, text);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3)});
+            if (radioDenumireCircuit.isSelected()) {
+                String sql = "SELECT denumire, nume_oras, tara from circuit, oras where circuit.cod_circuit=oras.cod_circuit and denumire=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setString(1, text);
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3)});
+                }
+                fieldCircuit.setText("");
+                radioDenumireCircuit.setSelected(false);
+            } else if (radioOras.isSelected()) {
+                String sql = "SELECT denumire, nume_oras, tara from circuit, oras where circuit.cod_circuit=oras.cod_circuit and nume_oras=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setString(1, text);
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3)});
+                }
+                fieldCircuit.setText("");
+                radioOras.setSelected(false);
+            } else if (radioTara.isSelected()) {
+                String sql = "SELECT denumire, nume_oras, tara from circuit, oras where circuit.cod_circuit=oras.cod_circuit and tara=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setString(1, text);
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3)});
+                }
+                fieldCircuit.setText("");
+                radioTara.setSelected(false);
             }
-            fieldCircuit.setText("");
-            radioDenumireCircuit.setSelected(false);
-        }else if(radioOras.isSelected()){
-            String sql = "SELECT denumire, nume_oras, tara from circuit, oras where circuit.cod_circuit=oras.cod_circuit and nume_oras=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, text);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3)});
-            }
-            fieldCircuit.setText("");
-            radioOras.setSelected(false);
-        }else if(radioTara.isSelected()){
-            String sql = "SELECT denumire, nume_oras, tara from circuit, oras where circuit.cod_circuit=oras.cod_circuit and tara=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, text);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3)});
-            }
-             fieldCircuit.setText("");
-             radioTara.setSelected(false);
-        }
-           
-        }catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-             JOptionPane.showMessageDialog(this,"Nu se poate realiza cautarea!");
+            JOptionPane.showMessageDialog(this, "Nu se poate realiza cautarea!");
         }
     }//GEN-LAST:event_butonCautaCircuitActionPerformed
 
@@ -2999,49 +3025,49 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton9ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-       setPanelVisible(mainPageTursim);
+        setPanelVisible(mainPageTursim);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void butonCautaSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonCautaSejurActionPerformed
         String text = fieldCautaSejur.getText();
         DefaultTableModel model = (DefaultTableModel) tabelCautaSejur.getModel();
-        try{
+        try {
             Connection con = getConnection();
-            if(radioOrasPlecare.isSelected()){
-            String sql = "SELECT oras_plecare, oras_sosire, data_plecare, data_sosire FROM sejur where oras_plecare=?";                  
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, text);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4)});
+            if (radioOrasPlecare.isSelected()) {
+                String sql = "SELECT oras_plecare, oras_sosire, data_plecare, data_sosire FROM sejur where oras_plecare=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setString(1, text);
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
+                }
+                fieldCautaSejur.setText("");
+                radioOrasPlecare.setSelected(false);
+            } else if (radioOrasSosire.isSelected()) {
+                String sql = "SELECT oras_plecare, oras_sosire, data_plecare, data_sosire FROM sejur where oras_sosire=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setString(1, text);
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
+                }
+                fieldCautaSejur.setText("");
+                radioOrasSosire.setSelected(false);
+            } else if (radioTara.isSelected()) {
+                String sql = "SELECT oras_plecare, oras_sosire, data_plecare, data_sosire FROM sejur where data_plecare=?";
+                PreparedStatement pstm = con.prepareStatement(sql);
+                pstm.setString(1, text);
+                ResultSet rs = pstm.executeQuery();
+                while (rs.next()) {
+                    model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)});
+                }
+                fieldCautaSejur.setText("");
+                radioTara.setSelected(false);
             }
-            fieldCautaSejur.setText("");
-            radioOrasPlecare.setSelected(false);
-        }else if(radioOrasSosire.isSelected()){
-            String sql = "SELECT oras_plecare, oras_sosire, data_plecare, data_sosire FROM sejur where oras_sosire=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, text);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4)});
-            }
-            fieldCautaSejur.setText("");
-            radioOrasSosire.setSelected(false);
-        }else if(radioTara.isSelected()){
-            String sql = "SELECT oras_plecare, oras_sosire, data_plecare, data_sosire FROM sejur where data_plecare=?";
-            PreparedStatement pstm = con.prepareStatement(sql);
-            pstm.setString(1, text);
-            ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
-                model.addRow(new Object[]{"" + rs.getString(1), rs.getString(2), rs.getString(3),rs.getString(4)});
-            }
-             fieldCautaSejur.setText("");
-             radioTara.setSelected(false);
-        }
-           
-        }catch (SQLException ex) {
+
+        } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-             JOptionPane.showMessageDialog(this,"Nu se poate realiza cautarea!");
+            JOptionPane.showMessageDialog(this, "Nu se poate realiza cautarea!");
         }
     }//GEN-LAST:event_butonCautaSejurActionPerformed
 
@@ -3088,7 +3114,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         String email = emailCont.getText();
         String cont = contCont.getText();
         String parola = parolaCont.getText();
-        try{
+        try {
             Connection conn = getConnection();
             String updateCont = "UPDATE angajat SET nume=?, prenume=?, telefon=?, email=?, cont=?, parola=? WHERE cont=?";
             PreparedStatement ps = conn.prepareStatement(updateCont);
@@ -3098,11 +3124,11 @@ public class PaginaTurism extends javax.swing.JFrame {
             ps.setString(4, email);
             ps.setString(5, cont);
             ps.setString(6, parola);
-            ps.setString(7,campUser.getText());
+            ps.setString(7, campUser.getText());
             ps.executeUpdate();
-            JOptionPane.showMessageDialog(this,"Datele au fost actualizate");
-        }catch(SQLException e){
-            JOptionPane.showMessageDialog(this,"Actualizare esuata!");
+            JOptionPane.showMessageDialog(this, "Datele au fost actualizate");
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Actualizare esuata!");
         }
     }//GEN-LAST:event_butonSalveazaActionPerformed
 
@@ -3129,13 +3155,13 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_clientiFideliItemStateChanged
 
     private void clientiFideliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientiFideliActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT * FROM client WHERE nume = (substring_index(?,' ', 1))";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, clientiFideli.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 numeClient.setText(rs.getString(2));
                 prenumeClient.setText(rs.getString(3));
                 telefonClient.setText(rs.getString(4));
@@ -3145,7 +3171,7 @@ public class PaginaTurism extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(this,"Nu se poate afisa clientul!");
+            JOptionPane.showMessageDialog(this, "Nu se poate afisa clientul!");
         }
     }//GEN-LAST:event_clientiFideliActionPerformed
 
@@ -3157,23 +3183,23 @@ public class PaginaTurism extends javax.swing.JFrame {
         String cont = contClient.getText();
         String parola = parolaClient.getText();
 
-        try{
+        try {
             Connection con = getConnection();
             String sql = "INSERT INTO client VALUES(null,?,?,?,?,?,?)";
             PreparedStatement pstm = con.prepareStatement(sql);
             pstm.setString(1, numeCli);
-            pstm.setString(2,prenumeCli);
-            pstm.setString(3,telefon);
+            pstm.setString(2, prenumeCli);
+            pstm.setString(3, telefon);
             pstm.setString(4, email);
-            pstm.setString(5,cont);
-            pstm.setString(6,parola);
+            pstm.setString(5, cont);
+            pstm.setString(6, parola);
             pstm.executeUpdate();
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(this,"Nu se poate adauga clientul!");
+            JOptionPane.showMessageDialog(this, "Nu se poate adauga clientul!");
         }
-       
+
     }//GEN-LAST:event_adaugaClientButonActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -3181,33 +3207,33 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void butonRezervareCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonRezervareCircuitActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String getCodClient = "SELECT cod_client FROM client WHERE nume=? and prenume=?";
             PreparedStatement pstm1 = con.prepareStatement(getCodClient);
             pstm1.setString(1, numeClient.getText());
-            pstm1.setString(2,prenumeClient.getText());
+            pstm1.setString(2, prenumeClient.getText());
             ResultSet rs1 = pstm1.executeQuery();
-            
+
             String getCodCircuit = "SELECT cod_circuit FROM circuit WHERE denumire=?";
             PreparedStatement pstm2 = con.prepareStatement(getCodCircuit);
             pstm2.setString(1, comboRezervCircuit.getSelectedItem().toString());
             ResultSet rs2 = pstm2.executeQuery();
-            
+
             String insertRezervare = "INSERT INTO rezervare_cicuit VALUES(?,?,null,?)";
             PreparedStatement pstm3 = con.prepareStatement(insertRezervare);
-            while(rs1.next() && rs2.next()){
+            while (rs1.next() && rs2.next()) {
                 pstm3.setInt(1, rs2.getInt(1));
                 pstm3.setInt(2, rs1.getInt(1));
-                pstm3.setString(3, anData.getSelectedItem().toString() + "-" + lunaData.getSelectedItem().toString()+ "-" + ziData.getSelectedItem().toString());
+                pstm3.setString(3, anData.getSelectedItem().toString() + "-" + lunaData.getSelectedItem().toString() + "-" + ziData.getSelectedItem().toString());
             }
             pstm3.executeUpdate();
-            JOptionPane.showMessageDialog(this,"Rezervare reusita!");           
+            JOptionPane.showMessageDialog(this, "Rezervare reusita!");
 
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(this,"Nu se poate rezerva circuitul!");           
+            JOptionPane.showMessageDialog(this, "Nu se poate rezerva circuitul!");
         }
     }//GEN-LAST:event_butonRezervareCircuitActionPerformed
 
@@ -3216,7 +3242,7 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_ziDataItemStateChanged
 
     private void ziDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ziDataActionPerformed
-       
+
     }//GEN-LAST:event_ziDataActionPerformed
 
     private void comboRezervCircuitItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboRezervCircuitItemStateChanged
@@ -3224,14 +3250,14 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_comboRezervCircuitItemStateChanged
 
     private void comboRezervCircuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboRezervCircuitActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String getOrasByCircuit = "SELECT nume_oras FROM oras,circuit WHERE oras.cod_circuit=circuit.cod_circuit and denumire=? ";
             PreparedStatement pstm = con.prepareStatement(getOrasByCircuit);
             pstm.setString(1, comboRezervCircuit.getSelectedItem().toString());
             ResultSet rs = pstm.executeQuery();
             comboOrasCircuit.removeAllItems();
-            while(rs.next()){
+            while (rs.next()) {
                 comboOrasCircuit.addItem(rs.getString(1));
             }
         } catch (SQLException ex) {
@@ -3260,26 +3286,26 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_lunaDataItemStateChanged
 
     private void lunaDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lunaDataActionPerformed
-       if(lunaData.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anData.getSelectedItem().toString()))){
-             ziData.removeAllItems();
-            for(int i=1;i<=29;i++){               
+        if (lunaData.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anData.getSelectedItem().toString()))) {
+            ziData.removeAllItems();
+            for (int i = 1; i <= 29; i++) {
                 ziData.addItem(Integer.toString(i));
-            }                     
-        } else if(lunaData.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anData.getSelectedItem().toString()))==false){
-             ziData.removeAllItems();
-            for(int i=1;i<=28;i++){               
+            }
+        } else if (lunaData.getSelectedItem().equals("2") && anBisect(Integer.parseInt(anData.getSelectedItem().toString())) == false) {
+            ziData.removeAllItems();
+            for (int i = 1; i <= 28; i++) {
                 ziData.addItem(Integer.toString(i));
-            } 
-        } else if(lunaData.getSelectedItem().equals("1")|| lunaData.getSelectedItem().equals("3") || lunaData.getSelectedItem().equals("5") || lunaData.getSelectedItem().equals("7") || lunaData.getSelectedItem().equals("8") || lunaData.getSelectedItem().equals("10") || lunaData.getSelectedItem().equals("12")){
-              ziData.removeAllItems();
-            for(int i=1;i<=31;i++){                 
-                 ziData.addItem(Integer.toString(i));     
-            }            
-        } else{
-             ziData.removeAllItems();
-            for(int i=1;i<=30;i++){                 
+            }
+        } else if (lunaData.getSelectedItem().equals("1") || lunaData.getSelectedItem().equals("3") || lunaData.getSelectedItem().equals("5") || lunaData.getSelectedItem().equals("7") || lunaData.getSelectedItem().equals("8") || lunaData.getSelectedItem().equals("10") || lunaData.getSelectedItem().equals("12")) {
+            ziData.removeAllItems();
+            for (int i = 1; i <= 31; i++) {
                 ziData.addItem(Integer.toString(i));
-            }            
+            }
+        } else {
+            ziData.removeAllItems();
+            for (int i = 1; i <= 30; i++) {
+                ziData.addItem(Integer.toString(i));
+            }
         }
     }//GEN-LAST:event_lunaDataActionPerformed
 
@@ -3288,20 +3314,22 @@ public class PaginaTurism extends javax.swing.JFrame {
         String an = anData.getSelectedItem().toString();
         String luna = lunaData.getSelectedItem().toString();
         String zi = ziData.getSelectedItem().toString();
-        String data = an+"-"+luna+"-"+zi;
-        try{
+        String data = an + "-" + luna + "-" + zi;
+        try {
             Connection con = getConnection();
-            String getPret = "SELECT valoare_circuit FROM circuit, pret_circuit,sezon WHERE circuit.cod_circuit = pret_circuit.cod_circuit AND pret_circuit.cod_sezon = sezon.cod_sezon AND ? between data_inceput and data_sfarsit AND denumire=?";
+            String getPret = "SELECT valoare_circuit FROM circuit, pret_circuit,sezon WHERE circuit.cod_circuit = pret_circuit.cod_circuit " +
+                    "AND pret_circuit.cod_sezon = sezon.cod_sezon AND ? between data_inceput and data_sfarsit AND denumire=? AND cod_agentie = ?";
             PreparedStatement pstm = con.prepareStatement(getPret);
             pstm.setString(1, data);
-            pstm.setString(2,circuit);
+            pstm.setString(2, circuit);
+            pstm.setInt(3, codAgentie);
             ResultSet rs = pstm.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 pretCircuit.setText(Integer.toString(rs.getInt(1)));
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-             JOptionPane.showMessageDialog(this, "Nu se poate afisa pretul!");
+            JOptionPane.showMessageDialog(this, "Nu se poate afisa pretul!");
         }
     }//GEN-LAST:event_pretCircuitActionPerformed
 
@@ -3310,20 +3338,23 @@ public class PaginaTurism extends javax.swing.JFrame {
         String an = anData.getSelectedItem().toString();
         String luna = lunaData.getSelectedItem().toString();
         String zi = ziData.getSelectedItem().toString();
-        String data = an+"-"+luna+"-"+zi;
-        try{
+        String data = an + "-" + luna + "-" + zi;
+        try {
             Connection con = getConnection();
-            String getPret = "SELECT valoare_circuit FROM circuit, pret_circuit,sezon WHERE circuit.cod_circuit = pret_circuit.circuit_cod_circuit AND pret_circuit.sezon_cod_sezon = sezon.cod_sezon AND ? between data_inceput and data_sfarsit AND denumire=?";
+            String getPret = "SELECT valoare_circuit FROM circuit, pret_circuit,sezon WHERE circuit.cod_circuit = pret_circuit.circuit_cod_circuit " +
+                    "AND pret_circuit.sezon_cod_sezon = sezon.cod_sezon AND ? between data_inceput and data_sfarsit AND denumire=? and cod_agentie_circuit = ?";
             PreparedStatement pstm = con.prepareStatement(getPret);
             pstm.setString(1, data);
-            pstm.setString(2,circuit);
+            pstm.setString(2, circuit);
+            pstm.setInt(3, codAgentie);
             ResultSet rs = pstm.executeQuery();
             while(rs.next()){
                 pretCircuit.setText(Integer.toString(rs.getInt(1)));
             }
         } catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Pret indisponibil!");
-           
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Pret indisponibil!");
+
         }
     }//GEN-LAST:event_pretCircuitMouseClicked
 
@@ -3344,23 +3375,23 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_plecareSejurItemStateChanged
 
     private void plecareSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_plecareSejurActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT data_sosire FROM sejur WHERE oras_plecare=? AND oras_sosire=? AND data_plecare=?";
             PreparedStatement p = con.prepareStatement(sql);
-            p.setString(1,orasPlecareSejur.getSelectedItem().toString());
-            p.setString(2,destinatieSejur.getSelectedItem().toString());
-            p.setString(3,plecareSejur.getSelectedItem().toString());
+            p.setString(1, orasPlecareSejur.getSelectedItem().toString());
+            p.setString(2, destinatieSejur.getSelectedItem().toString());
+            p.setString(3, plecareSejur.getSelectedItem().toString());
             ResultSet r = p.executeQuery();
             sosireSejur.removeAllItems();
-            while(r.next()){
+            while (r.next()) {
                 sosireSejur.addItem(r.getString(1));
             }
-            
-        }catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Data sosire indisponibila!");
-           
-        }      
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Data sosire indisponibila!");
+
+        }
     }//GEN-LAST:event_plecareSejurActionPerformed
 
     private void clientFidel1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientFidel1ActionPerformed
@@ -3376,23 +3407,23 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_clientiFideli2ItemStateChanged
 
     private void clientiFideli2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clientiFideli2ActionPerformed
-         try{
-           Connection con = getConnection();
-           String sql = "SELECT * FROM client WHERE nume = (substring_index(?,' ', 1))";
-           PreparedStatement pstm = con.prepareStatement(sql);
-           pstm.setString(1, clientiFideli2.getSelectedItem().toString());
-           ResultSet rs = pstm.executeQuery();
-           while(rs.next()){
-               numeClient1.setText(rs.getString(2));
-               prenumeClient1.setText(rs.getString(3));
-               telefonClient1.setText(rs.getString(4));
-               emailClient1.setText(rs.getString(5));
-               contClient1.setText(rs.getString(6));
-               parolaClient1.setText(rs.getString(7));
-           }
-       } catch (SQLException ex) {
-           System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(this,"Nu se poate afisa clientul!");
+        try {
+            Connection con = getConnection();
+            String sql = "SELECT * FROM client WHERE nume = (substring_index(?,' ', 1))";
+            PreparedStatement pstm = con.prepareStatement(sql);
+            pstm.setString(1, clientiFideli2.getSelectedItem().toString());
+            ResultSet rs = pstm.executeQuery();
+            while (rs.next()) {
+                numeClient1.setText(rs.getString(2));
+                prenumeClient1.setText(rs.getString(3));
+                telefonClient1.setText(rs.getString(4));
+                emailClient1.setText(rs.getString(5));
+                contClient1.setText(rs.getString(6));
+                parolaClient1.setText(rs.getString(7));
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            JOptionPane.showMessageDialog(this, "Nu se poate afisa clientul!");
         }
     }//GEN-LAST:event_clientiFideli2ActionPerformed
 
@@ -3401,20 +3432,20 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_orasPlecareSejurItemStateChanged
 
     private void orasPlecareSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_orasPlecareSejurActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT oras_sosire FROM sejur WHERE oras_plecare=?";
             PreparedStatement p = con.prepareStatement(sql);
-            p.setString(1,orasPlecareSejur.getSelectedItem().toString());
+            p.setString(1, orasPlecareSejur.getSelectedItem().toString());
             ResultSet r = p.executeQuery();
-            
-            while(r.next()){
+
+            while (r.next()) {
                 destinatieSejur.addItem(r.getString(1));
             }
-            
-        }catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Destinatii indisponibile!");           
-           
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Destinatii indisponibile!");
+
         }
     }//GEN-LAST:event_orasPlecareSejurActionPerformed
 
@@ -3431,87 +3462,87 @@ public class PaginaTurism extends javax.swing.JFrame {
     }//GEN-LAST:event_destinatieSejurItemStateChanged
 
     private void destinatieSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_destinatieSejurActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String sql = "SELECT data_plecare FROM sejur WHERE oras_plecare=? AND oras_sosire=?";
             PreparedStatement p = con.prepareStatement(sql);
-            p.setString(1,orasPlecareSejur.getSelectedItem().toString());
-            p.setString(2,destinatieSejur.getSelectedItem().toString());
+            p.setString(1, orasPlecareSejur.getSelectedItem().toString());
+            p.setString(2, destinatieSejur.getSelectedItem().toString());
             ResultSet r = p.executeQuery();
             plecareSejur.setSelectedItem("");
-            while(r.next()){
+            while (r.next()) {
                 plecareSejur.addItem(r.getString(1));
             }
-            
-        }catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Data plecare indisponibila!");         
-           
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(this, "Data plecare indisponibila!");
+
         }
     }//GEN-LAST:event_destinatieSejurActionPerformed
 
     private void butonRezervaSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butonRezervaSejurActionPerformed
-        try{
+        try {
             Connection con = getConnection();
             String getCodClient = "SELECT cod_client FROM client WHERE nume=? and prenume=?";
             PreparedStatement pstm1 = con.prepareStatement(getCodClient);
             pstm1.setString(1, numeClient1.getText());
-            pstm1.setString(2,prenumeClient1.getText());
+            pstm1.setString(2, prenumeClient1.getText());
             ResultSet rs1 = pstm1.executeQuery();
-            
+
             String getCodSejur = "SELECT cod_sejur FROM sejur WHERE oras_plecare=? and oras_sosire=? and data_plecare=? and data_sosire=?";
             PreparedStatement pstm2 = con.prepareStatement(getCodSejur);
             pstm2.setString(1, orasPlecareSejur.getSelectedItem().toString());
             pstm2.setString(2, destinatieSejur.getSelectedItem().toString());
             pstm2.setString(3, plecareSejur.getSelectedItem().toString());
-            pstm2.setString(4, sosireSejur.getSelectedItem().toString());            
+            pstm2.setString(4, sosireSejur.getSelectedItem().toString());
             ResultSet rs2 = pstm2.executeQuery();
-            
+
             String insertRezervare = "INSERT INTO rezervare_sejur VALUES(?,?,null)";
             PreparedStatement pstm3 = con.prepareStatement(insertRezervare);
-            while(rs1.next() && rs2.next()){
-                
+            while (rs1.next() && rs2.next()) {
+
                 pstm3.setInt(1, rs2.getInt(1));
                 pstm3.setInt(2, rs1.getInt(1));
-                
+
             }
             pstm3.executeUpdate();
-            JOptionPane.showMessageDialog(this,"Rezervare reusita!");           
+            JOptionPane.showMessageDialog(this, "Rezervare reusita!");
 
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
-            JOptionPane.showMessageDialog(this,"Nu se poate rezerva sejurul!");            
+            JOptionPane.showMessageDialog(this, "Nu se poate rezerva sejurul!");
         }
     }//GEN-LAST:event_butonRezervaSejurActionPerformed
 
     private void pretSejurMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pretSejurMouseClicked
-          try{
+        try {
             Connection con = getConnection();
             String getPret = "SELECT valoare_sejur FROM sejur, pret_sejur, sezon where sejur.cod_sejur = pret_sejur.sejur_cod_sejur AND "
-                    + "pret_sejur.sezon_cod_sezon = sezon.cod_sezon and oras_plecare=? and oras_sosire=? and ? between data_inceput and data_sfarsit";
+                    + "pret_sejur.sezon_cod_sezon = sezon.cod_sezon and oras_plecare=? and oras_sosire=? and ? between data_inceput and data_sfarsit and cod_agentie = ?";
             PreparedStatement ps = con.prepareStatement(getPret);
             ps.setString(1, orasPlecareSejur.getSelectedItem().toString());
             ps.setString(2, destinatieSejur.getSelectedItem().toString());
             ps.setString(3, plecareSejur.getSelectedItem().toString());
+            ps.setInt(4, codAgentie);
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                if(nrPers.getText().equals("")){
+            while (rs.next()) {
+                if (nrPers.getText().equals("")) {
                     pretSejur.setText(Integer.toString(rs.getInt(1)));
-                } else{
-                    pretSejur.setText(Integer.toString(rs.getInt(1)*Integer.parseInt(nrPers.getText())));
+                } else {
+                    pretSejur.setText(Integer.toString(rs.getInt(1) * Integer.parseInt(nrPers.getText())));
                 }
             }
-        }
-        catch (SQLException ex) {
-             JOptionPane.showMessageDialog(this, "Pret indisponibil!");
-           
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Pret indisponibil!");
+
         }
     }//GEN-LAST:event_pretSejurMouseClicked
 
     private void pretSejurActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pretSejurActionPerformed
-        
-       
-      
+
+
     }//GEN-LAST:event_pretSejurActionPerformed
 
     private void comboCamereGermaniaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_comboCamereGermaniaActionPerformed
@@ -3537,7 +3568,7 @@ public class PaginaTurism extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
