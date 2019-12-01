@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
--- Host: localhost    Database: agentieturism
+-- Host: 127.0.0.1    Database: agentieturism
 -- ------------------------------------------------------
--- Server version	8.0.12
+-- Server version	5.7.21-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8 ;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,7 +21,7 @@
 
 DROP TABLE IF EXISTS `agentie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `agentie` (
   `cod_agentie` int(11) NOT NULL AUTO_INCREMENT,
   `denumire` varchar(100) DEFAULT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE `agentie` (
 
 LOCK TABLES `agentie` WRITE;
 /*!40000 ALTER TABLE `agentie` DISABLE KEYS */;
-INSERT INTO `agentie` VALUES (1,'Expedia','Str. Florilor, Nr.45, Bucuresti','021 985 475'),(2,'Priceline','Str. Dumbravei, Nr.20, Constanta','0241 485 363'),(3,'World Travel Inc.','Str. Mare, Nr. 123, Cluj-Napoca','0264 123 456'),(4,'Travizon','Str. Primaverii, Nr. 200, Iasi','0232 100 200'),(5,'Direct Travel','Str. Alba, Nr. 34, Timisoara','0256 808 502');
+INSERT INTO `agentie` VALUES (1,'Expedia','Str. Florilor, Nr.45, Bucuresti','0214 985 475'),(2,'Priceline','Str. Dumbravei, Nr.20, Constanta','0241 485 363'),(3,'World Travel Inc.','Str. Mare, Nr. 123, Cluj-Napoca','0264 123 456'),(4,'Travizon','Str. Primaverii, Nr. 200, Iasi','0232 100 200'),(5,'Direct Travel','Str. Alba, Nr. 34, Timisoara','0256 808 502');
 /*!40000 ALTER TABLE `agentie` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -47,7 +47,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `angajat`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `angajat` (
   `cod_angajat` int(11) NOT NULL AUTO_INCREMENT,
   `Nume` varchar(45) NOT NULL,
@@ -76,7 +76,7 @@ CREATE TABLE `angajat` (
 
 LOCK TABLES `angajat` WRITE;
 /*!40000 ALTER TABLE `angajat` DISABLE KEYS */;
-INSERT INTO `angajat` VALUES (1,'Popescu','Adrian','0727808503','adi.popescu@yahoo.com','admin','1234',1,0),(2,'Ionescu','Elena','0727000113','elena_ion@gmail.com','ie100','1111',2,1),(3,'Cristescu','George','0728000111','cristigeo@gmail.com','cg100','1112',2,2),(4,'Matei','Corina','0729000111','corinamatei@gmail.com','cm100','2222',3,3),(5,'Mocanu','Alexandru','0730000111','alex_mocanu@yahoo.com','am100','2223',3,1),(6,'Vlad','Andrei','0787122322','avlad@yahoo.com','av100','3333',2,4),(12,'Bratu','Alexandra','0724896522','abratu@yahoocom','ab109','2221',2,5);
+INSERT INTO `angajat` VALUES (1,'Popescu','Adrian','0727808503','adi.popescu@yahoo.com','admin','1234',1,0),(2,'Ionescu','Elena','0727000113','elena_ion@gmail.com','ie100','1111',2,1),(3,'Cristescu','George','0728000111','cristigeo@gmail.com','cg100','1112',2,2),(4,'Matei','Corina','0729000111','corinamatei@gmail.com','cm100','2222',3,3),(5,'Mocanu','Alexandru','0730000111','alex_mocanu@yahoo.com','am100','2223',3,1),(6,'Vlad','Andrei','0787122322','avlad@yahoo.com','av100','3333',2,4),(12,'Bratu','Alexandra','0724896522','abratu@yahoo.com','ab109','2221',2,5);
 /*!40000 ALTER TABLE `angajat` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -86,7 +86,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `bilet`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `bilet` (
   `cod_zbor` int(11) NOT NULL,
   `cod_client` int(11) NOT NULL,
@@ -114,7 +114,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `camera`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `camera` (
   `COD_CAM` int(11) NOT NULL AUTO_INCREMENT,
   `tip_camera` varchar(45) NOT NULL,
@@ -140,7 +140,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `cazare`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `cazare` (
   `cod_cazare` int(11) NOT NULL AUTO_INCREMENT,
   `Denumire_cazare` varchar(45) NOT NULL,
@@ -170,7 +170,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `circuit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `circuit` (
   `cod_circuit` int(11) NOT NULL AUTO_INCREMENT,
   `Denumire` varchar(45) DEFAULT NULL,
@@ -194,7 +194,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `client`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `client` (
   `cod_client` int(11) NOT NULL AUTO_INCREMENT,
   `Nume` varchar(45) NOT NULL,
@@ -213,7 +213,7 @@ CREATE TABLE `client` (
 
 LOCK TABLES `client` WRITE;
 /*!40000 ALTER TABLE `client` DISABLE KEYS */;
-INSERT INTO `client` VALUES (1,'Barbu','Andreea','0714000222','and.barbu@gmail.com','ab100','ab100'),(2,'Corbu','Andrei','0741555000','and.corbu@gmail.com','ac100','ac100'),(3,'Nicolae','Ion','0741525252','ionnicolae@gmail.com','in100','in100'),(4,'Vlad','Bianca','0721000111','bibivlad@yahoo.com','bv100','bv100'),(5,'Nistor','Mircea','0740000333','mircea.nistor@tu.com','nb100','nb100'),(11,'x','y','z','1','11','1');
+INSERT INTO `client` VALUES (1,'Barbu','Andreea','0714000222','and.barbu@gmail.com','ab100','ab100'),(2,'Corbu','Andrei','0741555000','and.corbu@gmail.com','ac100','ac100'),(3,'Nicolae','Ion','0741525252','ionnicolae@gmail.com','in100','in100'),(4,'Vlad','Bianca','0721000111','bibivlad@yahoo.com','bv100','bv100'),(5,'Nistor','Mircea','0740000333','mircea.nistor@gmail.com','nb100','nb100'),(6,'Maicu','Marian','0756328741','marian.maicu@yahoo.com','mm100','mm100');
 /*!40000 ALTER TABLE `client` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -223,7 +223,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `contract`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `contract` (
   `cod_angajat` int(11) NOT NULL,
   `cod_furnizor` int(11) NOT NULL,
@@ -234,7 +234,7 @@ CREATE TABLE `contract` (
   KEY `fk_angajat_has_furnizori_angajat1_idx` (`cod_angajat`),
   CONSTRAINT `fk_angajat_has_furnizori_furnizori1` FOREIGN KEY (`cod_furnizor`) REFERENCES `furnizori` (`cod_furnizor`),
   CONSTRAINT `fk_angajat_id` FOREIGN KEY (`cod_angajat`) REFERENCES `angajat` (`cod_angajat`)
-) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=137 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +243,7 @@ CREATE TABLE `contract` (
 
 LOCK TABLES `contract` WRITE;
 /*!40000 ALTER TABLE `contract` DISABLE KEYS */;
-INSERT INTO `contract` VALUES (3,4,113,'2018-12-18'),(1,2,122,'2018-01-01'),(1,2,123,'2017-03-04'),(1,2,124,'2016-03-04'),(1,1,125,'2018-01-01'),(1,1,126,'2018-01-01'),(1,1,127,'2018-01-01'),(1,3,128,'2018-01-01'),(1,3,129,'2018-01-01'),(1,1,130,'2018-01-01'),(1,4,131,'2018-01-01'),(1,1,132,'2019-01-01'),(1,3,133,'2018-08-17'),(1,2,134,'2018-11-08'),(1,2,135,'2019-01-10');
+INSERT INTO `contract` VALUES (3,4,113,'2018-12-18'),(1,2,122,'2018-01-01'),(1,2,123,'2017-03-04'),(1,2,124,'2016-03-04'),(1,1,125,'2018-01-01'),(1,1,126,'2018-01-01'),(1,1,127,'2018-01-01'),(1,3,128,'2018-01-01'),(1,3,129,'2018-01-01'),(1,1,130,'2018-01-01'),(1,4,131,'2018-01-01'),(1,1,132,'2019-01-01'),(1,3,133,'2018-08-17'),(1,2,134,'2018-11-08'),(1,2,135,'2019-01-10'),(1,1,136,'2019-01-01');
 /*!40000 ALTER TABLE `contract` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -253,7 +253,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `facilitati`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `facilitati` (
   `cod_facilitate` int(11) NOT NULL AUTO_INCREMENT,
   `Denumire` varchar(45) NOT NULL,
@@ -279,7 +279,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `functie`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `functie` (
   `cod_functie` int(11) NOT NULL,
   `Den_functie` varchar(45) NOT NULL,
@@ -303,7 +303,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `furnizori`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `furnizori` (
   `cod_furnizor` int(11) NOT NULL,
   `Firma` varchar(45) NOT NULL,
@@ -327,7 +327,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `oras`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `oras` (
   `cod_oras` int(11) NOT NULL AUTO_INCREMENT,
   `Nume_oras` varchar(45) NOT NULL,
@@ -336,7 +336,7 @@ CREATE TABLE `oras` (
   PRIMARY KEY (`cod_oras`),
   UNIQUE KEY `Nume_oras_UNIQUE` (`Nume_oras`),
   KEY `fk_oras_circuit1_idx` (`cod_circuit`)
-) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -345,7 +345,7 @@ CREATE TABLE `oras` (
 
 LOCK TABLES `oras` WRITE;
 /*!40000 ALTER TABLE `oras` DISABLE KEYS */;
-INSERT INTO `oras` VALUES (1,'Budapesta','Ungaria',1),(2,'Praga','Cehia',1),(3,'Dresda','Germania',1),(4,'Bratislava','Slovacia',1),(5,'Viena','Austria',1),(6,'Strasbourg','Franta',2),(7,'Paris','Franta',2),(8,'Reims','Franta',2),(90,'oraselul copiilor','romania',5),(91,'Charleroi','Belgia',9),(92,'Bruxelles','Belgia',9),(93,'Bruges','Belgia',9),(94,'Antwerp','Belgia',9),(95,'Hong Kong','China',10),(96,'Beijing','China',10),(97,'Linz','Austria',11),(98,'Freeport','Bahamas',11),(99,'Sofia','Bulgaria',11),(100,'Rio de Janeiro','Brazilia',12);
+INSERT INTO `oras` VALUES (1,'Budapesta','Ungaria',1),(2,'Praga','Cehia',1),(3,'Dresda','Germania',1),(4,'Bratislava','Slovacia',1),(5,'Viena','Austria',1),(6,'Strasbourg','Franta',2),(7,'Paris','Franta',2),(8,'Reims','Franta',2),(90,'Bucuresti','Romania',5),(91,'Charleroi','Belgia',9),(92,'Bruxelles','Belgia',9),(93,'Bruges','Belgia',9),(94,'Antwerp','Belgia',9),(95,'Hong Kong','China',10),(96,'Beijing','China',10),(97,'Linz','Austria',11),(98,'Freeport','Bahamas',11),(99,'Sofia','Bulgaria',11),(100,'Rio de Janeiro','Brazilia',12);
 /*!40000 ALTER TABLE `oras` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,7 +355,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `orase`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `orase` (
   `nume` varchar(100) DEFAULT NULL,
   `tara` varchar(100) DEFAULT NULL
@@ -378,7 +378,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pret_circuit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pret_circuit` (
   `circuit_cod_circuit` int(11) NOT NULL,
   `sezon_cod_sezon` int(11) NOT NULL,
@@ -408,7 +408,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `pret_sejur`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `pret_sejur` (
   `sejur_cod_sejur` int(11) NOT NULL,
   `sezon_cod_sezon` int(11) NOT NULL,
@@ -428,7 +428,7 @@ CREATE TABLE `pret_sejur` (
 
 LOCK TABLES `pret_sejur` WRITE;
 /*!40000 ALTER TABLE `pret_sejur` DISABLE KEYS */;
-INSERT INTO `pret_sejur` VALUES (1,1,1500,1),(1,2,2000,1),(2,1,2000,4),(3,1,2200,3),(4,1,2200,5),(5,4,3000,NULL);
+INSERT INTO `pret_sejur` VALUES (1,1,1500,1),(1,2,2000,1),(2,1,2000,4),(3,1,2200,3),(4,1,2200,5),(5,4,3000,4);
 /*!40000 ALTER TABLE `pret_sejur` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -438,7 +438,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `rezervare_cicuit`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rezervare_cicuit` (
   `circuit_cod_circuit` int(11) NOT NULL,
   `client_cod_client` int(11) NOT NULL,
@@ -466,7 +466,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `rezervare_sejur`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rezervare_sejur` (
   `cod_sejur` int(11) NOT NULL,
   `cod_client` int(11) NOT NULL,
@@ -493,7 +493,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sejur`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sejur` (
   `cod_sejur` int(11) NOT NULL AUTO_INCREMENT,
   `Oras_plecare` varchar(45) NOT NULL,
@@ -520,7 +520,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `sezon`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `sezon` (
   `cod_sezon` int(11) NOT NULL,
   `denumire_sezon` varchar(100) DEFAULT NULL,
@@ -546,7 +546,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `transport`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `transport` (
   `cod_transport` int(11) NOT NULL,
   `Den_avion` varchar(45) NOT NULL,
@@ -574,7 +574,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `zbor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `zbor` (
   `cod_zbor` int(11) NOT NULL,
   `Destinatie` varchar(45) NOT NULL,
@@ -599,9 +599,13 @@ CREATE TABLE `zbor` (
 
 LOCK TABLES `zbor` WRITE;
 /*!40000 ALTER TABLE `zbor` DISABLE KEYS */;
-INSERT INTO `zbor` VALUES (1,'Viena','2018-12-10','2018-12-10',5,7,2,200,2),(2,'Paris','2018-12-10','2018-12-10',9,11,3,500,1),(3,'Paris','2018-12-10','2018-12-10',17,21,2,560,3),(4,'Ankara','2018-12-11','2018-12-11',10,13,4,620,4),(5,'Berlin','2018-11-15','2018-11-15',12,14,2,350,5),(6,'Berlin','2018-11-16','2018-11-16',6,9,3,300,NULL);
+INSERT INTO `zbor` VALUES (1,'Viena','2018-12-10','2018-12-10',5,7,2,200,2),(2,'Paris','2018-12-10','2018-12-10',9,11,3,500,1),(3,'Paris','2018-12-10','2018-12-10',17,21,2,560,3),(4,'Ankara','2018-12-11','2018-12-11',10,13,4,620,4),(5,'Berlin','2018-11-15','2018-11-15',12,14,2,350,5),(6,'Berlin','2018-11-16','2018-11-16',6,9,3,300,4);
 /*!40000 ALTER TABLE `zbor` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'agentieturism'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -612,4 +616,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-11-14 13:41:08
+-- Dump completed on 2019-11-30 14:38:49
